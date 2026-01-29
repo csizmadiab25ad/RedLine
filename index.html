@@ -1,25 +1,21 @@
 <!doctype html>
-<html lang="hu">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>RedLine — D50B0 3D nyomtatott gyújtás deknik</title>
-  <meta name="description" content="RedLine — egyedi 3D nyomtatott gyújtás deknik Derbi D50B0-hoz. Piros-fekete téma, custom felirat, gyors rendelés." />
+  <title>RedLine — Parts & 3D Printed Covers</title>
+  <meta name="description" content="RedLine — clean red/black webshop for D50B0 / AM6 parts and 3D printed ignition covers." />
 
   <style>
     :root{
-      /* Maxiscoot-ihlette: tiszta, kontrasztos, piros fókusz */
       --bg:#0b0b0d;
       --bg2:#070709;
-      --panel:#121216;
-      --panel2:#17171d;
       --stroke: rgba(255,255,255,.10);
       --text: rgba(255,255,255,.92);
       --muted: rgba(255,255,255,.68);
 
-      --accent:#ff1f1f;      /* piros */
-      --accent2:#ff3b3b;     /* piros világos */
-      --chip: rgba(255,255,255,.06);
+      --accent:#ff1f1f;
+      --accent2:#ff3b3b;
 
       --shadow: 0 18px 70px rgba(0,0,0,.55);
       --radius: 14px;
@@ -35,7 +31,6 @@
       margin:0;
       font-family: var(--sans);
       color: var(--text);
-      /* Stabil, nem “csúszik” el: fix rétegek, egyenletes sötét alap */
       background:
         radial-gradient(1200px 520px at 50% -10%, rgba(255,31,31,.18), transparent 60%),
         radial-gradient(900px 520px at 10% 20%, rgba(255,31,31,.10), transparent 62%),
@@ -48,7 +43,7 @@
     img{max-width:100%; display:block}
     .wrap{max-width:1180px; margin:0 auto; padding: 0 18px}
 
-    /* Promo bar (maxiscoot-szerű) */
+    /* Promo bar */
     .promo{
       background: linear-gradient(90deg, rgba(255,31,31,.95), rgba(255,31,31,.70));
       color: rgba(0,0,0,.92);
@@ -61,13 +56,7 @@
       align-items:center; justify-content:space-between;
       padding: 10px 0;
     }
-    .promo .inner span{
-      display:inline-flex; align-items:center; gap:10px;
-    }
-    .promo .dot{
-      width:8px; height:8px; border-radius:999px;
-      background: rgba(0,0,0,.85);
-    }
+    .promo .dot{width:8px; height:8px; border-radius:999px; background: rgba(0,0,0,.85);}
 
     /* Header */
     header{
@@ -84,14 +73,15 @@
       display:flex; align-items:center; gap:10px;
       font-weight: 950;
       letter-spacing: .2px;
+      min-width: 190px;
     }
-    .logo{
-      width:36px; height:36px; border-radius: 12px;
-      background:
-        radial-gradient(12px 12px at 30% 30%, rgba(255,255,255,.55), transparent 55%),
-        conic-gradient(from 230deg, var(--accent), #ff6b6b, var(--accent));
-      box-shadow: 0 14px 42px rgba(255,31,31,.20);
+    .brandLogo{
+      width:40px; height:40px;
+      border-radius: 12px;
+      object-fit: cover;
       border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.04);
+      box-shadow: 0 14px 42px rgba(255,31,31,.18);
     }
     .brand small{
       display:block; font-weight:800; color: rgba(255,255,255,.70); letter-spacing: .6px;
@@ -107,9 +97,7 @@
       letter-spacing: .7px;
       font-size: 12px;
     }
-    .nav a{
-      padding: 10px 10px; border-radius: 10px;
-    }
+    .nav a{padding: 10px 10px; border-radius: 10px;}
     .nav a:hover{background: rgba(255,255,255,.06); color: rgba(255,255,255,.92)}
 
     .actions{display:flex; align-items:center; gap:10px}
@@ -155,8 +143,8 @@
       margin-left:8px;
     }
 
-    /* Hero banner (maxiscoot jelleg: erős sáv + CTA) */
-    .hero{padding: 18px 0 22px}
+    /* Hero */
+    .hero{padding: 18px 0 18px}
     .heroBanner{
       border-radius: 18px;
       overflow:hidden;
@@ -165,12 +153,11 @@
       background:
         linear-gradient(90deg, rgba(255,31,31,.18), transparent 55%),
         linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-      position:relative;
     }
     .heroInner{
       padding: 22px 18px;
       display:grid;
-      grid-template-columns: 1.1fr .9fr;
+      grid-template-columns: 1.05fr .95fr;
       gap: 14px;
       align-items:center;
     }
@@ -202,25 +189,20 @@
       color: var(--muted);
       font-size: 15px;
       line-height: 1.6;
-      max-width: 65ch;
+      max-width: 70ch;
     }
     .ctaRow{display:flex; gap:10px; flex-wrap:wrap; margin-top: 14px}
-    .heroRight{
-      display:flex; align-items:center; justify-content:center;
-    }
+
     .heroTile{
-      width:min(420px, 100%);
+      width:min(520px, 100%);
       border-radius: 18px;
       border: 1px solid rgba(255,255,255,.12);
       background: rgba(0,0,0,.22);
       padding: 14px;
-      display:flex;
-      gap:12px;
-      align-items:center;
+      display:flex; gap:12px; align-items:center;
     }
     .heroTile img{
-      width: 120px;
-      height: 120px;
+      width: 140px; height: 140px;
       border-radius: 16px;
       object-fit: cover;
       border: 1px solid rgba(255,255,255,.12);
@@ -229,7 +211,7 @@
     .heroTile strong{display:block; font-size: 14px}
     .heroTile p{margin:6px 0 0; color: rgba(255,255,255,.70); font-size: 12.5px; line-height:1.5}
 
-    /* Section */
+    /* Sections */
     section{padding: 8px 0 34px}
     .sectionHead{
       display:flex; align-items:flex-end; justify-content:space-between; gap:12px;
@@ -243,40 +225,78 @@
     }
     .sectionHead p{
       margin:0; color: rgba(255,255,255,.66); font-size: 13px;
-      max-width: 72ch;
+      max-width: 80ch;
     }
 
-    /* Filters */
-    .filters{
-      display:flex; gap:10px; flex-wrap:wrap;
-      padding: 12px;
-      border-radius: 16px;
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.10);
+    /* Category selector (tiles) */
+    .catGrid{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 12px;
     }
-    .chip{
-      display:inline-flex; align-items:center; gap:8px;
-      padding: 9px 11px;
-      border-radius: 999px;
-      background: var(--chip);
-      border: 1px solid rgba(255,255,255,.10);
-      color: rgba(255,255,255,.78);
+    .catCard{
+      border-radius: 18px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow: 0 16px 60px rgba(0,0,0,.40);
       cursor:pointer;
-      user-select:none;
-      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      transition: transform .14s ease, border-color .14s ease, background .14s ease;
+      position:relative;
+      min-height: 220px;
+    }
+    .catCard:hover{
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,.20);
+      background: linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.035));
+    }
+    .catImg{
+      position:absolute; inset:0;
+    }
+    .catImg img{
+      width:100%; height:100%;
+      object-fit: cover;
+      filter: contrast(1.02) saturate(1.02);
+    }
+    .catOverlay{
+      position:absolute; inset:0;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.82)),
+        radial-gradient(700px 220px at 20% 30%, rgba(255,31,31,.22), transparent 60%);
+    }
+    .catContent{
+      position:absolute; left: 14px; right: 14px; bottom: 14px;
+      display:flex; flex-direction:column; gap:8px;
+    }
+    .catPill{
+      width: fit-content;
+      padding: 7px 9px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.45);
+      border: 1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.84);
+      font-family: var(--mono);
       font-size: 12px;
-      font-weight: 950;
       text-transform: uppercase;
       letter-spacing: .6px;
+      backdrop-filter: blur(10px);
     }
-    .chip:hover{transform: translateY(-1px); background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.18)}
-    .chip.active{
-      background: linear-gradient(135deg, rgba(255,31,31,.35), rgba(255,31,31,.18));
-      border-color: rgba(255,255,255,.22);
-      color: rgba(255,255,255,.92);
+    .catTitle{
+      margin:0;
+      font-size: 16px;
+      letter-spacing:.2px;
+      font-weight: 950;
     }
+    .catDesc{
+      margin:0;
+      color: rgba(255,255,255,.70);
+      font-size: 13px;
+      line-height:1.55;
+    }
+    .catBtnRow{display:flex; gap:10px; flex-wrap:wrap; margin-top: 4px;}
 
-    /* Products */
+    /* Products grid */
     .grid{
       display:grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -302,13 +322,7 @@
       border-bottom: 1px solid rgba(255,255,255,.10);
       background: rgba(0,0,0,.25);
     }
-    .thumb img{
-      width:100%;
-      height:100%;
-      object-fit: cover;
-      display:block;
-      filter: contrast(1.02) saturate(1.02);
-    }
+    .thumb img{width:100%; height:100%; object-fit: cover;}
     .tag{
       position:absolute; left: 12px; top: 12px;
       padding: 8px 10px;
@@ -343,37 +357,19 @@
       font-family: var(--mono);
     }
     .cardActions{display:flex; gap:10px; margin-top: 2px; align-items:center}
-    .qty{
-      display:flex; gap:6px; align-items:center;
-      padding: 8px 10px;
-      border-radius: 12px;
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.10);
-    }
-    .qty button{
-      width: 28px; height: 28px;
-      border-radius: 10px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      cursor:pointer;
-      font-weight: 950;
-    }
-    .qty span{min-width: 18px; text-align:center; font-family: var(--mono); font-size: 13px; color: rgba(255,255,255,.80)}
-    .btnWide{flex:1}
 
-    /* Modal */
+    /* Product details modal (image left, info right) */
     .modalBackdrop{
       position:fixed; inset:0; z-index:100;
       background: rgba(0,0,0,.62);
       backdrop-filter: blur(10px);
       display:none;
-      align-items:flex-end;
+      align-items:center;
       justify-content:center;
-      padding: 14px;
+      padding: 16px;
     }
     .modal{
-      width:min(720px, 100%);
+      width:min(980px, 100%);
       border-radius: 22px;
       background: rgba(16,16,20,.92);
       border: 1px solid rgba(255,255,255,.14);
@@ -390,46 +386,150 @@
       text-transform: uppercase;
       letter-spacing: .8px;
     }
-    .modalBody{padding: 12px 14px}
-    .cartList{display:flex; flex-direction:column; gap:10px; margin: 10px 0}
-    .cartItem{
-      display:flex; gap:10px; align-items:center; justify-content:space-between;
-      padding: 12px;
-      border-radius: 16px;
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.10);
+    .modalGrid{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 0;
+      min-height: 420px;
     }
-    .cartItem strong{display:block; font-size: 13px}
-    .cartItem small{display:block; color: rgba(255,255,255,.62); font-family: var(--mono)}
-    .cartRight{display:flex; gap:10px; align-items:center}
-    .cartQty{
+    .modalMedia{
+      background: rgba(0,0,0,.25);
+      border-right: 1px solid rgba(255,255,255,.10);
+      display:flex; align-items:center; justify-content:center;
+      padding: 16px;
+    }
+    .modalMedia img{
+      width: 100%;
+      max-height: 520px;
+      object-fit: contain;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+    }
+    .modalInfo{
+      padding: 16px;
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+    }
+    .modalTitleRow{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
+    }
+    .modalName{margin:0; font-size: 18px; letter-spacing:.2px}
+    .modalPrice{
+      font-weight: 950;
+      font-size: 18px;
+      color: rgba(255,255,255,.92);
+      white-space:nowrap;
+    }
+    .modalDesc{
+      margin:0;
+      color: rgba(255,255,255,.72);
+      font-size: 13.5px;
+      line-height: 1.65;
+    }
+    .specs{margin-top: 4px; display:flex; flex-wrap:wrap; gap:8px;}
+    .spec{
+      padding: 7px 9px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.10);
+      color: rgba(255,255,255,.74);
+      font-size: 12px;
+      font-family: var(--mono);
+    }
+    .qtyRow{
+      margin-top: 8px;
+      display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+    }
+    .qty{
       display:flex; gap:6px; align-items:center;
+      padding: 8px 10px;
       border-radius: 12px;
       background: rgba(255,255,255,.04);
       border: 1px solid rgba(255,255,255,.10);
-      padding: 7px 8px;
     }
-    .cartQty button{
-      width: 28px; height: 28px; border-radius: 10px;
+    .qty button{
+      width: 30px; height: 30px; border-radius: 10px;
       border: 1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.06);
       color: var(--text);
       cursor:pointer;
       font-weight: 950;
     }
-    .cartQty span{min-width: 18px; text-align:center; font-family: var(--mono); font-size: 13px; color: rgba(255,255,255,.80)}
-    .totals{
+    .qty span{min-width: 18px; text-align:center; font-family: var(--mono); font-size: 13px; color: rgba(255,255,255,.80)}
+    .buyRow{
+      margin-top:auto;
+      display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,.10);
+    }
+
+    /* Checkout modal */
+    .checkoutBackdrop{
+      position:fixed; inset:0; z-index:110;
+      background: rgba(0,0,0,.70);
+      backdrop-filter: blur(10px);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 16px;
+    }
+    .checkout{
+      width:min(720px, 100%);
+      border-radius: 22px;
+      background: rgba(16,16,20,.94);
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 30px 140px rgba(0,0,0,.70);
+      overflow:hidden;
+    }
+    .checkoutHead{
       display:flex; align-items:center; justify-content:space-between;
-      padding: 12px;
-      border-radius: 16px;
-      background: rgba(255,255,255,.05);
+      padding: 14px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.10);
+    }
+    .checkoutHead h3{
+      margin:0; font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+    }
+    .checkoutBody{padding: 14px}
+    .line{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.04);
       border: 1px solid rgba(255,255,255,.10);
+      margin-bottom: 10px;
+    }
+    .line strong{font-size: 13px}
+    .line span{font-family: var(--mono); color: rgba(255,255,255,.80)}
+    .checkoutForm{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
       margin-top: 10px;
     }
-    .totals strong{font-size: 13px; text-transform: uppercase; letter-spacing: .6px}
-    .totals span{font-family: var(--mono); color: rgba(255,255,255,.82)}
-    .modalFooter{
-      display:flex; gap:10px; justify-content:flex-end;
+    label{
+      display:block;
+      font-size: 12px;
+      color: rgba(255,255,255,.70);
+      margin: 8px 0 6px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+    }
+    input, select{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.20);
+      color: var(--text);
+      outline:none;
+    }
+    .checkoutFoot{
+      display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap;
       padding: 14px;
       border-top: 1px solid rgba(255,255,255,.10);
     }
@@ -442,11 +542,18 @@
       font-size: 13px;
     }
 
+    /* Simple view toggles */
+    .hidden{display:none !important;}
+
     /* Responsive */
     @media (max-width: 980px){
       .heroInner{grid-template-columns: 1fr}
       .grid{grid-template-columns: repeat(2, minmax(0, 1fr))}
+      .catGrid{grid-template-columns: 1fr}
       .pill input{width: 160px}
+      .modalGrid{grid-template-columns: 1fr}
+      .modalMedia{border-right:0; border-bottom: 1px solid rgba(255,255,255,.10)}
+      .checkoutForm{grid-template-columns: 1fr}
     }
     @media (max-width: 560px){
       .grid{grid-template-columns: 1fr}
@@ -460,8 +567,8 @@
   <div class="promo">
     <div class="wrap">
       <div class="inner">
-        <span><span class="dot"></span> D50B0 FÓKUSZ • 3D NYOMTATOTT DEKNI • EGYEDI FELIRAT</span>
-        <span>⚡ New drops weekly</span>
+        <span><span class="dot"></span> REDLINE • D50B0 / AM6 • PARTS + 3D PRINTED COVERS</span>
+        <span>⚡ Pick a section to start</span>
       </div>
     </div>
   </div>
@@ -469,18 +576,20 @@
   <header>
     <div class="wrap">
       <div class="topbar">
-        <a class="brand" href="#top" aria-label="RedLine">
-          <div class="logo" aria-hidden="true"></div>
+        <a class="brand" href="#top" aria-label="RedLine Home" onclick="showSections()">
+          <!-- Put your logo file here -->
+          <img class="brandLogo" src="redline-logo.png" alt="RedLine logo" />
           <div>
             RedLine
-            <small>D50B0 Ignition Covers</small>
+            <small>Parts & Covers</small>
           </div>
         </a>
 
-        <nav class="nav" aria-label="Fő navigáció">
-          <a href="#shop">Shop</a>
-          <a href="#shipping" onclick="alert('Demo: ide jöhet szállítás/fizetés infó')">Shipping</a>
-          <a href="#contact" onclick="alert('Demo: ide jöhet Insta/Email/Messenger')">Contact</a>
+        <nav class="nav" aria-label="Main navigation">
+          <a href="#sections" onclick="showSections()">Sections</a>
+          <a href="#shop" onclick="showSections()">Shop</a>
+          <a href="#shipping" onclick="alert('Demo: add shipping/payment details here')">Shipping</a>
+          <a href="#contact" onclick="alert('Demo: add Instagram/Email/Messenger here')">Contact</a>
         </nav>
 
         <div class="actions">
@@ -489,14 +598,14 @@
               <path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="currentColor" stroke-width="1.7"/>
               <path d="M16.2 16.2 21 21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
             </svg>
-            <input id="search" type="text" placeholder="Keresés: D50B0, honeycomb…" />
+            <input id="search" type="text" placeholder="Search in current section…" />
           </div>
 
-          <button class="btn" id="openCart" aria-label="Kosár megnyitása">
+          <button class="btn" id="openCart" aria-label="Open cart">
             Cart <span class="badge" id="cartCount">0</span>
           </button>
-          <button class="btn primary" onclick="document.querySelector('#shop').scrollIntoView({behavior:'smooth'})">
-            Shop now
+          <button class="btn primary" onclick="showSections()">
+            Sections
           </button>
         </div>
       </div>
@@ -509,23 +618,24 @@
         <div class="heroBanner">
           <div class="heroInner">
             <div>
-              <div class="kicker"><span class="kdot"></span> DERBI D50B0 • RED/BLACK • MADE TO ORDER</div>
-              <h1>D50B0 gyújtás deknik<br/>RedLine stílusban.</h1>
+              <div class="kicker"><span class="kdot"></span> CLEAN SHOP • RED/BLACK • QUICK CHECKOUT</div>
+              <h1>Choose a section,<br/>then browse products.</h1>
               <p class="lead">
-                Letisztult, “race” hangulat piros-fekete témában. Stabil UI, gyors kosár, tiszta termékkártyák.
+                The site won’t “drop” ignition covers immediately — you pick a section first:
+                <b>Carburetor / Intake</b>, <b>D50B0 3D Ignition Covers</b>, or <b>AM6/D50B0</b>.
               </p>
               <div class="ctaRow">
-                <button class="btn primary" onclick="document.querySelector('#shop').scrollIntoView({behavior:'smooth'})">D50B0 shop</button>
-                <button class="btn" onclick="alert('Demo: ide jöhet egy külön Custom oldal / konfigurátor')">Custom</button>
+                <button class="btn primary" onclick="document.querySelector('#sections').scrollIntoView({behavior:'smooth'})">Pick a section</button>
+                <button class="btn" onclick="openSection('covers')">Go to Covers</button>
               </div>
             </div>
 
-            <div class="heroRight">
+            <div>
               <div class="heroTile">
-                <img src="ignitioncover1.png" alt="D50B0 ignition cover" />
+                <img src="ignitioncover1.png" alt="Featured ignition cover" />
                 <div>
-                  <strong>D50B0 Honeycomb Neo</strong>
-                  <p>Top választás • piros-fekete buildhez • gyors kosár</p>
+                  <strong>Featured: D50B0 Ignition Cover</strong>
+                  <p>Click a section → click <b>See more</b> → image left, description right → <b>Buy</b> → checkout.</p>
                 </div>
               </div>
             </div>
@@ -533,19 +643,80 @@
         </div>
       </section>
 
-      <section id="shop">
+      <!-- SECTION SELECTOR -->
+      <section id="sections">
         <div class="sectionHead">
           <div>
-            <h2>Shop • D50B0 Deknik</h2>
-            <p>Ahogy kérted: a dekniknél csak az első 3 termék maradt, képek: ignitioncover1.png / 2 / 3.</p>
+            <h2>Sections</h2>
+            <p>Pick where you want to shop first. Each section has <b>5 products</b> (as requested).</p>
           </div>
         </div>
 
-        <div class="filters" aria-label="Szűrők">
-          <div class="chip active" data-filter="all">All</div>
-          <div class="chip" data-filter="honeycomb">Honeycomb</div>
-          <div class="chip" data-filter="carbon">Carbon</div>
-          <div class="chip" data-filter="ribbed">Ribbed</div>
+        <div class="catGrid" aria-label="Sections grid">
+          <!-- Carburetor/Intake -->
+          <div class="catCard" onclick="openSection('carb')">
+            <div class="catImg">
+              <!-- Use any existing image you have; you can change this later -->
+              <img src="carb1.png" alt="Carburetor / Intake section image">
+            </div>
+            <div class="catOverlay"></div>
+            <div class="catContent">
+              <div class="catPill">Carburetor / Intake</div>
+              <h3 class="catTitle">Carburetor-Intake</h3>
+              <p class="catDesc">Carb + intake parts. Clean listings, quick “See more” → Buy flow.</p>
+              <div class="catBtnRow">
+                <button class="btn primary" type="button">Open</button>
+                <button class="btn" type="button" onclick="event.stopPropagation();">5 products</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- D50B0 Covers -->
+          <div class="catCard" onclick="openSection('covers')">
+            <div class="catImg">
+              <img src="ignitioncover1.png" alt="D50B0 ignition covers section image">
+            </div>
+            <div class="catOverlay"></div>
+            <div class="catContent">
+              <div class="catPill">3D Printed</div>
+              <h3 class="catTitle">D50B0 Ignition Covers</h3>
+              <p class="catDesc">3D printed D50B0 ignition covers. RedLine style, clean + brand look.</p>
+              <div class="catBtnRow">
+                <button class="btn primary" type="button">Open</button>
+                <button class="btn" type="button" onclick="event.stopPropagation();">5 products</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- AM6/D50B0 -->
+          <div class="catCard" onclick="openSection('mix')">
+            <div class="catImg">
+              <img src="mix1.png" alt="AM6/D50B0 section image">
+            </div>
+            <div class="catOverlay"></div>
+            <div class="catContent">
+              <div class="catPill">AM6 / D50B0</div>
+              <h3 class="catTitle">AM6 / D50B0 Section</h3>
+              <p class="catDesc">Mixed compatibility products (AM6 + D50B0). 5 items inside.</p>
+              <div class="catBtnRow">
+                <button class="btn primary" type="button">Open</button>
+                <button class="btn" type="button" onclick="event.stopPropagation();">5 products</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SHOP (hidden until a section is chosen) -->
+      <section id="shop" class="hidden">
+        <div class="sectionHead">
+          <div>
+            <h2 id="shopTitle">Shop</h2>
+            <p id="shopDesc">Browse products in the selected section.</p>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn" onclick="showSections()">Back to sections</button>
+          </div>
         </div>
 
         <div class="grid" id="productGrid"></div>
@@ -557,131 +728,262 @@
     <div class="wrap">
       <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
         <div style="display:flex; align-items:center; gap:10px;">
-          <div class="logo" aria-hidden="true" style="width:30px;height:30px;border-radius:10px;"></div>
+          <img class="brandLogo" src="redline-logo.png" alt="RedLine logo" style="width:30px;height:30px;border-radius:10px;" />
           <div>
             <div style="font-weight:950">RedLine</div>
             <div style="color:rgba(255,255,255,.60); font-size:12px">© <span id="year"></span> • Demo webshop UI</div>
           </div>
         </div>
         <div id="contact" style="color:rgba(255,255,255,.62)">
-          Kapcsolat: Insta / Email / Messenger (demo)
+          Contact: Instagram / Email / Messenger (demo)
         </div>
       </div>
     </div>
   </footer>
 
-  <!-- Cart modal -->
-  <div class="modalBackdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-label="Kosár">
+  <!-- PRODUCT DETAILS MODAL -->
+  <div class="modalBackdrop" id="productBackdrop" role="dialog" aria-modal="true" aria-label="Product details">
     <div class="modal">
       <div class="modalHeader">
+        <h3>Product details</h3>
+        <button class="btn" id="closeProduct">Close</button>
+      </div>
+
+      <div class="modalGrid">
+        <div class="modalMedia">
+          <img id="modalImg" src="" alt="Product image" />
+        </div>
+
+        <div class="modalInfo">
+          <div class="modalTitleRow">
+            <h2 class="modalName" id="modalName">—</h2>
+            <div class="modalPrice" id="modalPrice">—</div>
+          </div>
+
+          <p class="modalDesc" id="modalDesc">—</p>
+
+          <div class="specs" id="modalSpecs"></div>
+
+          <div class="qtyRow">
+            <div class="qty" aria-label="Quantity">
+              <button id="qtyDec" aria-label="Decrease">-</button>
+              <span id="qtyVal">1</span>
+              <button id="qtyInc" aria-label="Increase">+</button>
+            </div>
+
+            <div style="color:rgba(255,255,255,.70); font-size:12px; font-family:var(--mono)">
+              Fit: <b id="modalFit">—</b>
+            </div>
+          </div>
+
+          <div class="buyRow">
+            <button class="btn" id="buyClose">Keep browsing</button>
+            <button class="btn primary" id="buyNow">Buy</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHECKOUT MODAL -->
+  <div class="checkoutBackdrop" id="checkoutBackdrop" role="dialog" aria-modal="true" aria-label="Checkout">
+    <div class="checkout">
+      <div class="checkoutHead">
+        <h3>Checkout</h3>
+        <button class="btn" id="closeCheckout">Close</button>
+      </div>
+
+      <div class="checkoutBody">
+        <div class="line">
+          <strong id="coName">—</strong>
+          <span id="coPrice">—</span>
+        </div>
+        <div class="line">
+          <strong>Quantity</strong>
+          <span id="coQty">1</span>
+        </div>
+        <div class="line">
+          <strong>Total</strong>
+          <span id="coTotal">—</span>
+        </div>
+
+        <div class="checkoutForm" aria-label="Checkout form">
+          <div>
+            <label for="fullName">Full name</label>
+            <input id="fullName" type="text" placeholder="John Smith" />
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input id="email" type="email" placeholder="name@email.com" />
+          </div>
+          <div>
+            <label for="country">Country</label>
+            <select id="country">
+              <option>Hungary</option>
+              <option>Slovakia</option>
+              <option>Austria</option>
+              <option>Romania</option>
+              <option>Germany</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div>
+            <label for="payment">Payment</label>
+            <select id="payment">
+              <option>Card (Stripe)</option>
+              <option>Bank transfer</option>
+              <option>Cash on delivery</option>
+            </select>
+          </div>
+          <div style="grid-column:1/-1">
+            <label for="address">Shipping address</label>
+            <input id="address" type="text" placeholder="Street, city, ZIP" />
+          </div>
+        </div>
+      </div>
+
+      <div class="checkoutFoot">
+        <button class="btn" id="checkoutBack">Back</button>
+        <button class="btn primary" id="placeOrder">Place order</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CART (simple) -->
+  <div class="checkoutBackdrop" id="cartBackdrop" role="dialog" aria-modal="true" aria-label="Cart">
+    <div class="checkout">
+      <div class="checkoutHead">
         <h3>Cart</h3>
         <button class="btn" id="closeCart">Close</button>
       </div>
-      <div class="modalBody">
-        <div class="cartList" id="cartList"></div>
-        <div class="totals">
+      <div class="checkoutBody">
+        <div id="cartList"></div>
+        <div class="line" style="margin-top:10px">
           <strong>Total</strong>
           <span id="cartTotal">0 Ft</span>
         </div>
       </div>
-      <div class="modalFooter">
+      <div class="checkoutFoot">
         <button class="btn" id="clearCart">Clear</button>
-        <button class="btn primary" id="checkoutBtn">Checkout</button>
+        <button class="btn primary" id="cartCheckout">Checkout</button>
       </div>
     </div>
   </div>
 
   <script>
-    // Csak az első 3 dekni marad (D50B0 fókusz), a kért képekkel:
-    const PRODUCTS = [
-      {
-        id: "d50-honeycomb-neo",
-        name: "D50B0 Ignition Cover — Honeycomb Neo",
-        price: 13990,
-        tags: ["D50B0", "Honeycomb", "RedLine"],
-        filters: ["honeycomb"],
-        badge: "D50B0 • NEW",
-        img: "ignitioncover1.png",
-        desc: "Honeycomb mintázat, agresszív piros-fekete vibe. Gravírozott felirat hatás."
-      },
-      {
-        id: "d50-carbon-core",
-        name: "D50B0 Ignition Cover — Carbon Core",
-        price: 14990,
-        tags: ["D50B0", "Carbon", "Stealth"],
-        filters: ["carbon"],
-        badge: "D50B0 • BEST",
-        img: "ignitioncover2.png",
-        desc: "Karbon-hatású textúra, letisztult forma. Klasszikus race buildhez."
-      },
-      {
-        id: "d50-stealth-ribbed",
-        name: "D50B0 Ignition Cover — Stealth Ribbed",
-        price: 15990,
-        tags: ["D50B0", "Ribbed", "Race"],
-        filters: ["ribbed"],
-        badge: "D50B0 • STEALTH",
-        img: "ignitioncover3.png",
-        desc: "Ribbed struktúra, sötét és kemény megjelenés. Piros kiemeléssel ütős."
-      }
-    ];
+    // ✅ Sections + 5 products each
+    // NOTE: You asked: “carburator 1 image” etc.
+    // Put your actual image filenames in img: (carb1.png, carb2.png ...).
+    // For covers, you already have ignitioncover1.png/2.png/3.png; add 4/5 too.
+    // For AM6/D50B0 mix, use mix1.png ... mix5.png (or rename to your real files).
 
-    let activeFilter = "all";
-    const cart = new Map();
+    const SECTIONS = {
+      carb: {
+        title: "Carburetor / Intake",
+        desc: "Carburetors and intake parts. Click See more for big preview + description, then Buy.",
+        products: [
+          { id:"carb-1", name:"Carburetor 1", price: 9990, badge:"CARB", img:"carb1.png", fit:"AM6 / D50B0", tags:["Carb","Intake","Tuning"], desc:"Carburetor 1 — clean listing. Replace this description with your real specs (size, jetting, brand)." },
+          { id:"carb-2", name:"Carburetor 2", price: 10990, badge:"CARB", img:"carb2.png", fit:"AM6 / D50B0", tags:["Carb","Intake"], desc:"Carburetor 2 — add details like diameter (e.g. 19mm/21mm), recommended setup, notes." },
+          { id:"carb-3", name:"Carburetor 3", price: 11990, badge:"CARB", img:"carb3.png", fit:"AM6 / D50B0", tags:["Carb","Street"], desc:"Carburetor 3 — placeholder text. Add your real brand + performance notes." },
+          { id:"carb-4", name:"Carburetor 4", price: 12990, badge:"CARB", img:"carb4.png", fit:"AM6 / D50B0", tags:["Carb","Race"], desc:"Carburetor 4 — placeholder. Add jets included, manifold compatibility, etc." },
+          { id:"carb-5", name:"Carburetor 5", price: 13990, badge:"CARB", img:"carb5.png", fit:"AM6 / D50B0", tags:["Carb","Intake","Setup"], desc:"Carburetor 5 — placeholder. Add what makes this one special." }
+        ]
+      },
+
+      covers: {
+        title: "3D Printed D50B0 Ignition Covers",
+        desc: "3D printed ignition covers for D50B0. Clean RedLine look. 5 designs inside.",
+        products: [
+          { id:"cover-1", name:"Ignition Cover 1", price: 13990, badge:"D50B0", img:"ignitioncover1.png", fit:"D50B0", tags:["D50B0","3D Print","RedLine"], desc:"Ignition Cover 1 — honeycomb/clean style. Replace with your real description & material." },
+          { id:"cover-2", name:"Ignition Cover 2", price: 14990, badge:"D50B0", img:"ignitioncover2.png", fit:"D50B0", tags:["D50B0","3D Print","Stealth"], desc:"Ignition Cover 2 — carbon style. Add colors, finish, custom text options." },
+          { id:"cover-3", name:"Ignition Cover 3", price: 15990, badge:"D50B0", img:"ignitioncover3.png", fit:"D50B0", tags:["D50B0","3D Print","Race"], desc:"Ignition Cover 3 — ribbed style. Add installation notes and what’s included." },
+          { id:"cover-4", name:"Ignition Cover 4", price: 15990, badge:"D50B0", img:"ignitioncover4.png", fit:"D50B0", tags:["D50B0","3D Print"], desc:"Ignition Cover 4 — add your real design name + details. (Create ignitioncover4.png)" },
+          { id:"cover-5", name:"Ignition Cover 5", price: 16990, badge:"D50B0", img:"ignitioncover5.png", fit:"D50B0", tags:["D50B0","3D Print","Limited"], desc:"Ignition Cover 5 — add your real design name + details. (Create ignitioncover5.png)" }
+        ]
+      },
+
+      mix: {
+        title: "AM6 / D50B0 Section",
+        desc: "Mixed compatibility products for AM6 and D50B0 builds. 5 products inside.",
+        products: [
+          { id:"mix-1", name:"AM6/D50B0 Product 1", price: 7990, badge:"MIX", img:"mix1.png", fit:"AM6 / D50B0", tags:["AM6","D50B0"], desc:"Product 1 — placeholder. Add your real product name & description." },
+          { id:"mix-2", name:"AM6/D50B0 Product 2", price: 8990, badge:"MIX", img:"mix2.png", fit:"AM6 / D50B0", tags:["AM6","D50B0"], desc:"Product 2 — placeholder. Add specs and compatibility notes." },
+          { id:"mix-3", name:"AM6/D50B0 Product 3", price: 9990, badge:"MIX", img:"mix3.png", fit:"AM6 / D50B0", tags:["AM6","D50B0"], desc:"Product 3 — placeholder. Add what’s included, mounting info, etc." },
+          { id:"mix-4", name:"AM6/D50B0 Product 4", price: 10990, badge:"MIX", img:"mix4.png", fit:"AM6 / D50B0", tags:["AM6","D50B0"], desc:"Product 4 — placeholder. Add your real details." },
+          { id:"mix-5", name:"AM6/D50B0 Product 5", price: 11990, badge:"MIX", img:"mix5.png", fit:"AM6 / D50B0", tags:["AM6","D50B0"], desc:"Product 5 — placeholder. Add your real details." }
+        ]
+      }
+    };
+
+    // State
+    let currentSectionKey = null;
+    let currentProduct = null;
+    let currentQty = 1;
+
+    // Cart
+    const cart = new Map(); // id -> {id,name,price,qty}
 
     const fmtFt = (n) => new Intl.NumberFormat("hu-HU").format(n) + " Ft";
     const $ = (sel) => document.querySelector(sel);
 
-    function setCartCount(){
-      let totalQty = 0;
-      for (const item of cart.values()) totalQty += item.qty;
-      $("#cartCount").textContent = totalQty;
+    function escapeHtml(str){
+      return String(str).replace(/[&<>"']/g, s => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+      }[s]));
     }
 
-    function cartTotal(){
-      let sum = 0;
-      for (const item of cart.values()) sum += item.price * item.qty;
-      return sum;
+    function showSections(){
+      $("#shop").classList.add("hidden");
+      document.querySelector("#sections").scrollIntoView({behavior:"smooth"});
+      currentSectionKey = null;
+      $("#search").value = "";
+      renderProducts(); // clears grid safely
     }
+    window.showSections = showSections;
 
-    function addToCart(item){
-      const existing = cart.get(item.id);
-      if (existing){
-        existing.qty += item.qty ?? 1;
-      } else {
-        cart.set(item.id, { ...item, qty: item.qty ?? 1 });
-      }
-      setCartCount();
-      renderCart();
+    function openSection(key){
+      const section = SECTIONS[key];
+      if (!section) return;
+      currentSectionKey = key;
+
+      $("#shopTitle").textContent = section.title;
+      $("#shopDesc").textContent = section.desc;
+
+      $("#shop").classList.remove("hidden");
+      $("#search").value = "";
+      renderProducts();
+
+      document.querySelector("#shop").scrollIntoView({behavior:"smooth"});
     }
+    window.openSection = openSection;
 
-    function updateQty(id, delta){
-      const it = cart.get(id);
-      if (!it) return;
-      it.qty += delta;
-      if (it.qty <= 0) cart.delete(id);
-      setCartCount();
-      renderCart();
-    }
-
+    // Products grid
     function renderProducts(){
-      const q = ($("#search").value || "").trim().toLowerCase();
       const grid = $("#productGrid");
+      if (!grid) return;
       grid.innerHTML = "";
 
-      const filtered = PRODUCTS.filter(p => {
-        const byFilter = activeFilter === "all" ? true : p.filters.includes(activeFilter);
-        const bySearch = !q ? true : (
+      if (!currentSectionKey){
+        grid.innerHTML = "";
+        return;
+      }
+
+      const section = SECTIONS[currentSectionKey];
+      const q = ($("#search").value || "").trim().toLowerCase();
+
+      const filtered = section.products.filter(p => {
+        if (!q) return true;
+        return (
           p.name.toLowerCase().includes(q) ||
-          p.tags.join(" ").toLowerCase().includes(q)
+          p.tags.join(" ").toLowerCase().includes(q) ||
+          (p.fit || "").toLowerCase().includes(q)
         );
-        return byFilter && bySearch;
       });
 
       if (filtered.length === 0){
-        grid.innerHTML = `<div style="grid-column:11/-1; padding:16px; border:1px solid rgba(255,255,255,.10); border-radius:16px; background:rgba(255,255,255,.04)">
+        grid.innerHTML = `<div style="grid-column:1/-1; padding:16px; border:1px solid rgba(255,255,255,.10); border-radius:16px; background:rgba(255,255,255,.04)">
           <div style="font-weight:950; text-transform:uppercase; letter-spacing:.6px;">No results</div>
-          <div style="margin-top:6px; color:rgba(255,255,255,.66); font-size:13px;">Próbáld: honeycomb / carbon / ribbed vagy töröld a keresést.</div>
+          <div style="margin-top:6px; color:rgba(255,255,255,.66); font-size:13px;">Try a different search or clear it.</div>
         </div>`;
         return;
       }
@@ -689,6 +991,7 @@
       for (const p of filtered){
         const card = document.createElement("article");
         card.className = "card";
+
         card.innerHTML = `
           <div class="thumb">
             <img src="${escapeHtml(p.img)}" alt="${escapeHtml(p.name)}" />
@@ -702,27 +1005,104 @@
             <p class="desc">${escapeHtml(p.desc)}</p>
             <div class="pillrow">
               ${p.tags.map(t => `<span class="miniPill">${escapeHtml(t)}</span>`).join("")}
+              <span class="miniPill">${escapeHtml(p.fit)}</span>
             </div>
             <div class="cardActions">
-              <div class="qty" aria-label="Mennyiség">
-                <button class="dec" aria-label="Csökkentés">-</button>
-                <span class="q">1</span>
-                <button class="inc" aria-label="Növelés">+</button>
-              </div>
-              <button class="btn primary btnWide add">Add to cart</button>
+              <button class="btn primary" data-open="${escapeHtml(p.id)}">See more</button>
+              <button class="btn" data-quickbuy="${escapeHtml(p.id)}">Buy</button>
             </div>
           </div>
         `;
         grid.appendChild(card);
 
-        const qEl = card.querySelector(".q");
-        let qty = 1;
-        card.querySelector(".dec").addEventListener("click", () => { qty = Math.max(1, qty - 1); qEl.textContent = qty; });
-        card.querySelector(".inc").addEventListener("click", () => { qty = Math.min(99, qty + 1); qEl.textContent = qty; });
-        card.querySelector(".add").addEventListener("click", () => {
-          addToCart({ id: p.id, name: p.name, price: p.price, qty });
+        card.querySelector('[data-open]').addEventListener("click", () => openProduct(p.id));
+        card.querySelector('[data-quickbuy]').addEventListener("click", () => {
+          openProduct(p.id);
         });
       }
+    }
+
+    // Find product across sections (simple)
+    function findProductById(id){
+      for (const key of Object.keys(SECTIONS)){
+        const p = SECTIONS[key].products.find(x => x.id === id);
+        if (p) return { product: p, sectionKey: key };
+      }
+      return null;
+    }
+
+    // Product modal
+    function openProduct(id){
+      const found = findProductById(id);
+      if (!found) return;
+
+      currentProduct = found.product;
+      currentQty = 1;
+
+      $("#modalImg").src = currentProduct.img;
+      $("#modalImg").alt = currentProduct.name;
+      $("#modalName").textContent = currentProduct.name;
+      $("#modalPrice").textContent = fmtFt(currentProduct.price);
+      $("#modalDesc").textContent = currentProduct.desc;
+      $("#modalFit").textContent = currentProduct.fit || "—";
+
+      const specs = $("#modalSpecs");
+      specs.innerHTML = "";
+      (currentProduct.tags || []).forEach(t => {
+        const s = document.createElement("div");
+        s.className = "spec";
+        s.textContent = t;
+        specs.appendChild(s);
+      });
+
+      $("#qtyVal").textContent = String(currentQty);
+      $("#productBackdrop").style.display = "flex";
+    }
+    window.openProduct = openProduct;
+
+    function closeProduct(){
+      $("#productBackdrop").style.display = "none";
+    }
+
+    // Qty buttons
+    $("#qtyDec").addEventListener("click", () => {
+      currentQty = Math.max(1, currentQty - 1);
+      $("#qtyVal").textContent = String(currentQty);
+    });
+    $("#qtyInc").addEventListener("click", () => {
+      currentQty = Math.min(99, currentQty + 1);
+      $("#qtyVal").textContent = String(currentQty);
+    });
+
+    // Modal close handlers
+    $("#closeProduct").addEventListener("click", closeProduct);
+    $("#buyClose").addEventListener("click", closeProduct);
+    $("#productBackdrop").addEventListener("click", (e) => {
+      if (e.target.id === "productBackdrop") closeProduct();
+    });
+
+    // Cart helpers
+    function setCartCount(){
+      let totalQty = 0;
+      for (const item of cart.values()) totalQty += item.qty;
+      $("#cartCount").textContent = totalQty;
+    }
+
+    function cartTotal(){
+      let sum = 0;
+      for (const item of cart.values()) sum += item.price * item.qty;
+      return sum;
+    }
+
+    function addToCart(product, qty){
+      const existing = cart.get(product.id);
+      if (existing){
+        existing.qty += qty;
+      } else {
+        cart.set(product.id, { id: product.id, name: product.name, price: product.price, qty });
+      }
+      setCartCount();
+      renderCart();
     }
 
     function renderCart(){
@@ -730,57 +1110,72 @@
       list.innerHTML = "";
 
       if (cart.size === 0){
-        list.innerHTML = `<div style="padding:14px; border-radius:16px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.10)">
-          <div style="font-weight:950; text-transform:uppercase; letter-spacing:.6px;">Your cart is empty</div>
-          <div style="margin-top:6px; color:rgba(255,255,255,.66); font-size:13px;">Válassz egy D50B0 dekni dizájnt és dobd a kosárba.</div>
-        </div>`;
+        list.innerHTML = `<div class="line"><strong>Your cart is empty</strong><span>—</span></div>`;
         $("#cartTotal").textContent = fmtFt(0);
         return;
       }
 
       for (const item of cart.values()){
         const row = document.createElement("div");
-        row.className = "cartItem";
+        row.className = "line";
         row.innerHTML = `
-          <div>
-            <strong>${escapeHtml(item.name)}</strong>
-            <small>${fmtFt(item.price)}</small>
-          </div>
-          <div class="cartRight">
-            <div class="cartQty">
-              <button class="dec" aria-label="Csökkentés">-</button>
-              <span>${item.qty}</span>
-              <button class="inc" aria-label="Növelés">+</button>
-            </div>
-            <div class="mono" style="min-width:110px; text-align:right">${fmtFt(item.price * item.qty)}</div>
-          </div>
+          <strong>${escapeHtml(item.name)} × ${item.qty}</strong>
+          <span>${fmtFt(item.price * item.qty)}</span>
         `;
-        row.querySelector(".dec").addEventListener("click", () => updateQty(item.id, -1));
-        row.querySelector(".inc").addEventListener("click", () => updateQty(item.id, +1));
         list.appendChild(row);
       }
 
       $("#cartTotal").textContent = fmtFt(cartTotal());
     }
 
-    // Filters
-    document.querySelectorAll(".chip").forEach(chip => {
-      chip.addEventListener("click", () => {
-        document.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
-        chip.classList.add("active");
-        activeFilter = chip.dataset.filter;
-        renderProducts();
-      });
+    // Checkout
+    function openCheckout(product, qty){
+      $("#coName").textContent = product.name;
+      $("#coPrice").textContent = fmtFt(product.price);
+      $("#coQty").textContent = String(qty);
+      $("#coTotal").textContent = fmtFt(product.price * qty);
+      $("#checkoutBackdrop").style.display = "flex";
+    }
+
+    function closeCheckout(){
+      $("#checkoutBackdrop").style.display = "none";
+    }
+
+    $("#buyNow").addEventListener("click", () => {
+      if (!currentProduct) return;
+      addToCart(currentProduct, currentQty);
+      closeProduct();
+      openCheckout(currentProduct, currentQty);
     });
 
-    // Search
-    $("#search").addEventListener("input", () => renderProducts());
+    $("#closeCheckout").addEventListener("click", closeCheckout);
+    $("#checkoutBack").addEventListener("click", () => {
+      closeCheckout();
+      if (currentProduct) openProduct(currentProduct.id);
+    });
 
-    // Modal open/close
-    const backdrop = $("#modalBackdrop");
-    $("#openCart").addEventListener("click", () => { backdrop.style.display = "flex"; renderCart(); });
-    $("#closeCart").addEventListener("click", () => { backdrop.style.display = "none"; });
-    backdrop.addEventListener("click", (e) => { if (e.target === backdrop) backdrop.style.display = "none"; });
+    $("#placeOrder").addEventListener("click", () => {
+      const name = ($("#fullName").value || "").trim();
+      const email = ($("#email").value || "").trim();
+      const address = ($("#address").value || "").trim();
+
+      if (!name || !email || !address){
+        alert("Please fill in: Full name, Email, and Shipping address.");
+        return;
+      }
+      alert("Order placed (demo) ✅\nNext step: connect Stripe/Barion + send confirmation email.");
+      closeCheckout();
+    });
+
+    // Search (only searches inside the currently opened section)
+    $("#search").addEventListener("input", renderProducts);
+
+    // Cart modal
+    function openCart(){ $("#cartBackdrop").style.display = "flex"; renderCart(); }
+    function closeCart(){ $("#cartBackdrop").style.display = "none"; }
+    $("#openCart").addEventListener("click", openCart);
+    $("#closeCart").addEventListener("click", closeCart);
+    $("#cartBackdrop").addEventListener("click", (e) => { if (e.target.id === "cartBackdrop") closeCart(); });
 
     $("#clearCart").addEventListener("click", () => {
       cart.clear();
@@ -788,22 +1183,19 @@
       renderCart();
     });
 
-    $("#checkoutBtn").addEventListener("click", () => {
-      if (cart.size === 0) return alert("A kosár üres.");
-      alert("Demo checkout ✅\nItt jöhet: fizetés (Stripe/Barion), szállítási adatok, email értesítés.");
+    $("#cartCheckout").addEventListener("click", () => {
+      if (cart.size === 0){
+        alert("Cart is empty.");
+        return;
+      }
+      alert("Demo cart checkout ✅\nThis is where you’d checkout the full cart.");
     });
-
-    function escapeHtml(str){
-      return String(str).replace(/[&<>"']/g, s => ({
-        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-      }[s]));
-    }
 
     // Init
     $("#year").textContent = new Date().getFullYear();
-    renderProducts();
     renderCart();
     setCartCount();
+    showSections();
   </script>
 </body>
 </html>
