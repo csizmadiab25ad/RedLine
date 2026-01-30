@@ -35,7 +35,7 @@
         radial-gradient(1200px 520px at 50% -10%, rgba(255,31,31,.18), transparent 60%),
         radial-gradient(900px 520px at 10% 20%, rgba(255,31,31,.10), transparent 62%),
         linear-gradient(180deg, var(--bg2), var(--bg));
-      overflow-x:hidden;
+      overflow:hidden; /* important: page itself does NOT scroll */
     }
 
     a{color:inherit; text-decoration:none}
@@ -90,7 +90,7 @@
     }
 
     .nav{
-      display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+      display:flex; align-items:center; gap:12px; flex-wrap:wrap;
       color: rgba(255,255,255,.70);
       font-weight: 800;
       text-transform: uppercase;
@@ -126,6 +126,7 @@
       cursor:pointer;
       transition: transform .12s ease, background .12s ease, border-color .12s ease;
       font-weight: 900;
+      white-space: nowrap;
     }
     .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.085); border-color: rgba(255,255,255,.22)}
     .btn.primary{
@@ -143,76 +144,31 @@
       margin-left:8px;
     }
 
-    /* Hero */
-    .hero{padding: 18px 0 18px}
-    .heroBanner{
-      border-radius: 18px;
-      overflow:hidden;
-      border: 1px solid rgba(255,255,255,.12);
-      box-shadow: var(--shadow);
-      background:
-        linear-gradient(90deg, rgba(255,31,31,.18), transparent 55%),
-        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-    }
-    .heroInner{
-      padding: 22px 18px;
-      display:grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap: 14px;
-      align-items:center;
-    }
-    .kicker{
-      display:inline-flex; align-items:center; gap:10px;
-      font-family: var(--mono);
-      color: rgba(255,255,255,.76);
-      font-size: 12px;
+    .select{
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      outline: none;
+      font-weight: 900;
+      text-transform: uppercase;
       letter-spacing: .6px;
-      padding: 8px 12px;
-      background: rgba(0,0,0,.25);
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 999px;
-      width: fit-content;
+      font-size: 12px;
+      cursor:pointer;
     }
-    .kdot{
-      width:8px; height:8px; border-radius:999px;
-      background: var(--accent);
-      box-shadow: 0 0 0 4px rgba(255,31,31,.16);
-    }
-    h1{
-      margin: 10px 0 0;
-      font-size: clamp(26px, 3.3vw, 44px);
-      line-height: 1.06;
-      letter-spacing: -0.6px;
-    }
-    .lead{
-      margin: 10px 0 0;
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.6;
-      max-width: 70ch;
-    }
-    .ctaRow{display:flex; gap:10px; flex-wrap:wrap; margin-top: 14px}
 
-    .heroTile{
-      width:min(520px, 100%);
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.22);
-      padding: 14px;
-      display:flex; gap:12px; align-items:center;
+    /* App scroll area (only this scrolls) */
+    .appScroll{
+      height: calc(100vh - 0px);
+      overflow:auto;
+      scroll-behavior: smooth;
     }
-    .heroTile img{
-      width: 140px; height: 140px;
-      border-radius: 16px;
-      object-fit: cover;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.03);
-    }
-    .heroTile strong{display:block; font-size: 14px}
-    .heroTile p{margin:6px 0 0; color: rgba(255,255,255,.70); font-size: 12.5px; line-height:1.5}
+    /* Keep header visible; appScroll starts under promo+header automatically */
+    .appContent{padding: 18px 0 34px}
 
     /* Sections */
-    section{padding: 8px 0 34px}
+    section{padding: 8px 0 22px}
     .sectionHead{
       display:flex; align-items:flex-end; justify-content:space-between; gap:12px;
       margin: 8px 0 12px;
@@ -225,10 +181,10 @@
     }
     .sectionHead p{
       margin:0; color: rgba(255,255,255,.66); font-size: 13px;
-      max-width: 80ch;
+      max-width: 90ch;
     }
 
-    /* Category selector (tiles) */
+    /* Category selector tiles */
     .catGrid{
       display:grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -251,14 +207,8 @@
       border-color: rgba(255,255,255,.20);
       background: linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.035));
     }
-    .catImg{
-      position:absolute; inset:0;
-    }
-    .catImg img{
-      width:100%; height:100%;
-      object-fit: cover;
-      filter: contrast(1.02) saturate(1.02);
-    }
+    .catImg{position:absolute; inset:0;}
+    .catImg img{width:100%; height:100%; object-fit: cover; filter: contrast(1.02) saturate(1.02);}
     .catOverlay{
       position:absolute; inset:0;
       background:
@@ -282,21 +232,39 @@
       letter-spacing: .6px;
       backdrop-filter: blur(10px);
     }
-    .catTitle{
-      margin:0;
-      font-size: 16px;
-      letter-spacing:.2px;
-      font-weight: 950;
-    }
-    .catDesc{
-      margin:0;
-      color: rgba(255,255,255,.70);
-      font-size: 13px;
-      line-height:1.55;
-    }
-    .catBtnRow{display:flex; gap:10px; flex-wrap:wrap; margin-top: 4px;}
+    .catTitle{margin:0; font-size: 16px; letter-spacing:.2px; font-weight: 950;}
+    .catDesc{margin:0; color: rgba(255,255,255,.70); font-size: 13px; line-height:1.55;}
 
-    /* Products grid */
+    /* Shop controls */
+    .controls{
+      display:flex; gap:10px; flex-wrap:wrap;
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.10);
+      align-items:center;
+      margin-top: 10px;
+    }
+    .controls .label{
+      font-family: var(--mono);
+      font-size: 12px;
+      color: rgba(255,255,255,.70);
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      margin-right: 2px;
+    }
+    .input{
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.20);
+      color: var(--text);
+      outline:none;
+      min-width: 240px;
+      flex: 1;
+    }
+
+    /* Products */
     .grid{
       display:grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -438,8 +406,20 @@
       font-size: 12px;
       font-family: var(--mono);
     }
+    .optionRow{
+      margin-top: 4px;
+      display:flex; flex-wrap:wrap; gap:10px;
+      align-items:center;
+    }
+    .optionRow .optLabel{
+      font-family: var(--mono);
+      font-size: 12px;
+      color: rgba(255,255,255,.70);
+      text-transform: uppercase;
+      letter-spacing: .6px;
+    }
     .qtyRow{
-      margin-top: 8px;
+      margin-top: 6px;
       display:flex; align-items:center; gap:10px; flex-wrap:wrap;
     }
     .qty{
@@ -534,22 +514,11 @@
       border-top: 1px solid rgba(255,255,255,.10);
     }
 
-    footer{
-      padding: 26px 0 40px;
-      border-top: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.02);
-      color: rgba(255,255,255,.66);
-      font-size: 13px;
-    }
-
-    /* Simple view toggles */
     .hidden{display:none !important;}
 
-    /* Responsive */
     @media (max-width: 980px){
-      .heroInner{grid-template-columns: 1fr}
-      .grid{grid-template-columns: repeat(2, minmax(0, 1fr))}
       .catGrid{grid-template-columns: 1fr}
+      .grid{grid-template-columns: repeat(2, minmax(0, 1fr))}
       .pill input{width: 160px}
       .modalGrid{grid-template-columns: 1fr}
       .modalMedia{border-right:0; border-bottom: 1px solid rgba(255,255,255,.10)}
@@ -559,6 +528,7 @@
       .grid{grid-template-columns: 1fr}
       .nav{display:none}
       .pill input{display:none}
+      .input{min-width: 0; width: 100%;}
     }
   </style>
 </head>
@@ -567,8 +537,8 @@
   <div class="promo">
     <div class="wrap">
       <div class="inner">
-        <span><span class="dot"></span> REDLINE • D50B0 / AM6 • PARTS + 3D PRINTED COVERS</span>
-        <span>⚡ Pick a section to start</span>
+        <span><span class="dot"></span> REDLINE • D50B0 / AM6 • TUNING PARTS + 3D PRINTED</span>
+        <span>⚡ Pick a section</span>
       </div>
     </div>
   </div>
@@ -576,8 +546,7 @@
   <header>
     <div class="wrap">
       <div class="topbar">
-        <a class="brand" href="#top" aria-label="RedLine Home" onclick="showSections()">
-          <!-- Put your logo file here -->
+        <a class="brand" href="javascript:void(0)" aria-label="RedLine Home">
           <img class="brandLogo" src="redline-logo.png" alt="RedLine logo" />
           <div>
             RedLine
@@ -586,160 +555,105 @@
         </a>
 
         <nav class="nav" aria-label="Main navigation">
-          <a href="#sections" onclick="showSections()">Sections</a>
-          <a href="#shop" onclick="showSections()">Shop</a>
-          <a href="#shipping" onclick="alert('Demo: add shipping/payment details here')">Shipping</a>
-          <a href="#contact" onclick="alert('Demo: add Instagram/Email/Messenger here')">Contact</a>
+          <a href="javascript:void(0)" onclick="showSections()">Sections</a>
         </nav>
 
         <div class="actions">
-          <div class="pill" role="search">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="currentColor" stroke-width="1.7"/>
-              <path d="M16.2 16.2 21 21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
-            </svg>
-            <input id="search" type="text" placeholder="Search in current section…" />
-          </div>
+          <!-- Currency selector in topnav -->
+          <select class="select" id="currencySelect" aria-label="Currency">
+            <option value="EUR" selected>EUR</option>
+            <option value="HUF">HUF</option>
+            <option value="USD">USD</option>
+          </select>
 
           <button class="btn" id="openCart" aria-label="Open cart">
             Cart <span class="badge" id="cartCount">0</span>
           </button>
-          <button class="btn primary" onclick="showSections()">
-            Sections
-          </button>
+
+          <button class="btn primary" onclick="showSections()">Sections</button>
         </div>
       </div>
     </div>
   </header>
 
-  <main id="top">
-    <div class="wrap">
-      <section class="hero">
-        <div class="heroBanner">
-          <div class="heroInner">
-            <div>
-              <div class="kicker"><span class="kdot"></span> CLEAN SHOP • RED/BLACK • QUICK CHECKOUT</div>
-              <h1>Choose a section,<br/>then browse products.</h1>
-              <p class="lead">
-                The site won’t “drop” ignition covers immediately — you pick a section first:
-                <b>Carburetor / Intake</b>, <b>D50B0 3D Ignition Covers</b>, or <b>AM6/D50B0</b>.
-              </p>
-              <div class="ctaRow">
-                <button class="btn primary" onclick="document.querySelector('#sections').scrollIntoView({behavior:'smooth'})">Pick a section</button>
-                <button class="btn" onclick="openSection('covers')">Go to Covers</button>
-              </div>
-            </div>
-
-            <div>
-              <div class="heroTile">
-                <img src="ignitioncover1.png" alt="Featured ignition cover" />
-                <div>
-                  <strong>Featured: D50B0 Ignition Cover</strong>
-                  <p>Click a section → click <b>See more</b> → image left, description right → <b>Buy</b> → checkout.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SECTION SELECTOR -->
-      <section id="sections">
+  <!-- Only this area scrolls -->
+  <div class="appScroll" id="appScroll">
+    <div class="wrap appContent">
+      <!-- SECTION SELECTOR VIEW -->
+      <section id="sectionsView">
         <div class="sectionHead">
           <div>
             <h2>Sections</h2>
-            <p>Pick where you want to shop first. Each section has <b>5 products</b> (as requested).</p>
+            <p>Choose a section. After you open one, you stay inside that section (no scrolling back to the “top page”).</p>
           </div>
         </div>
 
         <div class="catGrid" aria-label="Sections grid">
-          <!-- Carburetor/Intake -->
           <div class="catCard" onclick="openSection('carb')">
-            <div class="catImg">
-              <!-- Use any existing image you have; you can change this later -->
-              <img src="carb1.png" alt="Carburetor / Intake section image">
-            </div>
+            <div class="catImg"><img src="carb1.png" alt="Carburetor / Intake section image"></div>
             <div class="catOverlay"></div>
             <div class="catContent">
               <div class="catPill">Carburetor / Intake</div>
-              <h3 class="catTitle">Carburetor-Intake</h3>
-              <p class="catDesc">Carb + intake parts. Clean listings, quick “See more” → Buy flow.</p>
-              <div class="catBtnRow">
-                <button class="btn primary" type="button">Open</button>
-                <button class="btn" type="button" onclick="event.stopPropagation();">5 products</button>
-              </div>
+              <h3 class="catTitle">Carburetor / Intake</h3>
+              <p class="catDesc">PHBG and PWK carburetors with selectable sizes in “See more”.</p>
             </div>
           </div>
 
-          <!-- D50B0 Covers -->
           <div class="catCard" onclick="openSection('covers')">
-            <div class="catImg">
-              <img src="ignitioncover1.png" alt="D50B0 ignition covers section image">
-            </div>
+            <div class="catImg"><img src="ignitioncover1.png" alt="D50B0 ignition covers section image"></div>
             <div class="catOverlay"></div>
             <div class="catContent">
               <div class="catPill">3D Printed</div>
               <h3 class="catTitle">D50B0 Ignition Covers</h3>
-              <p class="catDesc">3D printed D50B0 ignition covers. RedLine style, clean + brand look.</p>
-              <div class="catBtnRow">
-                <button class="btn primary" type="button">Open</button>
-                <button class="btn" type="button" onclick="event.stopPropagation();">5 products</button>
-              </div>
+              <p class="catDesc">Choose cover colors: black-red / black-blue / black-purple.</p>
             </div>
           </div>
 
-          <!-- AM6/D50B0 -->
           <div class="catCard" onclick="openSection('mix')">
-            <div class="catImg">
-              <img src="mix1.png" alt="AM6/D50B0 section image">
-            </div>
+            <div class="catImg"><img src="mix1.png" alt="AM6 / D50B0 section image"></div>
             <div class="catOverlay"></div>
             <div class="catContent">
               <div class="catPill">AM6 / D50B0</div>
               <h3 class="catTitle">AM6 / D50B0 Section</h3>
-              <p class="catDesc">Mixed compatibility products (AM6 + D50B0). 5 items inside.</p>
-              <div class="catBtnRow">
-                <button class="btn primary" type="button">Open</button>
-                <button class="btn" type="button" onclick="event.stopPropagation();">5 products</button>
-              </div>
+              <p class="catDesc">Includes throttle and hydraulic front fender with color options.</p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- SHOP (hidden until a section is chosen) -->
-      <section id="shop" class="hidden">
+      <!-- SHOP VIEW (separate “area”, no scrolling back to sections unless you click Sections) -->
+      <section id="shopView" class="hidden">
         <div class="sectionHead">
           <div>
             <h2 id="shopTitle">Shop</h2>
-            <p id="shopDesc">Browse products in the selected section.</p>
+            <p id="shopDesc">Browse items in this section.</p>
           </div>
           <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <button class="btn" onclick="showSections()">Back to sections</button>
+            <button class="btn" onclick="showSections()">Change section</button>
           </div>
+        </div>
+
+        <!-- Controls shown INSIDE section (search + optional color filter) -->
+        <div class="controls" id="shopControls">
+          <span class="label">Search</span>
+          <input class="input" id="search" type="text" placeholder="Search in this section…" />
+
+          <span class="label" id="colorFilterLabel" style="display:none;">Color</span>
+          <select class="select" id="colorFilter" style="display:none;">
+            <option value="any" selected>Any</option>
+            <option value="red">Red</option>
+            <option value="blue">Blue</option>
+            <option value="black">Black</option>
+            <option value="yellow">Yellow</option>
+            <option value="white">White</option>
+            <option value="purple">Purple</option>
+          </select>
         </div>
 
         <div class="grid" id="productGrid"></div>
       </section>
     </div>
-  </main>
-
-  <footer id="shipping">
-    <div class="wrap">
-      <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
-        <div style="display:flex; align-items:center; gap:10px;">
-          <img class="brandLogo" src="redline-logo.png" alt="RedLine logo" style="width:30px;height:30px;border-radius:10px;" />
-          <div>
-            <div style="font-weight:950">RedLine</div>
-            <div style="color:rgba(255,255,255,.60); font-size:12px">© <span id="year"></span> • Demo webshop UI</div>
-          </div>
-        </div>
-        <div id="contact" style="color:rgba(255,255,255,.62)">
-          Contact: Instagram / Email / Messenger (demo)
-        </div>
-      </div>
-    </div>
-  </footer>
+  </div>
 
   <!-- PRODUCT DETAILS MODAL -->
   <div class="modalBackdrop" id="productBackdrop" role="dialog" aria-modal="true" aria-label="Product details">
@@ -763,6 +677,18 @@
           <p class="modalDesc" id="modalDesc">—</p>
 
           <div class="specs" id="modalSpecs"></div>
+
+          <!-- Dynamic option 1 (Size or Color) -->
+          <div class="optionRow" id="optionRow1" style="display:none;">
+            <span class="optLabel" id="opt1Label">Option</span>
+            <select class="select" id="opt1Select"></select>
+          </div>
+
+          <!-- Dynamic option 2 (Color for products that need it) -->
+          <div class="optionRow" id="optionRow2" style="display:none;">
+            <span class="optLabel" id="opt2Label">Option</span>
+            <select class="select" id="opt2Select"></select>
+          </div>
 
           <div class="qtyRow">
             <div class="qty" aria-label="Quantity">
@@ -801,6 +727,10 @@
         <div class="line">
           <strong>Quantity</strong>
           <span id="coQty">1</span>
+        </div>
+        <div class="line">
+          <strong>Options</strong>
+          <span id="coOptions">—</span>
         </div>
         <div class="line">
           <strong>Total</strong>
@@ -860,7 +790,7 @@
         <div id="cartList"></div>
         <div class="line" style="margin-top:10px">
           <strong>Total</strong>
-          <span id="cartTotal">0 Ft</span>
+          <span id="cartTotal">0</span>
         </div>
       </div>
       <div class="checkoutFoot">
@@ -871,46 +801,132 @@
   </div>
 
   <script>
-    // ✅ Sections + 5 products each
-    // NOTE: You asked: “carburator 1 image” etc.
-    // Put your actual image filenames in img: (carb1.png, carb2.png ...).
-    // For covers, you already have ignitioncover1.png/2.png/3.png; add 4/5 too.
-    // For AM6/D50B0 mix, use mix1.png ... mix5.png (or rename to your real files).
+    /**
+     * Currency:
+     * - Base prices are stored in EUR (base_eur)
+     * - We convert for display: EUR / HUF / USD
+     */
+    const FX = {
+      EUR: { symbol: "€", rate: 1 },
+      HUF: { symbol: "Ft", rate: 390 },  // demo rate
+      USD: { symbol: "$", rate: 1.08 }   // demo rate
+    };
+    let currency = "EUR";
 
+    function moneyFromEur(eur){
+      const fx = FX[currency];
+      const value = eur * fx.rate;
+      // Formatting:
+      if (currency === "HUF"){
+        return new Intl.NumberFormat("hu-HU").format(Math.round(value)) + " " + fx.symbol;
+      }
+      return fx.symbol + new Intl.NumberFormat("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value);
+    }
+
+    // ✅ SECTIONS (updated exactly to your rules)
     const SECTIONS = {
+      // Carburetor / Intake: keep ONLY 2 products, renamed, sizes in modal
       carb: {
         title: "Carburetor / Intake",
-        desc: "Carburetors and intake parts. Click See more for big preview + description, then Buy.",
+        desc: "PHBG and PWK carburetors. Open “See more” to choose size (mm).",
+        useColorFilter: false,
         products: [
-          { id:"carb-1", name:"Carburetor 1", price: 9990, badge:"CARB", img:"carb1.png", fit:"AM6 / D50B0", tags:["Carb","Intake","Tuning"], desc:"Carburetor 1 — clean listing. Replace this description with your real specs (size, jetting, brand)." },
-          { id:"carb-2", name:"Carburetor 2", price: 10990, badge:"CARB", img:"carb2.png", fit:"AM6 / D50B0", tags:["Carb","Intake"], desc:"Carburetor 2 — add details like diameter (e.g. 19mm/21mm), recommended setup, notes." },
-          { id:"carb-3", name:"Carburetor 3", price: 11990, badge:"CARB", img:"carb3.png", fit:"AM6 / D50B0", tags:["Carb","Street"], desc:"Carburetor 3 — placeholder text. Add your real brand + performance notes." },
-          { id:"carb-4", name:"Carburetor 4", price: 12990, badge:"CARB", img:"carb4.png", fit:"AM6 / D50B0", tags:["Carb","Race"], desc:"Carburetor 4 — placeholder. Add jets included, manifold compatibility, etc." },
-          { id:"carb-5", name:"Carburetor 5", price: 13990, badge:"CARB", img:"carb5.png", fit:"AM6 / D50B0", tags:["Carb","Intake","Setup"], desc:"Carburetor 5 — placeholder. Add what makes this one special." }
+          {
+            id:"phbg-carb",
+            name:"PHBG Carburetor",
+            badge:"CARB",
+            img:"carb1.png",
+            fit:"AM6 / D50B0",
+            tags:["Carb","Intake","Tuning"],
+            desc:"PHBG Carburetor. Choose size in mm. Replace this text with brand/specs (jets included, manifold fit, etc.).",
+            options: {
+              size: [
+                { label:"17mm", price_eur: 26.90 },
+                { label:"19mm", price_eur: 29.90 },
+                { label:"21mm", price_eur: 32.90 }
+              ]
+            }
+          },
+          {
+            id:"pwk-carb",
+            name:"PWK Carburetor",
+            badge:"CARB",
+            img:"carb2.png",
+            fit:"AM6 / D50B0",
+            tags:["Carb","Intake","Race"],
+            desc:"PWK Carburetor. Choose size in mm. Replace this text with real details (needle, jets, clamp size, etc.).",
+            options: {
+              size: [
+                { label:"21mm", price_eur: 39.90 },
+                { label:"24mm", price_eur: 44.90 },
+                { label:"26mm", price_eur: 49.90 }
+              ]
+            }
+          }
         ]
       },
 
+      // D50B0 ignition covers: choose colors (black-red, black-blue, black-purple)
       covers: {
-        title: "3D Printed D50B0 Ignition Covers",
-        desc: "3D printed ignition covers for D50B0. Clean RedLine look. 5 designs inside.",
+        title: "D50B0 Ignition Covers (3D Printed)",
+        desc: "3D printed ignition covers for D50B0. Choose color in “See more”.",
+        useColorFilter: true,
         products: [
-          { id:"cover-1", name:"Ignition Cover 1", price: 13990, badge:"D50B0", img:"ignitioncover1.png", fit:"D50B0", tags:["D50B0","3D Print","RedLine"], desc:"Ignition Cover 1 — honeycomb/clean style. Replace with your real description & material." },
-          { id:"cover-2", name:"Ignition Cover 2", price: 14990, badge:"D50B0", img:"ignitioncover2.png", fit:"D50B0", tags:["D50B0","3D Print","Stealth"], desc:"Ignition Cover 2 — carbon style. Add colors, finish, custom text options." },
-          { id:"cover-3", name:"Ignition Cover 3", price: 15990, badge:"D50B0", img:"ignitioncover3.png", fit:"D50B0", tags:["D50B0","3D Print","Race"], desc:"Ignition Cover 3 — ribbed style. Add installation notes and what’s included." },
-          { id:"cover-4", name:"Ignition Cover 4", price: 15990, badge:"D50B0", img:"ignitioncover4.png", fit:"D50B0", tags:["D50B0","3D Print"], desc:"Ignition Cover 4 — add your real design name + details. (Create ignitioncover4.png)" },
-          { id:"cover-5", name:"Ignition Cover 5", price: 16990, badge:"D50B0", img:"ignitioncover5.png", fit:"D50B0", tags:["D50B0","3D Print","Limited"], desc:"Ignition Cover 5 — add your real design name + details. (Create ignitioncover5.png)" }
+          { id:"cover-1", name:"Ignition Cover 1", badge:"D50B0", img:"ignitioncover1.png", fit:"D50B0", tags:["D50B0","3D Print","RedLine"], base_eur: 35.90,
+            desc:"Ignition Cover 1. Add your real material/finish notes here.",
+            options:{ color:["Black-Red","Black-Blue","Black-Purple"] }
+          },
+          { id:"cover-2", name:"Ignition Cover 2", badge:"D50B0", img:"ignitioncover2.png", fit:"D50B0", tags:["D50B0","3D Print"], base_eur: 37.90,
+            desc:"Ignition Cover 2. Add installation + what’s included.",
+            options:{ color:["Black-Red","Black-Blue","Black-Purple"] }
+          },
+          { id:"cover-3", name:"Ignition Cover 3", badge:"D50B0", img:"ignitioncover3.png", fit:"D50B0", tags:["D50B0","3D Print"], base_eur: 39.90,
+            desc:"Ignition Cover 3. Add your design name & details.",
+            options:{ color:["Black-Red","Black-Blue","Black-Purple"] }
+          },
+          { id:"cover-4", name:"Ignition Cover 4", badge:"D50B0", img:"ignitioncover4.png", fit:"D50B0", tags:["D50B0","3D Print"], base_eur: 39.90,
+            desc:"Ignition Cover 4. (Add ignitioncover4.png)",
+            options:{ color:["Black-Red","Black-Blue","Black-Purple"] }
+          },
+          { id:"cover-5", name:"Ignition Cover 5", badge:"D50B0", img:"ignitioncover5.png", fit:"D50B0", tags:["D50B0","3D Print","Limited"], base_eur: 41.90,
+            desc:"Ignition Cover 5. (Add ignitioncover5.png)",
+            options:{ color:["Black-Red","Black-Blue","Black-Purple"] }
+          }
         ]
       },
 
+      // AM6 / D50B0: first two products specified with color choices
       mix: {
         title: "AM6 / D50B0 Section",
-        desc: "Mixed compatibility products for AM6 and D50B0 builds. 5 products inside.",
+        desc: "Mixed compatibility items. Open “See more” to choose colors where available.",
+        useColorFilter: true,
         products: [
-          { id:"mix-1", name:"AM6/D50B0 Product 1", price: 7990, badge:"MIX", img:"mix1.png", fit:"AM6 / D50B0", tags:["AM6","D50B0"], desc:"Product 1 — placeholder. Add your real product name & description." },
-          { id:"mix-2", name:"AM6/D50B0 Product 2", price: 8990, badge:"MIX", img:"mix2.png", fit:"AM6 / D50B0", tags:["AM6","D50B0"], desc:"Product 2 — placeholder. Add specs and compatibility notes." },
-          { id:"mix-3", name:"AM6/D50B0 Product 3", price: 9990, badge:"MIX", img:"mix3.png", fit:"AM6 / D50B0", tags:["AM6","D50B0"], desc:"Product 3 — placeholder. Add what’s included, mounting info, etc." },
-          { id:"mix-4", name:"AM6/D50B0 Product 4", price: 10990, badge:"MIX", img:"mix4.png", fit:"AM6 / D50B0", tags:["AM6","D50B0"], desc:"Product 4 — placeholder. Add your real details." },
-          { id:"mix-5", name:"AM6/D50B0 Product 5", price: 11990, badge:"MIX", img:"mix5.png", fit:"AM6 / D50B0", tags:["AM6","D50B0"], desc:"Product 5 — placeholder. Add your real details." }
+          {
+            id:"throttle",
+            name:"Quick Throttle",
+            badge:"AM6/D50B0",
+            img:"mix1.png",
+            fit:"AM6 / D50B0",
+            tags:["Throttle","Tuning"],
+            base_eur: 19.90,
+            desc:"Quick throttle (gyorsgázkar). Choose color in “See more”.",
+            options:{ color:["Black","Red","Purple","White","Blue"] }
+          },
+          {
+            id:"hydro-fender",
+            name:"Hydraulic Front Fender",
+            badge:"AM6/D50B0",
+            img:"mix2.png",
+            fit:"AM6 / D50B0",
+            tags:["Front Fender","Hydraulic"],
+            base_eur: 24.90,
+            desc:"Hydraulic front fender (hidraulikus első sárvédő). Choose color in “See more”.",
+            options:{ color:["White","Black"] }
+          },
+          // 3 placeholders (still 5 total as you asked earlier)
+          { id:"mix-3", name:"AM6/D50B0 Product 3", badge:"MIX", img:"mix3.png", fit:"AM6 / D50B0", tags:["AM6","D50B0"], base_eur: 14.90, desc:"Placeholder product. Replace later.", options:{ color:["Black","Red","Blue"] } },
+          { id:"mix-4", name:"AM6/D50B0 Product 4", badge:"MIX", img:"mix4.png", fit:"AM6 / D50B0", tags:["AM6","D50B0"], base_eur: 16.90, desc:"Placeholder product. Replace later.", options:{ color:["Black","White"] } },
+          { id:"mix-5", name:"AM6/D50B0 Product 5", badge:"MIX", img:"mix5.png", fit:"AM6 / D50B0", tags:["AM6","D50B0"], base_eur: 18.90, desc:"Placeholder product. Replace later.", options:{ color:["Black"] } }
         ]
       }
     };
@@ -920,10 +936,13 @@
     let currentProduct = null;
     let currentQty = 1;
 
-    // Cart
-    const cart = new Map(); // id -> {id,name,price,qty}
+    // Current selected options for checkout
+    let selectedSize = null;
+    let selectedColor = null;
 
-    const fmtFt = (n) => new Intl.NumberFormat("hu-HU").format(n) + " Ft";
+    // Cart
+    const cart = new Map(); // id -> {name, price_eur, qty, optsText}
+
     const $ = (sel) => document.querySelector(sel);
 
     function escapeHtml(str){
@@ -932,97 +951,133 @@
       }[s]));
     }
 
+    // Views
     function showSections(){
-      $("#shop").classList.add("hidden");
-      document.querySelector("#sections").scrollIntoView({behavior:"smooth"});
+      $("#sectionsView").classList.remove("hidden");
+      $("#shopView").classList.add("hidden");
+
+      // scroll container to top of sections view
+      $("#appScroll").scrollTop = 0;
+
       currentSectionKey = null;
       $("#search").value = "";
-      renderProducts(); // clears grid safely
+      $("#productGrid").innerHTML = "";
     }
     window.showSections = showSections;
 
     function openSection(key){
       const section = SECTIONS[key];
       if (!section) return;
+
       currentSectionKey = key;
 
       $("#shopTitle").textContent = section.title;
       $("#shopDesc").textContent = section.desc;
 
-      $("#shop").classList.remove("hidden");
+      // Show/hide color filter depending on section
+      const useColor = !!section.useColorFilter;
+      $("#colorFilterLabel").style.display = useColor ? "inline" : "none";
+      $("#colorFilter").style.display = useColor ? "inline-block" : "none";
+      $("#colorFilter").value = "any";
+
+      $("#sectionsView").classList.add("hidden");
+      $("#shopView").classList.remove("hidden");
+
+      // lock: once section is open, you are inside this section content (no “scroll back up” to sections)
+      $("#appScroll").scrollTop = 0;
+
       $("#search").value = "";
       renderProducts();
-
-      document.querySelector("#shop").scrollIntoView({behavior:"smooth"});
     }
     window.openSection = openSection;
 
-    // Products grid
+    // Product grid render
     function renderProducts(){
       const grid = $("#productGrid");
-      if (!grid) return;
       grid.innerHTML = "";
 
-      if (!currentSectionKey){
-        grid.innerHTML = "";
-        return;
-      }
-
+      if (!currentSectionKey) return;
       const section = SECTIONS[currentSectionKey];
-      const q = ($("#search").value || "").trim().toLowerCase();
 
+      const q = ($("#search").value || "").trim().toLowerCase();
+      const colorFilter = ($("#colorFilter").style.display === "none") ? "any" : ($("#colorFilter").value || "any");
+
+      // Color filter rules:
+      // - If product has options.color:
+      //   - match if selected colorFilter matches the chosen color or exists in list (rough matching)
+      // - If product has no colors, always pass.
       const filtered = section.products.filter(p => {
-        if (!q) return true;
-        return (
-          p.name.toLowerCase().includes(q) ||
-          p.tags.join(" ").toLowerCase().includes(q) ||
+        const bySearch = !q ? true : (
+          (p.name || "").toLowerCase().includes(q) ||
+          (p.tags || []).join(" ").toLowerCase().includes(q) ||
           (p.fit || "").toLowerCase().includes(q)
         );
+
+        let byColor = true;
+        if (colorFilter !== "any" && p.options && Array.isArray(p.options.color)){
+          const list = p.options.color.map(c => c.toLowerCase());
+          // simple matching for black-red etc.
+          byColor = list.some(c => c.includes(colorFilter.toLowerCase()));
+        }
+
+        return bySearch && byColor;
       });
 
       if (filtered.length === 0){
         grid.innerHTML = `<div style="grid-column:1/-1; padding:16px; border:1px solid rgba(255,255,255,.10); border-radius:16px; background:rgba(255,255,255,.04)">
           <div style="font-weight:950; text-transform:uppercase; letter-spacing:.6px;">No results</div>
-          <div style="margin-top:6px; color:rgba(255,255,255,.66); font-size:13px;">Try a different search or clear it.</div>
+          <div style="margin-top:6px; color:rgba(255,255,255,.66); font-size:13px;">Try a different search or color filter.</div>
         </div>`;
         return;
       }
 
       for (const p of filtered){
+        // Determine displayed price:
+        // - Carb products: show "from" min size price (EUR base)
+        // - Others: show base_eur
+        let displayPriceEur = p.base_eur ?? null;
+        let priceLabel = "";
+        if (p.options && p.options.size){
+          const min = Math.min(...p.options.size.map(s => s.price_eur));
+          displayPriceEur = min;
+          priceLabel = "From ";
+        } else if (typeof displayPriceEur !== "number"){
+          displayPriceEur = 0;
+        }
+
         const card = document.createElement("article");
         card.className = "card";
-
         card.innerHTML = `
           <div class="thumb">
             <img src="${escapeHtml(p.img)}" alt="${escapeHtml(p.name)}" />
-            <div class="tag">${escapeHtml(p.badge)}</div>
+            <div class="tag">${escapeHtml(p.badge || "ITEM")}</div>
           </div>
           <div class="cardBody">
             <div class="titleRow">
               <h3>${escapeHtml(p.name)}</h3>
-              <div class="price">${fmtFt(p.price)}</div>
+              <div class="price">${escapeHtml(priceLabel)}${escapeHtml(moneyFromEur(displayPriceEur))}</div>
             </div>
             <p class="desc">${escapeHtml(p.desc)}</p>
             <div class="pillrow">
-              ${p.tags.map(t => `<span class="miniPill">${escapeHtml(t)}</span>`).join("")}
-              <span class="miniPill">${escapeHtml(p.fit)}</span>
+              ${(p.tags||[]).map(t => `<span class="miniPill">${escapeHtml(t)}</span>`).join("")}
+              <span class="miniPill">${escapeHtml(p.fit || "")}</span>
             </div>
             <div class="cardActions">
               <button class="btn primary" data-open="${escapeHtml(p.id)}">See more</button>
-              <button class="btn" data-quickbuy="${escapeHtml(p.id)}">Buy</button>
+              <button class="btn" data-buy="${escapeHtml(p.id)}">Buy</button>
             </div>
           </div>
         `;
         grid.appendChild(card);
 
         card.querySelector('[data-open]').addEventListener("click", () => openProduct(p.id));
-        card.querySelector('[data-quickbuy]').addEventListener("click", () => {
-          openProduct(p.id);
+        card.querySelector('[data-buy]').addEventListener("click", () => {
+          openProduct(p.id); // user chooses options then hits Buy in modal
         });
       }
     }
 
-    // Find product across sections (simple)
+    // Find product
     function findProductById(id){
       for (const key of Object.keys(SECTIONS)){
         const p = SECTIONS[key].products.find(x => x.id === id);
@@ -1031,21 +1086,24 @@
       return null;
     }
 
-    // Product modal
+    // Product modal open
     function openProduct(id){
       const found = findProductById(id);
       if (!found) return;
 
       currentProduct = found.product;
       currentQty = 1;
+      selectedSize = null;
+      selectedColor = null;
 
       $("#modalImg").src = currentProduct.img;
       $("#modalImg").alt = currentProduct.name;
       $("#modalName").textContent = currentProduct.name;
-      $("#modalPrice").textContent = fmtFt(currentProduct.price);
       $("#modalDesc").textContent = currentProduct.desc;
       $("#modalFit").textContent = currentProduct.fit || "—";
+      $("#qtyVal").textContent = String(currentQty);
 
+      // Specs chips
       const specs = $("#modalSpecs");
       specs.innerHTML = "";
       (currentProduct.tags || []).forEach(t => {
@@ -1055,10 +1113,80 @@
         specs.appendChild(s);
       });
 
-      $("#qtyVal").textContent = String(currentQty);
+      // Option rows reset
+      $("#optionRow1").style.display = "none";
+      $("#optionRow2").style.display = "none";
+      $("#opt1Select").innerHTML = "";
+      $("#opt2Select").innerHTML = "";
+
+      // If carb with size options
+      if (currentProduct.options && currentProduct.options.size){
+        $("#optionRow1").style.display = "flex";
+        $("#opt1Label").textContent = "Size";
+        currentProduct.options.size.forEach((s, idx) => {
+          const opt = document.createElement("option");
+          opt.value = s.label;
+          opt.textContent = `${s.label} • ${moneyFromEur(s.price_eur)}`;
+          $("#opt1Select").appendChild(opt);
+          if (idx === 0) selectedSize = s.label;
+        });
+
+        // Price in modal based on selected size
+        $("#opt1Select").addEventListener("change", () => {
+          selectedSize = $("#opt1Select").value;
+          updateModalPrice();
+        }, { once:false });
+
+        // Initialize
+        selectedSize = $("#opt1Select").value;
+      }
+
+      // If product has color options
+      if (currentProduct.options && Array.isArray(currentProduct.options.color)){
+        const row = (currentProduct.options.size) ? "optionRow2" : "optionRow1";
+        const label = (currentProduct.options.size) ? "#opt2Label" : "#opt1Label";
+        const select = (currentProduct.options.size) ? "#opt2Select" : "#opt1Select";
+
+        $( "#" + row ).style.display = "flex";
+        $(label).textContent = "Color";
+
+        currentProduct.options.color.forEach((c, idx) => {
+          const opt = document.createElement("option");
+          opt.value = c;
+          opt.textContent = c;
+          $(select).appendChild(opt);
+          if (idx === 0) selectedColor = c;
+        });
+
+        // Default selection
+        selectedColor = $(select).value;
+
+        // Change handlers
+        $(select).addEventListener("change", () => {
+          selectedColor = $(select).value;
+          updateModalPrice();
+        }, { once:false });
+      }
+
+      updateModalPrice();
+
       $("#productBackdrop").style.display = "flex";
     }
     window.openProduct = openProduct;
+
+    function getSelectedBasePriceEur(){
+      if (!currentProduct) return 0;
+      if (currentProduct.options && currentProduct.options.size){
+        const chosen = currentProduct.options.size.find(s => s.label === selectedSize) || currentProduct.options.size[0];
+        return chosen ? chosen.price_eur : 0;
+      }
+      return currentProduct.base_eur ?? 0;
+    }
+
+    function updateModalPrice(){
+      const eur = getSelectedBasePriceEur();
+      $("#modalPrice").textContent = moneyFromEur(eur);
+    }
 
     function closeProduct(){
       $("#productBackdrop").style.display = "none";
@@ -1088,18 +1216,19 @@
       $("#cartCount").textContent = totalQty;
     }
 
-    function cartTotal(){
+    function cartTotalEur(){
       let sum = 0;
-      for (const item of cart.values()) sum += item.price * item.qty;
+      for (const item of cart.values()) sum += item.price_eur * item.qty;
       return sum;
     }
 
-    function addToCart(product, qty){
-      const existing = cart.get(product.id);
+    function addToCart(product, qty, optsText, priceEur){
+      const key = product.id + " :: " + (optsText || "");
+      const existing = cart.get(key);
       if (existing){
         existing.qty += qty;
       } else {
-        cart.set(product.id, { id: product.id, name: product.name, price: product.price, qty });
+        cart.set(key, { name: product.name, price_eur: priceEur, qty, optsText });
       }
       setCartCount();
       renderCart();
@@ -1111,7 +1240,7 @@
 
       if (cart.size === 0){
         list.innerHTML = `<div class="line"><strong>Your cart is empty</strong><span>—</span></div>`;
-        $("#cartTotal").textContent = fmtFt(0);
+        $("#cartTotal").textContent = moneyFromEur(0);
         return;
       }
 
@@ -1119,21 +1248,22 @@
         const row = document.createElement("div");
         row.className = "line";
         row.innerHTML = `
-          <strong>${escapeHtml(item.name)} × ${item.qty}</strong>
-          <span>${fmtFt(item.price * item.qty)}</span>
+          <strong>${escapeHtml(item.name)}${item.optsText ? " • " + escapeHtml(item.optsText) : ""} × ${item.qty}</strong>
+          <span>${moneyFromEur(item.price_eur * item.qty)}</span>
         `;
         list.appendChild(row);
       }
 
-      $("#cartTotal").textContent = fmtFt(cartTotal());
+      $("#cartTotal").textContent = moneyFromEur(cartTotalEur());
     }
 
     // Checkout
-    function openCheckout(product, qty){
+    function openCheckout(product, qty, optsText, priceEur){
       $("#coName").textContent = product.name;
-      $("#coPrice").textContent = fmtFt(product.price);
+      $("#coPrice").textContent = moneyFromEur(priceEur);
       $("#coQty").textContent = String(qty);
-      $("#coTotal").textContent = fmtFt(product.price * qty);
+      $("#coOptions").textContent = optsText || "—";
+      $("#coTotal").textContent = moneyFromEur(priceEur * qty);
       $("#checkoutBackdrop").style.display = "flex";
     }
 
@@ -1141,11 +1271,19 @@
       $("#checkoutBackdrop").style.display = "none";
     }
 
+    // Buy button in modal → add to cart → checkout
     $("#buyNow").addEventListener("click", () => {
       if (!currentProduct) return;
-      addToCart(currentProduct, currentQty);
+
+      const priceEur = getSelectedBasePriceEur();
+      const opts = [];
+      if (selectedSize) opts.push(`Size: ${selectedSize}`);
+      if (selectedColor) opts.push(`Color: ${selectedColor}`);
+      const optsText = opts.join(" | ");
+
+      addToCart(currentProduct, currentQty, optsText, priceEur);
       closeProduct();
-      openCheckout(currentProduct, currentQty);
+      openCheckout(currentProduct, currentQty, optsText, priceEur);
     });
 
     $("#closeCheckout").addEventListener("click", closeCheckout);
@@ -1167,8 +1305,18 @@
       closeCheckout();
     });
 
-    // Search (only searches inside the currently opened section)
+    // Search + color filter inside section
     $("#search").addEventListener("input", renderProducts);
+    $("#colorFilter").addEventListener("change", renderProducts);
+
+    // Currency switch
+    $("#currencySelect").addEventListener("change", () => {
+      currency = $("#currencySelect").value;
+      // Update any visible UI
+      if (currentSectionKey) renderProducts();
+      if (currentProduct) updateModalPrice();
+      renderCart();
+    });
 
     // Cart modal
     function openCart(){ $("#cartBackdrop").style.display = "flex"; renderCart(); }
@@ -1191,11 +1339,10 @@
       alert("Demo cart checkout ✅\nThis is where you’d checkout the full cart.");
     });
 
-    // Init
-    $("#year").textContent = new Date().getFullYear();
+    // INIT
+    showSections();
     renderCart();
     setCartCount();
-    showSections();
   </script>
 </body>
 </html>
