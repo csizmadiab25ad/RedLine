@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -7,571 +8,919 @@
   <meta name="description" content="RedLine — D50B0 / AM6 tuning parts and 3D printed ignition covers. Weekly drops." />
 
   <style>
-    :root{
-      --bg:#070709;
-      --bg2:#0b0b10;
-      --panel: rgba(255,255,255,.05);
-      --panel2: rgba(255,255,255,.035);
-      --stroke: rgba(255,255,255,.10);
-      --stroke2: rgba(255,255,255,.14);
+    :root {
+      --bg: #070709;
+      --bg2: #0b0b10;
+      --panel: rgba(255, 255, 255, .05);
+      --panel2: rgba(255, 255, 255, .035);
+      --stroke: rgba(255, 255, 255, .10);
+      --stroke2: rgba(255, 255, 255, .14);
 
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.68);
+      --text: rgba(255, 255, 255, .92);
+      --muted: rgba(255, 255, 255, .68);
 
-      --accent:#ff1f1f;
-      --accent2:#ff3b3b;
+      --accent: #ff1f1f;
+      --accent2: #ff3b3b;
 
-      --shadow: 0 22px 90px rgba(0,0,0,.62);
+      --shadow: 0 22px 90px rgba(0, 0, 0, .62);
 
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
     }
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
+    * {
+      box-sizing: border-box
+    }
 
-    body{
-      margin:0;
+    html,
+    body {
+      height: 100%
+    }
+
+    body {
+      margin: 0;
       font-family: var(--sans);
       color: var(--text);
-      overflow:hidden; /* page itself doesn't scroll */
+      overflow: hidden;
+      /* page itself doesn't scroll */
       background:
-        radial-gradient(1000px 520px at 40% -10%, rgba(255,31,31,.22), transparent 60%),
-        radial-gradient(900px 520px at 10% 30%, rgba(255,31,31,.10), transparent 62%),
-        radial-gradient(900px 520px at 90% 40%, rgba(255,31,31,.08), transparent 62%),
+        radial-gradient(1000px 520px at 40% -10%, rgba(255, 31, 31, .22), transparent 60%),
+        radial-gradient(900px 520px at 10% 30%, rgba(255, 31, 31, .10), transparent 62%),
+        radial-gradient(900px 520px at 90% 40%, rgba(255, 31, 31, .08), transparent 62%),
         linear-gradient(180deg, var(--bg), var(--bg2));
-      position:relative;
+      position: relative;
 
       /* ✅ FIX: layout so scrolling area always reaches bottom */
-      display:flex;
-      flex-direction:column;
-      min-height:100vh;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
 
     /* subtle tech grid */
-    body:before{
-      content:"";
-      position:absolute; inset:0;
+    body:before {
+      content: "";
+      position: absolute;
+      inset: 0;
       background:
-        linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255,255,255,.06) 1px, transparent 1px);
+        linear-gradient(to right, rgba(255, 255, 255, .06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, .06) 1px, transparent 1px);
       background-size: 42px 42px;
-      opacity:.06;
-      pointer-events:none;
+      opacity: .06;
+      pointer-events: none;
       mix-blend-mode: screen;
     }
 
-    a{color:inherit; text-decoration:none}
-    button, select, input{font-family:inherit}
-    img{max-width:100%; display:block}
-    .wrap{max-width:1180px; margin:0 auto; padding: 0 16px}
+    a {
+      color: inherit;
+      text-decoration: none
+    }
 
-    .promo{
-      background: linear-gradient(90deg, rgba(255,31,31,.95), rgba(255,31,31,.72));
-      color: rgba(0,0,0,.92);
+    button,
+    select,
+    input {
+      font-family: inherit
+    }
+
+    img {
+      max-width: 100%;
+      display: block
+    }
+
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 16px
+    }
+
+    .promo {
+      background: linear-gradient(90deg, rgba(255, 31, 31, .95), rgba(255, 31, 31, .72));
+      color: rgba(0, 0, 0, .92);
       font-weight: 950;
       letter-spacing: .2px;
       font-size: 12.5px;
-      position:relative;
-      z-index:60;
-      flex:0 0 auto;
+      position: relative;
+      z-index: 60;
+      flex: 0 0 auto;
     }
-    .promo .inner{
-      display:flex; gap:12px; flex-wrap:wrap;
-      align-items:center; justify-content:space-between;
+
+    .promo .inner {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
       padding: 10px 0;
     }
-    .dot{width:8px; height:8px; border-radius:999px; background: rgba(0,0,0,.85); display:inline-block}
 
-    header{
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, .85);
+      display: inline-block
+    }
+
+    header {
       position: sticky;
       top: 0;
       z-index: 55;
       backdrop-filter: blur(16px);
-      background: rgba(10,10,14,.75);
+      background: rgba(10, 10, 14, .75);
       border-bottom: 1px solid var(--stroke);
-      flex:0 0 auto;
-    }
-    .topbar{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:12px; padding: 12px 0;
+      flex: 0 0 auto;
     }
 
-    .brand{
-      display:flex; align-items:center; gap:10px;
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
       font-weight: 950;
       letter-spacing: .2px;
       min-width: 170px;
     }
-    .brandLogo{
-      width:40px; height:40px;
+
+    .brandLogo {
+      width: 40px;
+      height: 40px;
       border-radius: 12px;
       object-fit: cover;
-      border: 1px solid rgba(255,255,255,.16);
-      background: rgba(255,255,255,.04);
-      box-shadow: 0 14px 42px rgba(255,31,31,.18);
+      border: 1px solid rgba(255, 255, 255, .16);
+      background: rgba(255, 255, 255, .04);
+      box-shadow: 0 14px 42px rgba(255, 31, 31, .18);
     }
-    .brand small{
-      display:block;
-      font-weight:900;
-      color: rgba(255,255,255,.68);
+
+    .brand small {
+      display: block;
+      font-weight: 900;
+      color: rgba(255, 255, 255, .68);
       letter-spacing: .6px;
       text-transform: uppercase;
       font-size: 11px;
-      margin-top:2px;
+      margin-top: 2px;
     }
 
-    .nav{
-      display:flex; align-items:center; gap:10px; flex-wrap:wrap;
-      color: rgba(255,255,255,.70);
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      color: rgba(255, 255, 255, .70);
       font-weight: 900;
       text-transform: uppercase;
       letter-spacing: .8px;
       font-size: 11.5px;
     }
-    .nav a{padding: 9px 10px; border-radius: 999px;}
-    .nav a:hover{background: rgba(255,255,255,.06); color: rgba(255,255,255,.92);}
 
-    .actions{display:flex; align-items:center; gap:10px;}
+    .nav a {
+      padding: 9px 10px;
+      border-radius: 999px;
+    }
 
-    .btn{
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
+    .nav a:hover {
+      background: rgba(255, 255, 255, .06);
+      color: rgba(255, 255, 255, .92);
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      border: 1px solid rgba(255, 255, 255, .14);
+      background: rgba(255, 255, 255, .06);
       color: var(--text);
       padding: 10px 12px;
       border-radius: 12px;
-      cursor:pointer;
+      cursor: pointer;
       transition: transform .12s ease, background .12s ease, border-color .12s ease;
       font-weight: 950;
       white-space: nowrap;
     }
-    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.085); border-color: rgba(255,255,255,.22);}
-    .btn.primary{
-      background: linear-gradient(135deg, rgba(255,31,31,.98), rgba(255,31,31,.68));
-      border-color: rgba(255,255,255,.18);
-      box-shadow: 0 18px 60px rgba(255,31,31,.18);
-    }
-    .btn.ghost{background: transparent; border-color: rgba(255,255,255,.14);}
 
-    .badge{
-      min-width: 22px; height: 22px;
-      display:inline-flex; align-items:center; justify-content:center;
-      padding: 0 7px; border-radius: 999px;
-      background: rgba(255,255,255,.12);
-      border: 1px solid rgba(255,255,255,.18);
+    .btn:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, .085);
+      border-color: rgba(255, 255, 255, .22);
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, rgba(255, 31, 31, .98), rgba(255, 31, 31, .68));
+      border-color: rgba(255, 255, 255, .18);
+      box-shadow: 0 18px 60px rgba(255, 31, 31, .18);
+    }
+
+    .btn.ghost {
+      background: transparent;
+      border-color: rgba(255, 255, 255, .14);
+    }
+
+    .badge {
+      min-width: 22px;
+      height: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 7px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .12);
+      border: 1px solid rgba(255, 255, 255, .18);
       font-size: 12px;
-      margin-left:8px;
+      margin-left: 8px;
     }
 
-    .select{
+    .select {
       padding: 10px 12px;
       border-radius: 12px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255, 255, 255, .14);
+      background: rgba(255, 255, 255, .06);
       color: var(--text);
-      outline:none;
+      outline: none;
       font-weight: 950;
       text-transform: uppercase;
       letter-spacing: .6px;
       font-size: 12px;
-      cursor:pointer;
+      cursor: pointer;
     }
 
     /* ✅ FIX: app scroll uses flex, so it always scrolls to bottom */
-    .appScroll{
-      flex:1 1 auto;
-      min-height: 0;      /* IMPORTANT for flex scrolling */
-      overflow:auto;
-      scroll-behavior:smooth;
-      position:relative;
-      z-index:1;
+    .appScroll {
+      flex: 1 1 auto;
+      min-height: 0;
+      /* IMPORTANT for flex scrolling */
+      overflow: auto;
+      scroll-behavior: smooth;
+      position: relative;
+      z-index: 1;
     }
-    .appContent{padding: 16px 0 26px}
 
-    section{padding: 10px 0 22px}
-    .sectionHead{
-      display:flex; align-items:flex-end; justify-content:space-between; gap:12px;
+    .appContent {
+      padding: 16px 0 26px
+    }
+
+    section {
+      padding: 10px 0 22px
+    }
+
+    .sectionHead {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 12px;
       margin: 6px 0 12px;
     }
-    .sectionHead h2{
-      margin:0;
+
+    .sectionHead h2 {
+      margin: 0;
       font-size: 14px;
       letter-spacing: .9px;
       text-transform: uppercase;
     }
-    .sectionHead p{
-      margin:6px 0 0;
-      color: rgba(255,255,255,.66);
+
+    .sectionHead p {
+      margin: 6px 0 0;
+      color: rgba(255, 255, 255, .66);
       font-size: 13px;
       max-width: 90ch;
-      line-height:1.6;
+      line-height: 1.6;
     }
 
-    .hero{
+    .hero {
       border-radius: 22px;
-      overflow:hidden;
-      border: 1px solid rgba(255,255,255,.12);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, .12);
       box-shadow: var(--shadow);
       background:
-        radial-gradient(900px 420px at 20% 20%, rgba(255,31,31,.25), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
-      position:relative;
+        radial-gradient(900px 420px at 20% 20%, rgba(255, 31, 31, .25), transparent 60%),
+        linear-gradient(180deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, .02));
+      position: relative;
     }
-    .hero:after{
-      content:"";
-      position:absolute; inset:-1px;
+
+    .hero:after {
+      content: "";
+      position: absolute;
+      inset: -1px;
       background:
-        linear-gradient(90deg, rgba(255,31,31,.24), transparent 55%),
-        linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.55));
-      pointer-events:none;
+        linear-gradient(90deg, rgba(255, 31, 31, .24), transparent 55%),
+        linear-gradient(180deg, rgba(0, 0, 0, .05), rgba(0, 0, 0, .55));
+      pointer-events: none;
     }
-    .heroInner{
-      position:relative;
-      z-index:2;
+
+    .heroInner {
+      position: relative;
+      z-index: 2;
       padding: 18px;
-      display:grid;
+      display: grid;
       grid-template-columns: 1.05fr .95fr;
       gap: 14px;
-      align-items:center;
+      align-items: center;
     }
-    .kicker{
-      display:inline-flex; align-items:center; gap:10px;
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
       font-family: var(--mono);
-      color: rgba(255,255,255,.80);
+      color: rgba(255, 255, 255, .80);
       font-size: 12px;
       letter-spacing: .7px;
       padding: 8px 12px;
-      background: rgba(0,0,0,.22);
-      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0, 0, 0, .22);
+      border: 1px solid rgba(255, 255, 255, .12);
       border-radius: 999px;
       width: fit-content;
       backdrop-filter: blur(10px);
     }
-    .kdot{
-      width:8px; height:8px; border-radius:999px;
+
+    .kdot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
       background: var(--accent);
-      box-shadow: 0 0 0 4px rgba(255,31,31,.16);
+      box-shadow: 0 0 0 4px rgba(255, 31, 31, .16);
     }
-    .hero h1{
+
+    .hero h1 {
       margin: 10px 0 0;
       font-size: clamp(26px, 3.2vw, 44px);
       line-height: 1.06;
       letter-spacing: -0.6px;
     }
-    .heroLead{
+
+    .heroLead {
       margin: 10px 0 0;
-      color: rgba(255,255,255,.72);
+      color: rgba(255, 255, 255, .72);
       font-size: 14.5px;
       line-height: 1.65;
       max-width: 70ch;
     }
-    .heroCtas{
-      display:flex; gap:10px; flex-wrap:wrap;
+
+    .heroCtas {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
       margin-top: 14px;
-      align-items:center;
+      align-items: center;
     }
-    .heroPanel{
+
+    .heroPanel {
       border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.20);
+      border: 1px solid rgba(255, 255, 255, .12);
+      background: rgba(0, 0, 0, .20);
       padding: 12px;
-      display:flex;
-      gap:12px;
-      align-items:center;
+      display: flex;
+      gap: 12px;
+      align-items: center;
       backdrop-filter: blur(10px);
     }
-    .heroPanel img{
-      width: 132px; height: 132px;
+
+    .heroPanel img {
+      width: 132px;
+      height: 132px;
       object-fit: cover;
       border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255, 255, 255, .12);
+      background: rgba(255, 255, 255, .03);
     }
-    .heroPanel strong{display:block; font-size: 13.5px; letter-spacing:.2px}
-    .heroPanel p{margin:6px 0 0; color: rgba(255,255,255,.70); font-size: 12.5px; line-height:1.55}
 
-    .grid{
-      display:grid;
+    .heroPanel strong {
+      display: block;
+      font-size: 13.5px;
+      letter-spacing: .2px
+    }
+
+    .heroPanel p {
+      margin: 6px 0 0;
+      color: rgba(255, 255, 255, .70);
+      font-size: 12.5px;
+      line-height: 1.55
+    }
+
+    .grid {
+      display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 14px;
     }
 
-    .card{
+    .card {
       border-radius: 18px;
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      border: 1px solid rgba(255,255,255,.12);
-      box-shadow: 0 16px 60px rgba(0,0,0,.40);
-      overflow:hidden;
+      background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .03));
+      border: 1px solid rgba(255, 255, 255, .12);
+      box-shadow: 0 16px 60px rgba(0, 0, 0, .40);
+      overflow: hidden;
       transition: transform .14s ease, border-color .14s ease, background .14s ease;
     }
-    .card:hover{transform: translateY(-2px); border-color: rgba(255,255,255,.20);}
-    .thumb{
-      height: 190px;
-      position:relative;
-      border-bottom: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.25);
+
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, .20);
     }
-    .thumb img{width:100%; height:100%; object-fit: cover;}
-    .tag{
-      position:absolute; left: 12px; top: 12px;
+
+    .thumb {
+      height: 190px;
+      position: relative;
+      border-bottom: 1px solid rgba(255, 255, 255, .10);
+      background: rgba(0, 0, 0, .25);
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .tag {
+      position: absolute;
+      left: 12px;
+      top: 12px;
       padding: 8px 10px;
       border-radius: 999px;
       font-size: 12px;
       font-family: var(--mono);
-      background: rgba(0,0,0,.55);
-      border: 1px solid rgba(255,255,255,.14);
-      color: rgba(255,255,255,.88);
+      background: rgba(0, 0, 0, .55);
+      border: 1px solid rgba(255, 255, 255, .14);
+      color: rgba(255, 255, 255, .88);
       backdrop-filter: blur(10px);
       text-transform: uppercase;
       letter-spacing: .5px;
     }
-    .cardBody{padding: 14px; display:flex; flex-direction:column; gap:10px}
-    .titleRow{display:flex; align-items:flex-start; justify-content:space-between; gap:10px}
-    .card h3{margin:0; font-size: 15px; letter-spacing:.2px}
-    .price{font-weight: 950; font-size: 14.5px; color: rgba(255,255,255,.92); white-space:nowrap;}
-    .desc{margin:0; color: rgba(255,255,255,.68); font-size: 13px; line-height: 1.55;}
-    .pillrow{display:flex; gap:8px; flex-wrap:wrap}
-    .miniPill{
+
+    .cardBody {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    .titleRow {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 15px;
+      letter-spacing: .2px
+    }
+
+    .price {
+      font-weight: 950;
+      font-size: 14.5px;
+      color: rgba(255, 255, 255, .92);
+      white-space: nowrap;
+    }
+
+    .desc {
+      margin: 0;
+      color: rgba(255, 255, 255, .68);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .pillrow {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap
+    }
+
+    .miniPill {
       padding: 7px 9px;
       border-radius: 999px;
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.10);
-      color: rgba(255,255,255,.74);
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(255, 255, 255, .10);
+      color: rgba(255, 255, 255, .74);
       font-size: 12px;
       font-family: var(--mono);
     }
-    .cardActions{display:flex; gap:10px; margin-top: 2px; align-items:center}
 
-    .catGrid{
-      display:grid;
+    .cardActions {
+      display: flex;
+      gap: 10px;
+      margin-top: 2px;
+      align-items: center
+    }
+
+    .catGrid {
+      display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 14px;
     }
-    .catCard{
+
+    .catCard {
       border-radius: 18px;
-      overflow:hidden;
-      border: 1px solid rgba(255,255,255,.12);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      box-shadow: 0 16px 60px rgba(0,0,0,.40);
-      cursor:pointer;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, .12);
+      background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .03));
+      box-shadow: 0 16px 60px rgba(0, 0, 0, .40);
+      cursor: pointer;
       transition: transform .14s ease, border-color .14s ease, background .14s ease;
-      position:relative;
+      position: relative;
       min-height: 220px;
     }
-    .catCard:hover{transform: translateY(-2px); border-color: rgba(255,255,255,.20);}
-    .catImg{position:absolute; inset:0;}
-    .catImg img{width:100%; height:100%; object-fit: cover; filter: contrast(1.02) saturate(1.02);}
-    .catOverlay{
-      position:absolute; inset:0;
-      background:
-        linear-gradient(180deg, rgba(0,0,0,.22), rgba(0,0,0,.86)),
-        radial-gradient(700px 220px at 20% 30%, rgba(255,31,31,.24), transparent 60%);
+
+    .catCard:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, .20);
     }
-    .catContent{position:absolute; left: 14px; right: 14px; bottom: 14px; display:flex; flex-direction:column; gap:8px;}
-    .catPill{
+
+    .catImg {
+      position: absolute;
+      inset: 0;
+    }
+
+    .catImg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: contrast(1.02) saturate(1.02);
+    }
+
+    .catOverlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, .22), rgba(0, 0, 0, .86)),
+        radial-gradient(700px 220px at 20% 30%, rgba(255, 31, 31, .24), transparent 60%);
+    }
+
+    .catContent {
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      bottom: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .catPill {
       width: fit-content;
       padding: 7px 9px;
       border-radius: 999px;
-      background: rgba(0,0,0,.45);
-      border: 1px solid rgba(255,255,255,.12);
-      color: rgba(255,255,255,.84);
+      background: rgba(0, 0, 0, .45);
+      border: 1px solid rgba(255, 255, 255, .12);
+      color: rgba(255, 255, 255, .84);
       font-family: var(--mono);
       font-size: 12px;
       text-transform: uppercase;
       letter-spacing: .6px;
       backdrop-filter: blur(10px);
     }
-    .catTitle{margin:0; font-size: 16px; letter-spacing:.2px; font-weight: 950;}
-    .catDesc{margin:0; color: rgba(255,255,255,.72); font-size: 13px; line-height:1.55;}
 
-    .controls{
-      display:flex; gap:10px; flex-wrap:wrap;
+    .catTitle {
+      margin: 0;
+      font-size: 16px;
+      letter-spacing: .2px;
+      font-weight: 950;
+    }
+
+    .catDesc {
+      margin: 0;
+      color: rgba(255, 255, 255, .72);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
       padding: 12px;
       border-radius: 16px;
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.10);
-      align-items:center;
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(255, 255, 255, .10);
+      align-items: center;
       margin: 12px 0 0;
     }
-    .controls .label{
+
+    .controls .label {
       font-family: var(--mono);
       font-size: 12px;
-      color: rgba(255,255,255,.70);
+      color: rgba(255, 255, 255, .70);
       text-transform: uppercase;
       letter-spacing: .6px;
       margin-right: 2px;
     }
-    .input{
+
+    .input {
       padding: 10px 12px;
       border-radius: 12px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.22);
+      border: 1px solid rgba(255, 255, 255, .12);
+      background: rgba(0, 0, 0, .22);
       color: var(--text);
-      outline:none;
+      outline: none;
       min-width: 220px;
       flex: 1;
     }
 
-    .modalBackdrop{
-      position:fixed; inset:0; z-index:100;
-      background: rgba(0,0,0,.64);
+    .modalBackdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(0, 0, 0, .64);
       backdrop-filter: blur(12px);
-      display:none;
-      align-items:center;
-      justify-content:center;
+      display: none;
+      align-items: center;
+      justify-content: center;
       padding: 16px;
     }
-    .modal{
-      width:min(980px, 100%);
+
+    .modal {
+      width: min(980px, 100%);
       border-radius: 22px;
-      background: rgba(16,16,20,.94);
-      border: 1px solid rgba(255,255,255,.14);
-      box-shadow: 0 30px 140px rgba(0,0,0,.70);
-      overflow:hidden;
+      background: rgba(16, 16, 20, .94);
+      border: 1px solid rgba(255, 255, 255, .14);
+      box-shadow: 0 30px 140px rgba(0, 0, 0, .70);
+      overflow: hidden;
     }
-    .modalHeader{
-      display:flex; align-items:center; justify-content:space-between;
+
+    .modalHeader {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       padding: 14px 14px;
-      border-bottom: 1px solid rgba(255,255,255,.10);
+      border-bottom: 1px solid rgba(255, 255, 255, .10);
     }
-    .modalHeader h3{
-      margin:0; font-size: 13px;
+
+    .modalHeader h3 {
+      margin: 0;
+      font-size: 13px;
       text-transform: uppercase;
       letter-spacing: .9px;
-      color: rgba(255,255,255,.80);
+      color: rgba(255, 255, 255, .80);
     }
-    .modalGrid{
-      display:grid;
+
+    .modalGrid {
+      display: grid;
       grid-template-columns: 1.05fr .95fr;
       gap: 0;
       min-height: 420px;
     }
-    .modalMedia{
-      background: rgba(0,0,0,.25);
-      border-right: 1px solid rgba(255,255,255,.10);
-      display:flex; align-items:center; justify-content:center;
+
+    .modalMedia {
+      background: rgba(0, 0, 0, .25);
+      border-right: 1px solid rgba(255, 255, 255, .10);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding: 16px;
     }
-    .modalMedia img{
+
+    .modalMedia img {
       width: 100%;
       max-height: 520px;
       object-fit: contain;
       border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255, 255, 255, .12);
+      background: rgba(255, 255, 255, .03);
     }
-    .modalInfo{
+
+    .modalInfo {
       padding: 16px;
-      display:flex;
-      flex-direction:column;
+      display: flex;
+      flex-direction: column;
       gap: 10px;
     }
-    .modalTitleRow{display:flex; align-items:flex-start; justify-content:space-between; gap:10px;}
-    .modalName{margin:0; font-size: 18px; letter-spacing:.2px}
-    .modalPrice{font-weight: 950; font-size: 18px; color: rgba(255,255,255,.92); white-space:nowrap;}
-    .modalDesc{margin:0; color: rgba(255,255,255,.74); font-size: 13.5px; line-height: 1.65;}
-    .specs{margin-top: 4px; display:flex; flex-wrap:wrap; gap:8px;}
-    .spec{
+
+    .modalTitleRow {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .modalName {
+      margin: 0;
+      font-size: 18px;
+      letter-spacing: .2px
+    }
+
+    .modalPrice {
+      font-weight: 950;
+      font-size: 18px;
+      color: rgba(255, 255, 255, .92);
+      white-space: nowrap;
+    }
+
+    .modalDesc {
+      margin: 0;
+      color: rgba(255, 255, 255, .74);
+      font-size: 13.5px;
+      line-height: 1.65;
+    }
+
+    .specs {
+      margin-top: 4px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .spec {
       padding: 7px 9px;
       border-radius: 999px;
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.10);
-      color: rgba(255,255,255,.74);
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(255, 255, 255, .10);
+      color: rgba(255, 255, 255, .74);
       font-size: 12px;
       font-family: var(--mono);
     }
-    .optionRow{margin-top: 2px; display:flex; flex-wrap:wrap; gap:10px; align-items:center;}
-    .optionRow .optLabel{
+
+    .optionRow {
+      margin-top: 2px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .optionRow .optLabel {
       font-family: var(--mono);
       font-size: 12px;
-      color: rgba(255,255,255,.70);
+      color: rgba(255, 255, 255, .70);
       text-transform: uppercase;
       letter-spacing: .6px;
       min-width: 54px;
     }
-    .qtyRow{margin-top: 6px; display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
-    .qty{
-      display:flex; gap:6px; align-items:center;
-      padding: 8px 10px;
-      border-radius: 12px;
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.10);
-    }
-    .qty button{
-      width: 30px; height: 30px; border-radius: 10px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      cursor:pointer;
-      font-weight: 950;
-    }
-    .qty span{min-width: 18px; text-align:center; font-family: var(--mono); font-size: 13px; color: rgba(255,255,255,.82)}
-    .buyRow{
-      margin-top:auto;
-      display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap;
-      padding-top: 12px;
-      border-top: 1px solid rgba(255,255,255,.10);
+
+    .qtyRow {
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
-    .checkout{width:min(720px, 100%);}
-    .line{
-      display:flex; align-items:center; justify-content:space-between; gap:10px;
+    .qty {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(255, 255, 255, .10);
+    }
+
+    .qty button {
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, .14);
+      background: rgba(255, 255, 255, .06);
+      color: var(--text);
+      cursor: pointer;
+      font-weight: 950;
+    }
+
+    .qty span {
+      min-width: 18px;
+      text-align: center;
+      font-family: var(--mono);
+      font-size: 13px;
+      color: rgba(255, 255, 255, .82)
+    }
+
+    .buyRow {
+      margin-top: auto;
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, .10);
+    }
+
+    .checkout {
+      width: min(720px, 100%);
+    }
+
+    .line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
       padding: 10px 12px;
       border-radius: 14px;
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(255, 255, 255, .10);
       margin-bottom: 10px;
     }
-    .line strong{font-size: 13px}
-    .line span{font-family: var(--mono); color: rgba(255,255,255,.82)}
-    .checkoutForm{
-      display:grid;
+
+    .line strong {
+      font-size: 13px
+    }
+
+    .line span {
+      font-family: var(--mono);
+      color: rgba(255, 255, 255, .82)
+    }
+
+    .checkoutForm {
+      display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
       margin-top: 10px;
     }
-    label{
-      display:block;
+
+    label {
+      display: block;
       font-size: 12px;
-      color: rgba(255,255,255,.70);
+      color: rgba(255, 255, 255, .70);
       margin: 8px 0 6px;
       font-weight: 900;
       text-transform: uppercase;
       letter-spacing: .6px;
     }
-    input, select{
-      width:100%;
+
+    input,
+    select {
+      width: 100%;
       padding: 12px 12px;
       border-radius: 12px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.22);
+      border: 1px solid rgba(255, 255, 255, .12);
+      background: rgba(0, 0, 0, .22);
       color: var(--text);
-      outline:none;
+      outline: none;
     }
-    .modalFooter{
-      display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap;
+
+    .modalFooter {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      flex-wrap: wrap;
       padding: 14px;
-      border-top: 1px solid rgba(255,255,255,.10);
+      border-top: 1px solid rgba(255, 255, 255, .10);
     }
 
-    @media (max-width: 980px){
-      .heroInner{grid-template-columns: 1fr}
-      .grid{grid-template-columns: repeat(2, minmax(0, 1fr))}
-      .catGrid{grid-template-columns: 1fr}
-      .modalGrid{grid-template-columns: 1fr}
-      .modalMedia{border-right:0; border-bottom: 1px solid rgba(255,255,255,.10)}
-      .checkoutForm{grid-template-columns: 1fr}
-    }
-    @media (max-width: 560px){
-      .grid{grid-template-columns: 1fr}
-      .nav{display:none}
-      .actions .btn.primary{display:none}
-      .brand small{display:none}
-      .heroPanel img{width: 110px; height: 110px}
-      .input{min-width: 0; width: 100%;}
+    @media (max-width: 980px) {
+      .heroInner {
+        grid-template-columns: 1fr
+      }
+
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr))
+      }
+
+      .catGrid {
+        grid-template-columns: 1fr
+      }
+
+      .modalGrid {
+        grid-template-columns: 1fr
+      }
+
+      .modalMedia {
+        border-right: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, .10)
+      }
+
+      .checkoutForm {
+        grid-template-columns: 1fr
+      }
     }
 
-    .hidden{display:none !important;}
+    @media (max-width: 560px) {
+      .grid {
+        grid-template-columns: 1fr
+      }
+
+      .nav {
+        display: none
+      }
+
+      .actions .btn.primary {
+        display: none
+      }
+
+      .brand small {
+        display: none
+      }
+
+      .heroPanel img {
+        width: 110px;
+        height: 110px
+      }
+
+      .input {
+        min-width: 0;
+        width: 100%;
+      }
+    }
+
+    .hidden {
+      display: none !important;
+    }
   </style>
 </head>
 
@@ -580,7 +929,7 @@
     <div class="wrap">
       <div class="inner">
         <span><span class="dot"></span> REDLINE • D50B0 / AM6 • WEEKLY DROPS</span>
-        <span>⚡ Black/Red tuning theme</span>
+        <span>⚡ WEEKLY DROPS</span>
       </div>
     </div>
   </div>
@@ -592,7 +941,7 @@
           <img class="brandLogo" src="redline-logo.png" alt="RedLine logo" />
           <div>
             RedLine
-            <small>Tuning + 3D Printed</small>
+            <small>Tuning Parts & 3D Printed Covers</small>
           </div>
         </a>
 
@@ -627,10 +976,10 @@
           <div class="heroInner">
             <div>
               <div class="kicker"><span class="kdot"></span> WEEKLY DROPS • PREMIUM PRODUCTS • D50B0 / AM6</div>
-              <h1>RedLine weekly drops<br/>for D50B0 & AM6.</h1>
+              <h1>RedLine weekly drops<br />for D50B0 & AM6.</h1>
               <p class="heroLead">
-                Tap <b>See more</b>, choose <b>size/color</b>, and the product image updates instantly.
-                Browser back button works like real pages.
+                Tap <b>See more</b>, choose <b>size/color</b> — upgrade your setup in
+                minutes.
               </p>
               <div class="heroCtas">
                 <button class="btn primary" onclick="goSections()">Browse sections</button>
@@ -899,10 +1248,10 @@
     };
     let currency = "EUR";
 
-    function moneyFromEur(eur){
+    function moneyFromEur(eur) {
       const fx = FX[currency];
       const value = eur * fx.rate;
-      if (currency === "HUF"){
+      if (currency === "HUF") {
         return new Intl.NumberFormat("hu-HU").format(Math.round(value)) + " " + fx.symbol;
       }
       return fx.symbol + new Intl.NumberFormat("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value);
@@ -912,28 +1261,28 @@
     // Option-image helpers
     // ✅ Works for EVERYTHING: size or color changes update the modal image
     // ---------------------------
-    function normalizeColorToken(colorLabel){
+    function normalizeColorToken(colorLabel) {
       // "Black-Red" -> "blackred", "Neon Green" -> "neongreen"
       return String(colorLabel)
         .toLowerCase()
-        .replace(/\s+/g,'')
-        .replace(/-/g,'')
-        .replace(/_/g,'');
+        .replace(/\s+/g, '')
+        .replace(/-/g, '')
+        .replace(/_/g, '');
     }
 
-    function buildColorFilename(prefix, colorLabel, ext="png"){
+    function buildColorFilename(prefix, colorLabel, ext = "png") {
       // Example: prefix="quickthrottle" + "White" => "whitequickthrottle.png"
       // Example: prefix="seatcover" + "Red" => "redseatcover.png"
       return `${normalizeColorToken(colorLabel)}${prefix}.${ext}`;
     }
 
-    function resolveVariantImage(product, sizeLabel, colorLabel){
+    function resolveVariantImage(product, sizeLabel, colorLabel) {
       // Priority:
       // 1) Explicit mapping in product.variantImages (object)
       // 2) Rule-based filename for colors if product.colorImagePrefix exists
       // 3) Rule-based filename for sizes if product.sizeImagePrefix exists
       // 4) fallback product.img
-      if (product.variantImages){
+      if (product.variantImages) {
         const keyParts = [];
         if (sizeLabel) keyParts.push(`size:${sizeLabel}`);
         if (colorLabel) keyParts.push(`color:${colorLabel}`);
@@ -946,13 +1295,13 @@
       }
 
       // color prefix rule
-      if (colorLabel && product.colorImagePrefix){
+      if (colorLabel && product.colorImagePrefix) {
         return buildColorFilename(product.colorImagePrefix, colorLabel, "png");
       }
 
       // size prefix rule (example: phbg17mm.png)
-      if (sizeLabel && product.sizeImagePrefix){
-        const token = String(sizeLabel).toLowerCase().replace(/\s+/g,'').replace(/-/g,'');
+      if (sizeLabel && product.sizeImagePrefix) {
+        const token = String(sizeLabel).toLowerCase().replace(/\s+/g, '').replace(/-/g, '');
         return `${product.sizeImagePrefix}${token}.png`;
       }
 
@@ -979,29 +1328,29 @@
         useColorFilter: false,
         products: [
           {
-            id:"phbg-carb",
-            name:"PHBG Carburetor",
-            badge:"CARB",
-            img:"carb2.png",
-            fit:"AM6 / D50B0",
-            tags:["Carb","Intake","Tuning"],
-            desc:"PHBG Carburetor. Choose size (17/19/21mm).",
+            id: "phbg-carb",
+            name: "PHBG Carburetor",
+            badge: "CARB",
+            img: "carb2.png",
+            fit: "AM6 / D50B0",
+            tags: ["Carb", "Intake", "Tuning"],
+            desc: "PHBG Carburetor. Choose size (17/19/21mm).",
             // ✅ set all sizes to 39.99 EUR
-            options: { size: ["17mm","19mm","21mm"] },
+            options: { size: ["17mm", "19mm", "21mm"] },
             base_eur: 39.99,
             // ✅ image changes by size:
             // You can name them like: phbg17mm.png / phbg19mm.png / phbg21mm.png
             sizeImagePrefix: "phbg"
           },
           {
-            id:"pwk-carb",
-            name:"PWK Carburetor",
-            badge:"CARB",
-            img:"carb1.png",
-            fit:"AM6 / D50B0",
-            tags:["Carb","Intake","Race"],
-            desc:"PWK Carburetor. Choose size (21/24/26mm).",
-            options: { size: ["21mm","24mm","26mm"] },
+            id: "pwk-carb",
+            name: "PWK Carburetor",
+            badge: "CARB",
+            img: "carb1.png",
+            fit: "AM6 / D50B0",
+            tags: ["Carb", "Intake", "Race"],
+            desc: "PWK Carburetor. Choose size (21/24/26mm).",
+            options: { size: ["21mm", "24mm", "26mm"] },
             base_eur: 39.99,
             // ✅ image changes by size:
             // pwk21mm.png / pwk24mm.png / pwk26mm.png
@@ -1015,12 +1364,12 @@
         desc: "Choose cover color in “See more”. Each cover is €19.99.",
         useColorFilter: true,
         products: [
-          { id:"cover-1", name:"Ignition Cover 1", badge:"D50B0", img:"ignitioncover1.png", fit:"D50B0", tags:["D50B0","3D Print"], base_eur: 19.99, desc:"Ignition Cover 1.", options:{ color:["Black-Red","Black-Blue","Black-Purple"] } },
-          { id:"cover-2", name:"Ignition Cover 2", badge:"D50B0", img:"ignitioncover2.png", fit:"D50B0", tags:["D50B0","3D Print"], base_eur: 19.99, desc:"Ignition Cover 2.", options:{ color:["Black-Red","Black-Blue","Black-Purple"] } },
-          { id:"cover-3", name:"Ignition Cover 3", badge:"D50B0", img:"ignitioncover3.png", fit:"D50B0", tags:["D50B0","3D Print"], base_eur: 19.99, desc:"Ignition Cover 3.", options:{ color:["Black-Red","Black-Blue","Black-Purple"] } },
-          { id:"cover-4", name:"Ignition Cover 4", badge:"D50B0", img:"ignitioncover4.png", fit:"D50B0", tags:["D50B0","3D Print"], base_eur: 19.99, desc:"Ignition Cover 4.", options:{ color:["Black-Red","Black-Blue","Black-Purple"] } },
-          { id:"cover-5", name:"Ignition Cover 5", badge:"D50B0", img:"ignitioncover5.png", fit:"D50B0", tags:["D50B0","3D Print"], base_eur: 19.99, desc:"Ignition Cover 5.", options:{ color:["Black-Red","Black-Blue","Black-Purple"] } },
-          { id:"cover-6", name:"Ignition Cover 6", badge:"D50B0", img:"ignitioncover6.png", fit:"D50B0", tags:["D50B0","3D Print"], base_eur: 19.99, desc:"Ignition Cover 6.", options:{ color:["Black-Red","Black-Blue","Black-Purple"] } }
+          { id: "cover-1", name: "Ignition Cover 1", badge: "D50B0", img: "ignitioncover1.png", fit: "D50B0", tags: ["D50B0", "3D Print"], base_eur: 19.99, desc: "Ignition Cover 1.", options: { color: ["Black-Red", "Black-Blue", "Black-Purple"] } },
+          { id: "cover-2", name: "Ignition Cover 2", badge: "D50B0", img: "ignitioncover2.png", fit: "D50B0", tags: ["D50B0", "3D Print"], base_eur: 19.99, desc: "Ignition Cover 2.", options: { color: ["Black-Red", "Black-Blue", "Black-Purple"] } },
+          { id: "cover-3", name: "Ignition Cover 3", badge: "D50B0", img: "ignitioncover3.png", fit: "D50B0", tags: ["D50B0", "3D Print"], base_eur: 19.99, desc: "Ignition Cover 3.", options: { color: ["Black-Red", "Black-Blue", "Black-Purple"] } },
+          { id: "cover-4", name: "Ignition Cover 4", badge: "D50B0", img: "ignitioncover4.png", fit: "D50B0", tags: ["D50B0", "3D Print"], base_eur: 19.99, desc: "Ignition Cover 4.", options: { color: ["Black-Red", "Black-Blue", "Black-Purple"] } },
+          { id: "cover-5", name: "Ignition Cover 5", badge: "D50B0", img: "ignitioncover5.png", fit: "D50B0", tags: ["D50B0", "3D Print"], base_eur: 19.99, desc: "Ignition Cover 5.", options: { color: ["Black-Red", "Black-Blue", "Black-Purple"] } },
+          { id: "cover-6", name: "Ignition Cover 6", badge: "D50B0", img: "ignitioncover6.png", fit: "D50B0", tags: ["D50B0", "3D Print"], base_eur: 19.99, desc: "Ignition Cover 6.", options: { color: ["Black-Red", "Black-Blue", "Black-Purple"] } }
         ]
       },
 
@@ -1030,96 +1379,96 @@
         useColorFilter: true,
         products: [
           {
-            id:"quick-throttle",
-            name:"Quick Throttle",
-            badge:"Quick Throttle",
-            img:"mix1.png",
-            fit:"AM6 / D50B0",
-            tags:["Throttle","Tuning"],
+            id: "quick-throttle",
+            name: "Quick Throttle",
+            badge: "Quick Throttle",
+            img: "mix1.png",
+            fit: "AM6 / D50B0",
+            tags: ["Throttle", "Tuning"],
             base_eur: 33.99,
-            desc:"Quick throttle. Choose color in “See more”.",
-            options:{ color:["Black","Red","Purple","White","Blue"] },
+            desc: "Quick throttle. Choose color in “See more”.",
+            options: { color: ["Black", "Red", "Purple", "White", "Blue"] },
             // ✅ REQUIRED BY YOU:
             // whitequickthrottle.png, blackquickthrottle.png, redquickthrottle.png, purplequickthrottle.png, bluequickthrottle.png
             colorImagePrefix: "quickthrottle"
           },
           {
-            id:"hydro-front-fender",
-            name:"Hydraulic Front Fender",
-            badge:"AM6/D50B0",
-            img:"mix2.png",
-            fit:"AM6 / D50B0",
-            tags:["Front Fender","Hydraulic"],
+            id: "hydro-front-fender",
+            name: "Hydraulic Front Fender",
+            badge: "Hydraulic Front Fender",
+            img: "mix2.png",
+            fit: "AM6 / D50B0",
+            tags: ["Front Fender", "Hydraulic"],
             base_eur: 30.99,
-            desc:"Hydraulic front fender. Choose color in “See more”.",
-            options:{ color:["White","Black"] },
+            desc: "Hydraulic front fender. Choose color in “See more”.",
+            options: { color: ["White", "Black"] },
             // Suggested names: whitehydraulicfrontfender.png, blackhydraulicfrontfender.png
             // If you want different names, tell me and I’ll adjust.
             colorImagePrefix: "hydraulicfrontfender"
           },
           {
-            id:"seat-cover",
-            name:"Seat Cover",
-            badge:"AM6/D50B0",
-            img:"redseatcover.png",
-            fit:"AM6 / D50B0",
-            tags:["Seat","Style"],
+            id: "seat-cover",
+            name: "Seat Cover",
+            badge: "SEAT COVER",
+            img: "redseatcover.png",
+            fit: "AM6 / D50B0",
+            tags: ["Seat", "Style"],
             base_eur: 24.99,
-            desc:"Seat cover. Choose color in “See more”.",
-            options:{ color:["Green","White","Red","Blue"] },
+            desc: "Seat cover. Choose color in “See more”.",
+            options: { color: ["Green", "White", "Red", "Blue"] },
             // ✅ You asked: redseatcover.png for red
             // This rule makes: greenseatcover.png / whitseatcover.png? -> actually "whiteseatcover.png" / redseatcover.png / blueseatcover.png
             colorImagePrefix: "seatcover"
           },
           {
-            id:"aluminium-screws",
-            name:"Aluminium Screws",
-            badge:"AM6/D50B0",
-            img:"redaluminiumscrews.png",
-            fit:"AM6 / D50B0",
-            tags:["Hardware","Lightweight"],
+            id: "aluminium-screws",
+            name: "Aluminium Screws",
+            badge: "AM6/D50B0",
+            img: "redaluminiumscrews.png",
+            fit: "AM6 / D50B0",
+            tags: ["Hardware", "Lightweight"],
             base_eur: 5.99,
-            desc:"Aluminium screws set. Choose color in “See more”.",
-            options:{ color:["Black","White","Red","Yellow","Blue","Purple"] },
+            desc: "Aluminium screws set. Choose color in “See more”.",
+            options: { color: ["Black", "White", "Red", "Yellow", "Blue", "Purple"] },
             // ✅ You asked: redaluminiumscrews.png and same for other colors
             colorImagePrefix: "aluminiumscrews"
           },
           {
-            id:"gas-fuel-filter",
-            name:"Gas Fuel Filter",
-            badge:"AM6/D50B0",
-            img:"redgasfuelfilter.png",
-            fit:"AM6 / D50B0",
-            tags:["Fuel","Filter"],
+            id: "gas-fuel-filter",
+            name: "Gas Fuel Filter",
+            badge: "AM6/D50B0",
+            img: "redgasfuelfilter.png",
+            fit: "AM6 / D50B0",
+            tags: ["Fuel", "Filter"],
             base_eur: 3.99,
-            desc:"Gas fuel filter. Choose color in “See more”.",
-            options:{ color:["Red","Green","Purple","Blue","Yellow"] },
+            desc: "Gas fuel filter. Choose color in “See more”.",
+            options: { color: ["Red", "Green", "Purple", "Blue", "Yellow"] },
             // ✅ You asked: redgasfuelfilter.png etc.
             colorImagePrefix: "gasfuelfilter"
           },
           {
-            id:"handle-grips",
-            name:"High Quality Handle Grips",
-            badge:"AM6/D50B0",
-            img:"redhandlegrip.png",
-            fit:"AM6 / D50B0",
-            tags:["Grips","Comfort"],
+            id: "handle-grips",
+            name: "High Quality Handle Grips",
+            badge: "AM6/D50B0",
+            img: "redhandlegrip.png",
+            fit: "AM6 / D50B0",
+            tags: ["Grips", "Comfort"],
             base_eur: 7.99,
-            desc:"High quality handle grips. Choose color in “See more”.",
-            options:{ color:["Red","Pink","Neon Green","Green","Orange","Blue","Grey"] },
+            desc: "High quality handle grips. Choose color in “See more”.",
+            options: { color: ["Red", "Pink", "Neon Green", "Green", "Orange", "Blue", "Grey"] },
             // ✅ You asked: redhandlegrip.png etc.
             colorImagePrefix: "handlegrip"
           },
           {
-            id:"spoke-covers",
-            name:"Spoke Covers",
-            badge:"AM6/D50B0",
-            img:"redspokecovers.png",
-            fit:"AM6 / D50B0",
-            tags:["Wheels","Style"],
+            id: "spoke-covers",
+            name: "Spoke Covers",
+            badge: "AM6/D50B0",
+            img: "redspokecovers.png",
+            fit: "AM6 / D50B0",
+            tags: ["Wheels", "Style"],
             base_eur: 7.99,
-            desc:"Spoke covers. Choose color in “See more”.",
-            options:{ color:["Black","Green","Red","Purple","Orange"] },
+            desc: "Spoke covers. Choose color in “See more”.",
+            options: { color: ["Black", "Green", "Red", "Purple", "Orange"] },
             // ✅ You asked: redspokecovers.png etc.
             colorImagePrefix: "spokecovers"
           }
@@ -1129,12 +1478,12 @@
 
     // Weekly drops: pick 6 items
     const WEEKLY_DROPS = [
-      { section:"covers", product:"cover-1" },
-      { section:"covers", product:"cover-2" },
-      { section:"am6d50", product:"quick-throttle" },
-      { section:"am6d50", product:"seat-cover" },
-      { section:"carb", product:"phbg-carb" },
-      { section:"am6d50", product:"aluminium-screws" }
+      { section: "covers", product: "cover-1" },
+      { section: "covers", product: "cover-2" },
+      { section: "am6d50", product: "quick-throttle" },
+      { section: "am6d50", product: "seat-cover" },
+      { section: "carb", product: "phbg-carb" },
+      { section: "am6d50", product: "aluminium-screws" }
     ];
 
     // ---------------------------
@@ -1142,13 +1491,13 @@
     // ---------------------------
     const $ = (sel) => document.querySelector(sel);
 
-    function escapeHtml(str){
+    function escapeHtml(str) {
       return String(str).replace(/[&<>"']/g, s => ({
-        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
       }[s]));
     }
 
-    function findProduct(sectionKey, productId){
+    function findProduct(sectionKey, productId) {
       const sec = SECTIONS[sectionKey];
       if (!sec) return null;
       const prod = sec.products.find(p => p.id === productId);
@@ -1156,8 +1505,8 @@
       return { sectionKey, section: sec, product: prod };
     }
 
-    function findProductById(id){
-      for (const sk of Object.keys(SECTIONS)){
+    function findProductById(id) {
+      for (const sk of Object.keys(SECTIONS)) {
         const p = SECTIONS[sk].products.find(x => x.id === id);
         if (p) return { sectionKey: sk, section: SECTIONS[sk], product: p };
       }
@@ -1168,21 +1517,21 @@
     // Routing (History + hash params)
     // #home | #sections | #section=am6d50 | #section=am6d50&product=quick-throttle
     // ---------------------------
-    function parseHash(){
+    function parseHash() {
       const h = (location.hash || "").replace(/^#/, "");
-      if (!h || h === "home") return { view:"home" };
-      if (h === "sections") return { view:"sections" };
+      if (!h || h === "home") return { view: "home" };
+      if (h === "sections") return { view: "sections" };
       const params = new URLSearchParams(h);
       const section = params.get("section");
       const product = params.get("product");
-      if (section) return { view:"shop", section, product };
-      return { view:"home" };
+      if (section) return { view: "shop", section, product };
+      return { view: "home" };
     }
 
-    function setHashState(view, section=null, product=null, replace=false){
+    function setHashState(view, section = null, product = null, replace = false) {
       let hash = "#home";
       if (view === "sections") hash = "#sections";
-      if (view === "shop" && section){
+      if (view === "shop" && section) {
         const params = new URLSearchParams();
         params.set("section", section);
         if (product) params.set("product", product);
@@ -1205,25 +1554,25 @@
     // cart
     const cart = new Map(); // key -> { name, price_eur, qty, optsText }
 
-    function showView(view){
+    function showView(view) {
       $("#homeView").classList.toggle("hidden", view !== "home");
       $("#sectionsView").classList.toggle("hidden", view !== "sections");
       $("#shopView").classList.toggle("hidden", view !== "shop");
       $("#appScroll").scrollTop = 0;
     }
 
-    function goHome(){ setHashState("home", null, null, false); syncFromUrl(); }
-    function goSections(){ setHashState("sections", null, null, false); syncFromUrl(); }
+    function goHome() { setHashState("home", null, null, false); syncFromUrl(); }
+    function goSections() { setHashState("sections", null, null, false); syncFromUrl(); }
     window.goHome = goHome;
     window.goSections = goSections;
 
-    function openSection(sectionKey){
+    function openSection(sectionKey) {
       setHashState("shop", sectionKey, null, false);
       syncFromUrl();
     }
     window.openSection = openSection;
 
-    function openFeaturedFirst(){
+    function openFeaturedFirst() {
       const first = WEEKLY_DROPS[0];
       if (!first) return;
       setHashState("shop", first.section, first.product, false);
@@ -1234,16 +1583,16 @@
     // ---------------------------
     // Rendering: Home (Weekly drops)
     // ---------------------------
-    function productDisplayPriceEur(p){
+    function productDisplayPriceEur(p) {
       // If size options exist, still same base price, but keep logic simple
       return typeof p.base_eur === "number" ? p.base_eur : 0;
     }
 
-    function renderFeatured(){
+    function renderFeatured() {
       const grid = $("#featuredGrid");
       grid.innerHTML = "";
 
-      for (const item of WEEKLY_DROPS){
+      for (const item of WEEKLY_DROPS) {
         const found = findProduct(item.section, item.product);
         if (!found) continue;
 
@@ -1282,7 +1631,7 @@
     // ---------------------------
     // Rendering: Shop grid
     // ---------------------------
-    function renderShop(){
+    function renderShop() {
       if (!currentSectionKey) return;
       const sec = SECTIONS[currentSectionKey];
       if (!sec) return;
@@ -1307,7 +1656,7 @@
         );
 
         let byColor = true;
-        if (colorFilter !== "any" && p.options && Array.isArray(p.options.color)){
+        if (colorFilter !== "any" && p.options && Array.isArray(p.options.color)) {
           const lc = p.options.color.map(c => c.toLowerCase());
           byColor = lc.some(c => c.includes(colorFilter.toLowerCase()));
         }
@@ -1317,7 +1666,7 @@
       const grid = $("#productGrid");
       grid.innerHTML = "";
 
-      if (list.length === 0){
+      if (list.length === 0) {
         grid.innerHTML = `
           <div style="grid-column:1/-1; padding:16px; border:1px solid rgba(255,255,255,.10); border-radius:16px; background:rgba(255,255,255,.04)">
             <div style="font-weight:950; text-transform:uppercase; letter-spacing:.6px;">No results</div>
@@ -1326,7 +1675,7 @@
         return;
       }
 
-      for (const p of list){
+      for (const p of list) {
         const displayEur = productDisplayPriceEur(p);
 
         const card = document.createElement("article");
@@ -1343,7 +1692,7 @@
             </div>
             <p class="desc">${escapeHtml(p.desc)}</p>
             <div class="pillrow">
-              ${(p.tags||[]).slice(0,3).map(t => `<span class="miniPill">${escapeHtml(t)}</span>`).join("")}
+              ${(p.tags || []).slice(0, 3).map(t => `<span class="miniPill">${escapeHtml(t)}</span>`).join("")}
               <span class="miniPill">${escapeHtml(p.fit || "")}</span>
             </div>
             <div class="cardActions">
@@ -1359,24 +1708,24 @@
     // ---------------------------
     // Product modal
     // ---------------------------
-    function resetSelect(el){
+    function resetSelect(el) {
       const clone = el.cloneNode(true);
       el.parentNode.replaceChild(clone, el);
       return clone;
     }
 
-    function updateModalImage(){
+    function updateModalImage() {
       if (!currentProduct) return;
       const img = resolveVariantImage(currentProduct, selectedSize, selectedColor);
       $("#modalImg").src = img;
     }
 
-    function updateModalPrice(){
+    function updateModalPrice() {
       if (!currentProduct) return;
       $("#modalPrice").textContent = moneyFromEur(currentProduct.base_eur ?? 0);
     }
 
-    function openProduct(productId, pushHistory){
+    function openProduct(productId, pushHistory) {
       const found = findProductById(productId);
       if (!found) return;
 
@@ -1419,7 +1768,7 @@
       const hasSize = !!(currentProduct.options && Array.isArray(currentProduct.options.size));
       const hasColor = !!(currentProduct.options && Array.isArray(currentProduct.options.color));
 
-      if (hasSize){
+      if (hasSize) {
         $("#optionRow1").style.display = "flex";
         $("#opt1Label").textContent = "Size";
         currentProduct.options.size.forEach((s) => {
@@ -1436,7 +1785,7 @@
         });
       }
 
-      if (hasColor){
+      if (hasColor) {
         const useRow2 = hasSize;
         const row = useRow2 ? "optionRow2" : "optionRow1";
         const label = useRow2 ? "opt2Label" : "opt1Label";
@@ -1466,18 +1815,18 @@
 
       $("#productBackdrop").style.display = "flex";
 
-      if (pushHistory){
+      if (pushHistory) {
         setHashState("shop", currentSectionKey, currentProduct.id, false);
       }
     }
 
-    function closeProduct(pushHistory){
+    function closeProduct(pushHistory) {
       $("#productBackdrop").style.display = "none";
       currentProduct = null;
       selectedSize = null;
       selectedColor = null;
 
-      if (pushHistory && currentSectionKey){
+      if (pushHistory && currentSectionKey) {
         setHashState("shop", currentSectionKey, null, false);
       }
     }
@@ -1485,19 +1834,19 @@
     // ---------------------------
     // Cart + checkout
     // ---------------------------
-    function setCartCount(){
+    function setCartCount() {
       let total = 0;
       for (const it of cart.values()) total += it.qty;
       $("#cartCount").textContent = total;
     }
 
-    function cartTotalEur(){
+    function cartTotalEur() {
       let sum = 0;
       for (const it of cart.values()) sum += it.price_eur * it.qty;
       return sum;
     }
 
-    function addToCart(product, qty, optsText, priceEur){
+    function addToCart(product, qty, optsText, priceEur) {
       const key = product.id + " :: " + (optsText || "");
       const existing = cart.get(key);
       if (existing) existing.qty += qty;
@@ -1506,15 +1855,15 @@
       renderCart();
     }
 
-    function renderCart(){
+    function renderCart() {
       const list = $("#cartList");
       list.innerHTML = "";
-      if (cart.size === 0){
+      if (cart.size === 0) {
         list.innerHTML = `<div class="line"><strong>Your cart is empty</strong><span>—</span></div>`;
         $("#cartTotal").textContent = moneyFromEur(0);
         return;
       }
-      for (const it of cart.values()){
+      for (const it of cart.values()) {
         const row = document.createElement("div");
         row.className = "line";
         row.innerHTML = `
@@ -1526,7 +1875,7 @@
       $("#cartTotal").textContent = moneyFromEur(cartTotalEur());
     }
 
-    function openCheckout(product, qty, optsText, priceEur){
+    function openCheckout(product, qty, optsText, priceEur) {
       $("#coName").textContent = product.name;
       $("#coPrice").textContent = moneyFromEur(priceEur);
       $("#coQty").textContent = String(qty);
@@ -1535,7 +1884,7 @@
       $("#checkoutBackdrop").style.display = "flex";
     }
 
-    function closeCheckout(){
+    function closeCheckout() {
       $("#checkoutBackdrop").style.display = "none";
     }
 
@@ -1544,10 +1893,10 @@
     // ---------------------------
     $("#featuredGrid").addEventListener("click", (e) => {
       const openBtn = e.target.closest("[data-open]");
-      if (openBtn){
+      if (openBtn) {
         const id = openBtn.getAttribute("data-open");
         const section = openBtn.getAttribute("data-section");
-        if (section){
+        if (section) {
           setHashState("shop", section, id, false);
           syncFromUrl();
           return;
@@ -1556,7 +1905,7 @@
         return;
       }
       const openSectionBtn = e.target.closest("[data-shop]");
-      if (openSectionBtn){
+      if (openSectionBtn) {
         const sk = openSectionBtn.getAttribute("data-shop");
         openSection(sk);
       }
@@ -1564,12 +1913,12 @@
 
     $("#productGrid").addEventListener("click", (e) => {
       const openBtn = e.target.closest("[data-open]");
-      if (openBtn){
+      if (openBtn) {
         openProduct(openBtn.getAttribute("data-open"), true);
         return;
       }
       const buyBtn = e.target.closest("[data-buy]");
-      if (buyBtn){
+      if (buyBtn) {
         openProduct(buyBtn.getAttribute("data-buy"), true);
         return;
       }
@@ -1621,7 +1970,7 @@
       const name = ($("#fullName").value || "").trim();
       const email = ($("#email").value || "").trim();
       const address = ($("#address").value || "").trim();
-      if (!name || !email || !address){
+      if (!name || !email || !address) {
         alert("Please fill in: Full name, Email, and Shipping address.");
         return;
       }
@@ -1629,8 +1978,8 @@
       closeCheckout();
     });
 
-    function openCart(){ $("#cartBackdrop").style.display = "flex"; renderCart(); }
-    function closeCart(){ $("#cartBackdrop").style.display = "none"; }
+    function openCart() { $("#cartBackdrop").style.display = "flex"; renderCart(); }
+    function closeCart() { $("#cartBackdrop").style.display = "none"; }
     $("#openCart").addEventListener("click", openCart);
     $("#closeCart").addEventListener("click", closeCart);
     $("#cartBackdrop").addEventListener("click", (e) => {
@@ -1647,35 +1996,35 @@
     // ---------------------------
     // URL -> VIEW SYNC (Back button support)
     // ---------------------------
-    function syncFromUrl(replace=false){
+    function syncFromUrl(replace = false) {
       const route = parseHash();
 
       // close overlays if not in product route
-      if (!(route.view === "shop" && route.product)){
+      if (!(route.view === "shop" && route.product)) {
         $("#productBackdrop").style.display = "none";
         currentProduct = null;
       }
 
-      if (route.view === "home"){
+      if (route.view === "home") {
         showView("home");
         currentSectionKey = null;
         if (replace) setHashState("home", null, null, true);
         return;
       }
 
-      if (route.view === "sections"){
+      if (route.view === "sections") {
         showView("sections");
         currentSectionKey = null;
         if (replace) setHashState("sections", null, null, true);
         return;
       }
 
-      if (route.view === "shop" && route.section){
+      if (route.view === "shop" && route.section) {
         currentSectionKey = route.section;
         showView("shop");
         renderShop();
 
-        if (route.product){
+        if (route.product) {
           openProduct(route.product, false); // open modal without pushing state again
         }
         return;
@@ -1691,7 +2040,7 @@
     // ---------------------------
     // INIT
     // ---------------------------
-    (function init(){
+    (function init() {
       renderFeatured();
       renderCart();
       setCartCount();
@@ -1699,4 +2048,5 @@
     })();
   </script>
 </body>
+
 </html>
