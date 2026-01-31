@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>RedLine — Tuning Parts & 3D Printed Covers</title>
-  <meta name="description" content="RedLine — clean red/black shop for D50B0 / AM6 tuning parts and 3D printed ignition covers." />
+  <meta name="description" content="RedLine — D50B0 / AM6 tuning parts and 3D printed ignition covers. Weekly drops." />
 
   <style>
     :root{
@@ -17,14 +17,11 @@
 
       --text: rgba(255,255,255,.92);
       --muted: rgba(255,255,255,.68);
-      --muted2: rgba(255,255,255,.55);
 
       --accent:#ff1f1f;
       --accent2:#ff3b3b;
 
       --shadow: 0 22px 90px rgba(0,0,0,.62);
-      --radius: 14px;
-      --radius2: 18px;
 
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
@@ -32,20 +29,26 @@
 
     *{box-sizing:border-box}
     html,body{height:100%}
+
     body{
       margin:0;
       font-family: var(--sans);
       color: var(--text);
-      overflow:hidden; /* page doesn't scroll; app area does */
+      overflow:hidden; /* page itself doesn't scroll */
       background:
         radial-gradient(1000px 520px at 40% -10%, rgba(255,31,31,.22), transparent 60%),
         radial-gradient(900px 520px at 10% 30%, rgba(255,31,31,.10), transparent 62%),
         radial-gradient(900px 520px at 90% 40%, rgba(255,31,31,.08), transparent 62%),
         linear-gradient(180deg, var(--bg), var(--bg2));
       position:relative;
+
+      /* ✅ FIX: layout so scrolling area always reaches bottom */
+      display:flex;
+      flex-direction:column;
+      min-height:100vh;
     }
 
-    /* subtle "tech grid" */
+    /* subtle tech grid */
     body:before{
       content:"";
       position:absolute; inset:0;
@@ -63,7 +66,6 @@
     img{max-width:100%; display:block}
     .wrap{max-width:1180px; margin:0 auto; padding: 0 16px}
 
-    /* top promo */
     .promo{
       background: linear-gradient(90deg, rgba(255,31,31,.95), rgba(255,31,31,.72));
       color: rgba(0,0,0,.92);
@@ -72,6 +74,7 @@
       font-size: 12.5px;
       position:relative;
       z-index:60;
+      flex:0 0 auto;
     }
     .promo .inner{
       display:flex; gap:12px; flex-wrap:wrap;
@@ -81,10 +84,13 @@
     .dot{width:8px; height:8px; border-radius:999px; background: rgba(0,0,0,.85); display:inline-block}
 
     header{
-      position: sticky; top: 0; z-index: 55;
+      position: sticky;
+      top: 0;
+      z-index: 55;
       backdrop-filter: blur(16px);
       background: rgba(10,10,14,.75);
       border-bottom: 1px solid var(--stroke);
+      flex:0 0 auto;
     }
     .topbar{
       display:flex; align-items:center; justify-content:space-between;
@@ -123,18 +129,10 @@
       letter-spacing: .8px;
       font-size: 11.5px;
     }
-    .nav a{
-      padding: 9px 10px;
-      border-radius: 999px;
-    }
-    .nav a:hover{
-      background: rgba(255,255,255,.06);
-      color: rgba(255,255,255,.92);
-    }
+    .nav a{padding: 9px 10px; border-radius: 999px;}
+    .nav a:hover{background: rgba(255,255,255,.06); color: rgba(255,255,255,.92);}
 
-    .actions{
-      display:flex; align-items:center; gap:10px;
-    }
+    .actions{display:flex; align-items:center; gap:10px;}
 
     .btn{
       border: 1px solid rgba(255,255,255,.14);
@@ -147,20 +145,13 @@
       font-weight: 950;
       white-space: nowrap;
     }
-    .btn:hover{
-      transform: translateY(-1px);
-      background: rgba(255,255,255,.085);
-      border-color: rgba(255,255,255,.22);
-    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.085); border-color: rgba(255,255,255,.22);}
     .btn.primary{
       background: linear-gradient(135deg, rgba(255,31,31,.98), rgba(255,31,31,.68));
       border-color: rgba(255,255,255,.18);
       box-shadow: 0 18px 60px rgba(255,31,31,.18);
     }
-    .btn.ghost{
-      background: transparent;
-      border-color: rgba(255,255,255,.14);
-    }
+    .btn.ghost{background: transparent; border-color: rgba(255,255,255,.14);}
 
     .badge{
       min-width: 22px; height: 22px;
@@ -186,11 +177,12 @@
       cursor:pointer;
     }
 
-    /* app scroll area */
+    /* ✅ FIX: app scroll uses flex, so it always scrolls to bottom */
     .appScroll{
-      height: calc(100vh - 0px);
+      flex:1 1 auto;
+      min-height: 0;      /* IMPORTANT for flex scrolling */
       overflow:auto;
-      scroll-behavior: smooth;
+      scroll-behavior:smooth;
       position:relative;
       z-index:1;
     }
@@ -215,7 +207,6 @@
       line-height:1.6;
     }
 
-    /* Hero like maxiscoot-ish: bold banner + featured cards */
     .hero{
       border-radius: 22px;
       overflow:hidden;
@@ -299,7 +290,6 @@
     .heroPanel strong{display:block; font-size: 13.5px; letter-spacing:.2px}
     .heroPanel p{margin:6px 0 0; color: rgba(255,255,255,.70); font-size: 12.5px; line-height:1.55}
 
-    /* Cards / grids */
     .grid{
       display:grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -314,11 +304,7 @@
       overflow:hidden;
       transition: transform .14s ease, border-color .14s ease, background .14s ease;
     }
-    .card:hover{
-      transform: translateY(-2px);
-      border-color: rgba(255,255,255,.20);
-      background: linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.035));
-    }
+    .card:hover{transform: translateY(-2px); border-color: rgba(255,255,255,.20);}
     .thumb{
       height: 190px;
       position:relative;
@@ -342,18 +328,8 @@
     .cardBody{padding: 14px; display:flex; flex-direction:column; gap:10px}
     .titleRow{display:flex; align-items:flex-start; justify-content:space-between; gap:10px}
     .card h3{margin:0; font-size: 15px; letter-spacing:.2px}
-    .price{
-      font-weight: 950;
-      font-size: 14.5px;
-      color: rgba(255,255,255,.92);
-      white-space:nowrap;
-    }
-    .desc{
-      margin:0;
-      color: rgba(255,255,255,.68);
-      font-size: 13px;
-      line-height: 1.55;
-    }
+    .price{font-weight: 950; font-size: 14.5px; color: rgba(255,255,255,.92); white-space:nowrap;}
+    .desc{margin:0; color: rgba(255,255,255,.68); font-size: 13px; line-height: 1.55;}
     .pillrow{display:flex; gap:8px; flex-wrap:wrap}
     .miniPill{
       padding: 7px 9px;
@@ -366,7 +342,6 @@
     }
     .cardActions{display:flex; gap:10px; margin-top: 2px; align-items:center}
 
-    /* Category tiles */
     .catGrid{
       display:grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -392,10 +367,7 @@
         linear-gradient(180deg, rgba(0,0,0,.22), rgba(0,0,0,.86)),
         radial-gradient(700px 220px at 20% 30%, rgba(255,31,31,.24), transparent 60%);
     }
-    .catContent{
-      position:absolute; left: 14px; right: 14px; bottom: 14px;
-      display:flex; flex-direction:column; gap:8px;
-    }
+    .catContent{position:absolute; left: 14px; right: 14px; bottom: 14px; display:flex; flex-direction:column; gap:8px;}
     .catPill{
       width: fit-content;
       padding: 7px 9px;
@@ -412,7 +384,6 @@
     .catTitle{margin:0; font-size: 16px; letter-spacing:.2px; font-weight: 950;}
     .catDesc{margin:0; color: rgba(255,255,255,.72); font-size: 13px; line-height:1.55;}
 
-    /* Shop controls inside section */
     .controls{
       display:flex; gap:10px; flex-wrap:wrap;
       padding: 12px;
@@ -441,7 +412,6 @@
       flex: 1;
     }
 
-    /* Modals */
     .modalBackdrop{
       position:fixed; inset:0; z-index:100;
       background: rgba(0,0,0,.64);
@@ -496,22 +466,10 @@
       flex-direction:column;
       gap: 10px;
     }
-    .modalTitleRow{
-      display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
-    }
+    .modalTitleRow{display:flex; align-items:flex-start; justify-content:space-between; gap:10px;}
     .modalName{margin:0; font-size: 18px; letter-spacing:.2px}
-    .modalPrice{
-      font-weight: 950;
-      font-size: 18px;
-      color: rgba(255,255,255,.92);
-      white-space:nowrap;
-    }
-    .modalDesc{
-      margin:0;
-      color: rgba(255,255,255,.74);
-      font-size: 13.5px;
-      line-height: 1.65;
-    }
+    .modalPrice{font-weight: 950; font-size: 18px; color: rgba(255,255,255,.92); white-space:nowrap;}
+    .modalDesc{margin:0; color: rgba(255,255,255,.74); font-size: 13.5px; line-height: 1.65;}
     .specs{margin-top: 4px; display:flex; flex-wrap:wrap; gap:8px;}
     .spec{
       padding: 7px 9px;
@@ -522,11 +480,7 @@
       font-size: 12px;
       font-family: var(--mono);
     }
-    .optionRow{
-      margin-top: 2px;
-      display:flex; flex-wrap:wrap; gap:10px;
-      align-items:center;
-    }
+    .optionRow{margin-top: 2px; display:flex; flex-wrap:wrap; gap:10px; align-items:center;}
     .optionRow .optLabel{
       font-family: var(--mono);
       font-size: 12px;
@@ -535,10 +489,7 @@
       letter-spacing: .6px;
       min-width: 54px;
     }
-    .qtyRow{
-      margin-top: 6px;
-      display:flex; align-items:center; gap:10px; flex-wrap:wrap;
-    }
+    .qtyRow{margin-top: 6px; display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
     .qty{
       display:flex; gap:6px; align-items:center;
       padding: 8px 10px;
@@ -554,12 +505,7 @@
       cursor:pointer;
       font-weight: 950;
     }
-    .qty span{
-      min-width: 18px; text-align:center;
-      font-family: var(--mono);
-      font-size: 13px;
-      color: rgba(255,255,255,.82)
-    }
+    .qty span{min-width: 18px; text-align:center; font-family: var(--mono); font-size: 13px; color: rgba(255,255,255,.82)}
     .buyRow{
       margin-top:auto;
       display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap;
@@ -567,7 +513,6 @@
       border-top: 1px solid rgba(255,255,255,.10);
     }
 
-    /* Checkout modal */
     .checkout{width:min(720px, 100%);}
     .line{
       display:flex; align-items:center; justify-content:space-between; gap:10px;
@@ -609,7 +554,6 @@
       border-top: 1px solid rgba(255,255,255,.10);
     }
 
-    /* Responsive */
     @media (max-width: 980px){
       .heroInner{grid-template-columns: 1fr}
       .grid{grid-template-columns: repeat(2, minmax(0, 1fr))}
@@ -636,7 +580,7 @@
     <div class="wrap">
       <div class="inner">
         <span><span class="dot"></span> REDLINE • D50B0 / AM6 • WEEKLY DROPS</span>
-        <span>⚡ Clean red/black builds</span>
+        <span>⚡ Black/Red tuning theme</span>
       </div>
     </div>
   </div>
@@ -682,11 +626,11 @@
         <div class="hero">
           <div class="heroInner">
             <div>
-              <div class="kicker"><span class="kdot"></span> WEEKLY DROPS • FAST CHECKOUT • CLEAN UI</div>
+              <div class="kicker"><span class="kdot"></span> WEEKLY DROPS • CLEAN UI • MOBILE READY</div>
               <h1>RedLine weekly drops<br/>for D50B0 & AM6.</h1>
               <p class="heroLead">
-                Pick a section, open <b>See more</b>, choose size/color, and hit <b>Buy</b>.
-                Built for mobile and styled in a black/red racing theme.
+                Tap <b>See more</b>, choose <b>size/color</b>, and the product image updates instantly.
+                Browser back button works like real pages.
               </p>
               <div class="heroCtas">
                 <button class="btn primary" onclick="goSections()">Browse sections</button>
@@ -698,7 +642,7 @@
                 <img src="ignitioncover1.png" alt="Featured drop">
                 <div>
                   <strong>Drop highlight: D50B0 Ignition Covers</strong>
-                  <p>Choose: Black-Red / Black-Blue / Black-Purple. Clean look. Fast “See more” preview.</p>
+                  <p>Now set to <b>€19.99</b>. Choose: Black-Red / Black-Blue / Black-Purple.</p>
                 </div>
               </div>
             </div>
@@ -725,7 +669,7 @@
         <div class="sectionHead">
           <div>
             <h2>Shop sections</h2>
-            <p>Choose a section. Browser back button works (like pages).</p>
+            <p>Choose a section. Back button works (like pages).</p>
           </div>
         </div>
 
@@ -736,27 +680,27 @@
             <div class="catContent">
               <div class="catPill">Carburetor / Intake</div>
               <h3 class="catTitle">PHBG + PWK carbs</h3>
-              <p class="catDesc">Choose size in mm: PHBG (17/19/21), PWK (21/24/26).</p>
+              <p class="catDesc">Now set to <b>€39.99</b>. Choose size in “See more”.</p>
             </div>
           </div>
 
           <div class="catCard" onclick="openSection('covers')">
-            <div class="catImg"><img src="ignitioncover2.png" alt="D50B0 Ignition Covers"></div>
+            <div class="catImg"><img src="ignitioncover1.png" alt="D50B0 Ignition Covers"></div>
             <div class="catOverlay"></div>
             <div class="catContent">
               <div class="catPill">3D Printed</div>
               <h3 class="catTitle">D50B0 Ignition Covers</h3>
-              <p class="catDesc">Choose colors: Black-Red / Black-Blue / Black-Purple.</p>
+              <p class="catDesc">Now set to <b>€19.99</b>. Choose colors in “See more”.</p>
             </div>
           </div>
 
-          <div class="catCard" onclick="openSection('mix')">
-            <div class="catImg"><img src="mix1.png" alt="AM6 / D50B0"></div>
+          <div class="catCard" onclick="openSection('am6d50')">
+            <div class="catImg"><img src="am6d50b0.png" alt="AM6/D50B0"></div>
             <div class="catOverlay"></div>
             <div class="catContent">
-              <div class="catPill">AM6 / D50B0</div>
-              <h3 class="catTitle">Controls + parts</h3>
-              <p class="catDesc">Quick throttle + hydraulic front fender + more (6 items).</p>
+              <div class="catPill">AM6/D50B0</div>
+              <h3 class="catTitle">AM6/D50B0</h3>
+              <p class="catDesc">Quick throttle, fender, seat covers, screws, filters, grips, spoke covers.</p>
             </div>
           </div>
         </div>
@@ -786,7 +730,12 @@
             <option value="black">Black</option>
             <option value="yellow">Yellow</option>
             <option value="white">White</option>
+            <option value="green">Green</option>
             <option value="purple">Purple</option>
+            <option value="orange">Orange</option>
+            <option value="pink">Pink</option>
+            <option value="grey">Grey</option>
+            <option value="neon">Neon</option>
           </select>
         </div>
 
@@ -941,7 +890,7 @@
 
   <script>
     // ---------------------------
-    // DATA
+    // Currency
     // ---------------------------
     const FX = {
       EUR: { symbol: "€", rate: 1 },
@@ -950,14 +899,83 @@
     };
     let currency = "EUR";
 
-    // Sections + products
-    // - Carb section: only 2 products (PHBG + PWK) with size options (and prices in EUR)
-    // - Covers: 6 products with color options
-    // - Mix: 6 products, first two defined with color options, rest placeholders
+    function moneyFromEur(eur){
+      const fx = FX[currency];
+      const value = eur * fx.rate;
+      if (currency === "HUF"){
+        return new Intl.NumberFormat("hu-HU").format(Math.round(value)) + " " + fx.symbol;
+      }
+      return fx.symbol + new Intl.NumberFormat("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value);
+    }
+
+    // ---------------------------
+    // Option-image helpers
+    // ✅ Works for EVERYTHING: size or color changes update the modal image
+    // ---------------------------
+    function normalizeColorToken(colorLabel){
+      // "Black-Red" -> "blackred", "Neon Green" -> "neongreen"
+      return String(colorLabel)
+        .toLowerCase()
+        .replace(/\s+/g,'')
+        .replace(/-/g,'')
+        .replace(/_/g,'');
+    }
+
+    function buildColorFilename(prefix, colorLabel, ext="png"){
+      // Example: prefix="quickthrottle" + "White" => "whitequickthrottle.png"
+      // Example: prefix="seatcover" + "Red" => "redseatcover.png"
+      return `${normalizeColorToken(colorLabel)}${prefix}.${ext}`;
+    }
+
+    function resolveVariantImage(product, sizeLabel, colorLabel){
+      // Priority:
+      // 1) Explicit mapping in product.variantImages (object)
+      // 2) Rule-based filename for colors if product.colorImagePrefix exists
+      // 3) Rule-based filename for sizes if product.sizeImagePrefix exists
+      // 4) fallback product.img
+      if (product.variantImages){
+        const keyParts = [];
+        if (sizeLabel) keyParts.push(`size:${sizeLabel}`);
+        if (colorLabel) keyParts.push(`color:${colorLabel}`);
+        const key = keyParts.join("|");
+        if (product.variantImages[key]) return product.variantImages[key];
+
+        // also allow direct color-only or size-only keys
+        if (colorLabel && product.variantImages[`color:${colorLabel}`]) return product.variantImages[`color:${colorLabel}`];
+        if (sizeLabel && product.variantImages[`size:${sizeLabel}`]) return product.variantImages[`size:${sizeLabel}`];
+      }
+
+      // color prefix rule
+      if (colorLabel && product.colorImagePrefix){
+        return buildColorFilename(product.colorImagePrefix, colorLabel, "png");
+      }
+
+      // size prefix rule (example: phbg17mm.png)
+      if (sizeLabel && product.sizeImagePrefix){
+        const token = String(sizeLabel).toLowerCase().replace(/\s+/g,'').replace(/-/g,'');
+        return `${product.sizeImagePrefix}${token}.png`;
+      }
+
+      return product.img;
+    }
+
+    // ---------------------------
+    // DATA
+    // Prices you requested:
+    // - Ignition covers: €19.99
+    // - Carbs: €39.99 (all sizes)
+    // - Quick throttle: €33.99
+    // - Hydraulic front fender: €30.99
+    // - Seat cover: €24.99
+    // - Aluminium screws: €5.99
+    // - Gas fuel filter: €3.99
+    // - Handle grips: €7.99
+    // - Spoke covers: €7.99
+    // ---------------------------
     const SECTIONS = {
       carb: {
         title: "Carburetor / Intake",
-        desc: "PHBG and PWK carburetors. Open “See more” to choose size (mm).",
+        desc: "Choose size in “See more”. The product image updates to the selected size.",
         useColorFilter: false,
         products: [
           {
@@ -967,14 +985,13 @@
             img:"carb1.png",
             fit:"AM6 / D50B0",
             tags:["Carb","Intake","Tuning"],
-            desc:"PHBG Carburetor. Choose size in mm. (Replace this description with real specs.)",
-            options: {
-              size: [
-                { label:"17mm", price_eur: 26.90 },
-                { label:"19mm", price_eur: 29.90 },
-                { label:"21mm", price_eur: 32.90 }
-              ]
-            }
+            desc:"PHBG Carburetor. Choose size (17/19/21mm).",
+            // ✅ set all sizes to 39.99 EUR
+            options: { size: ["17mm","19mm","21mm"] },
+            base_eur: 39.99,
+            // ✅ image changes by size:
+            // You can name them like: phbg17mm.png / phbg19mm.png / phbg21mm.png
+            sizeImagePrefix: "phbg"
           },
           {
             id:"pwk-carb",
@@ -983,59 +1000,145 @@
             img:"carb2.png",
             fit:"AM6 / D50B0",
             tags:["Carb","Intake","Race"],
-            desc:"PWK Carburetor. Choose size in mm. (Replace this description with real specs.)",
-            options: {
-              size: [
-                { label:"21mm", price_eur: 39.90 },
-                { label:"24mm", price_eur: 44.90 },
-                { label:"26mm", price_eur: 49.90 }
-              ]
-            }
+            desc:"PWK Carburetor. Choose size (21/24/26mm).",
+            options: { size: ["21mm","24mm","26mm"] },
+            base_eur: 39.99,
+            // ✅ image changes by size:
+            // pwk21mm.png / pwk24mm.png / pwk26mm.png
+            sizeImagePrefix: "pwk"
           }
         ]
       },
 
       covers: {
         title: "D50B0 Ignition Covers (3D Printed)",
-        desc: "Choose colors: Black-Red / Black-Blue / Black-Purple (in “See more”).",
+        desc: "Choose cover color in “See more”. Each cover is €19.99.",
         useColorFilter: true,
         products: [
-          { id:"cover-1", name:"Ignition Cover 1", badge:"D50B0", img:"ignitioncover1.png", fit:"D50B0", tags:["D50B0","3D Print","RedLine"], base_eur: 35.90, desc:"Ignition Cover 1. Add your real material/finish notes here.", options:{ color:["Black-Red","Black-Blue","Black-Purple"] } },
-          { id:"cover-2", name:"Ignition Cover 2", badge:"D50B0", img:"ignitioncover2.png", fit:"D50B0", tags:["D50B0","3D Print"], base_eur: 37.90, desc:"Ignition Cover 2. Add installation + what's included.", options:{ color:["Black-Red","Black-Blue","Black-Purple"] } },
-          { id:"cover-3", name:"Ignition Cover 3", badge:"D50B0", img:"ignitioncover3.png", fit:"D50B0", tags:["D50B0","3D Print"], base_eur: 39.90, desc:"Ignition Cover 3. Add your design name & details.", options:{ color:["Black-Red","Black-Blue","Black-Purple"] } },
-          { id:"cover-4", name:"Ignition Cover 4", badge:"D50B0", img:"ignitioncover4.png", fit:"D50B0", tags:["D50B0","3D Print"], base_eur: 39.90, desc:"Ignition Cover 4. (Add ignitioncover4.png)", options:{ color:["Black-Red","Black-Blue","Black-Purple"] } },
-          { id:"cover-5", name:"Ignition Cover 5", badge:"D50B0", img:"ignitioncover5.png", fit:"D50B0", tags:["D50B0","3D Print","Limited"], base_eur: 41.90, desc:"Ignition Cover 5. (Add ignitioncover5.png)", options:{ color:["Black-Red","Black-Blue","Black-Purple"] } },
-          { id:"cover-6", name:"Ignition Cover 6", badge:"D50B0", img:"ignitioncover6.png", fit:"D50B0", tags:["D50B0","3D Print"], base_eur: 41.90, desc:"Ignition Cover 6. (Add ignitioncover6.png)", options:{ color:["Black-Red","Black-Blue","Black-Purple"] } }
+          { id:"cover-1", name:"Ignition Cover 1", badge:"D50B0", img:"ignitioncover1.png", fit:"D50B0", tags:["D50B0","3D Print"], base_eur: 19.99, desc:"Ignition Cover 1.", options:{ color:["Black-Red","Black-Blue","Black-Purple"] } },
+          { id:"cover-2", name:"Ignition Cover 2", badge:"D50B0", img:"ignitioncover2.png", fit:"D50B0", tags:["D50B0","3D Print"], base_eur: 19.99, desc:"Ignition Cover 2.", options:{ color:["Black-Red","Black-Blue","Black-Purple"] } },
+          { id:"cover-3", name:"Ignition Cover 3", badge:"D50B0", img:"ignitioncover3.png", fit:"D50B0", tags:["D50B0","3D Print"], base_eur: 19.99, desc:"Ignition Cover 3.", options:{ color:["Black-Red","Black-Blue","Black-Purple"] } },
+          { id:"cover-4", name:"Ignition Cover 4", badge:"D50B0", img:"ignitioncover4.png", fit:"D50B0", tags:["D50B0","3D Print"], base_eur: 19.99, desc:"Ignition Cover 4.", options:{ color:["Black-Red","Black-Blue","Black-Purple"] } },
+          { id:"cover-5", name:"Ignition Cover 5", badge:"D50B0", img:"ignitioncover5.png", fit:"D50B0", tags:["D50B0","3D Print"], base_eur: 19.99, desc:"Ignition Cover 5.", options:{ color:["Black-Red","Black-Blue","Black-Purple"] } },
+          { id:"cover-6", name:"Ignition Cover 6", badge:"D50B0", img:"ignitioncover6.png", fit:"D50B0", tags:["D50B0","3D Print"], base_eur: 19.99, desc:"Ignition Cover 6.", options:{ color:["Black-Red","Black-Blue","Black-Purple"] } }
         ]
       },
 
-      mix: {
-        title: "AM6 / D50B0 Section",
-        desc: "Controls + parts for AM6 / D50B0 builds (6 items).",
+      am6d50: {
+        title: "AM6/D50B0",
+        desc: "Color variants update the product image instantly in “See more”.",
         useColorFilter: true,
         products: [
-          { id:"throttle", name:"Quick Throttle", badge:"AM6/D50B0", img:"mix1.png", fit:"AM6 / D50B0", tags:["Throttle","Tuning"], base_eur: 19.90, desc:"Quick throttle. Choose color in “See more”.", options:{ color:["Black","Red","Purple","White","Blue"] } },
-          { id:"hydro-fender", name:"Hydraulic Front Fender", badge:"AM6/D50B0", img:"mix2.png", fit:"AM6 / D50B0", tags:["Front Fender","Hydraulic"], base_eur: 24.90, desc:"Hydraulic front fender. Choose color in “See more”.", options:{ color:["White","Black"] } },
-          { id:"mix-3", name:"AM6/D50B0 Product 3", badge:"MIX", img:"mix3.png", fit:"AM6 / D50B0", tags:["AM6","D50B0"], base_eur: 14.90, desc:"Placeholder product. Replace later.", options:{ color:["Black","Red","Blue"] } },
-          { id:"mix-4", name:"AM6/D50B0 Product 4", badge:"MIX", img:"mix4.png", fit:"AM6 / D50B0", tags:["AM6","D50B0"], base_eur: 16.90, desc:"Placeholder product. Replace later.", options:{ color:["Black","White"] } },
-          { id:"mix-5", name:"AM6/D50B0 Product 5", badge:"MIX", img:"mix5.png", fit:"AM6 / D50B0", tags:["AM6","D50B0"], base_eur: 18.90, desc:"Placeholder product. Replace later.", options:{ color:["Black"] } },
-          { id:"mix-6", name:"AM6/D50B0 Product 6", badge:"MIX", img:"mix6.png", fit:"AM6 / D50B0", tags:["AM6","D50B0"], base_eur: 18.90, desc:"Placeholder product. Replace later.", options:{ color:["Black"] } }
+          {
+            id:"quick-throttle",
+            name:"Quick Throttle",
+            badge:"Quick Throttle",
+            img:"mix1.png",
+            fit:"AM6 / D50B0",
+            tags:["Throttle","Tuning"],
+            base_eur: 33.99,
+            desc:"Quick throttle. Choose color in “See more”.",
+            options:{ color:["Black","Red","Purple","White","Blue"] },
+            // ✅ REQUIRED BY YOU:
+            // whitequickthrottle.png, blackquickthrottle.png, redquickthrottle.png, purplequickthrottle.png, bluequickthrottle.png
+            colorImagePrefix: "quickthrottle"
+          },
+          {
+            id:"hydro-front-fender",
+            name:"Hydraulic Front Fender",
+            badge:"AM6/D50B0",
+            img:"mix2.png",
+            fit:"AM6 / D50B0",
+            tags:["Front Fender","Hydraulic"],
+            base_eur: 30.99,
+            desc:"Hydraulic front fender. Choose color in “See more”.",
+            options:{ color:["White","Black"] },
+            // Suggested names: whitehydraulicfrontfender.png, blackhydraulicfrontfender.png
+            // If you want different names, tell me and I’ll adjust.
+            colorImagePrefix: "hydraulicfrontfender"
+          },
+          {
+            id:"seat-cover",
+            name:"Seat Cover",
+            badge:"AM6/D50B0",
+            img:"redseatcover.png",
+            fit:"AM6 / D50B0",
+            tags:["Seat","Style"],
+            base_eur: 24.99,
+            desc:"Seat cover. Choose color in “See more”.",
+            options:{ color:["Green","White","Red","Blue"] },
+            // ✅ You asked: redseatcover.png for red
+            // This rule makes: greenseatcover.png / whitseatcover.png? -> actually "whiteseatcover.png" / redseatcover.png / blueseatcover.png
+            colorImagePrefix: "seatcover"
+          },
+          {
+            id:"aluminium-screws",
+            name:"Aluminium Screws",
+            badge:"AM6/D50B0",
+            img:"redaluminiumscrews.png",
+            fit:"AM6 / D50B0",
+            tags:["Hardware","Lightweight"],
+            base_eur: 5.99,
+            desc:"Aluminium screws set. Choose color in “See more”.",
+            options:{ color:["Black","White","Red","Yellow","Blue","Purple"] },
+            // ✅ You asked: redaluminiumscrews.png and same for other colors
+            colorImagePrefix: "aluminiumscrews"
+          },
+          {
+            id:"gas-fuel-filter",
+            name:"Gas Fuel Filter",
+            badge:"AM6/D50B0",
+            img:"redgasfuelfilter.png",
+            fit:"AM6 / D50B0",
+            tags:["Fuel","Filter"],
+            base_eur: 3.99,
+            desc:"Gas fuel filter. Choose color in “See more”.",
+            options:{ color:["Red","Green","Purple","Blue","Yellow"] },
+            // ✅ You asked: redgasfuelfilter.png etc.
+            colorImagePrefix: "gasfuelfilter"
+          },
+          {
+            id:"handle-grips",
+            name:"High Quality Handle Grips",
+            badge:"AM6/D50B0",
+            img:"redhandlegrip.png",
+            fit:"AM6 / D50B0",
+            tags:["Grips","Comfort"],
+            base_eur: 7.99,
+            desc:"High quality handle grips. Choose color in “See more”.",
+            options:{ color:["Red","Pink","Neon Green","Green","Orange","Blue","Grey"] },
+            // ✅ You asked: redhandlegrip.png etc.
+            colorImagePrefix: "handlegrip"
+          },
+          {
+            id:"spoke-covers",
+            name:"Spoke Covers",
+            badge:"AM6/D50B0",
+            img:"redspokecovers.png",
+            fit:"AM6 / D50B0",
+            tags:["Wheels","Style"],
+            base_eur: 7.99,
+            desc:"Spoke covers. Choose color in “See more”.",
+            options:{ color:["Black","Green","Red","Purple","Orange"] },
+            // ✅ You asked: redspokecovers.png etc.
+            colorImagePrefix: "spokecovers"
+          }
         ]
       }
     };
 
-    // Weekly drops (homepage) – pick some items from sections
+    // Weekly drops: pick 6 items
     const WEEKLY_DROPS = [
       { section:"covers", product:"cover-1" },
       { section:"covers", product:"cover-2" },
-      { section:"mix", product:"throttle" },
-      { section:"mix", product:"hydro-fender" },
+      { section:"am6d50", product:"quick-throttle" },
+      { section:"am6d50", product:"seat-cover" },
       { section:"carb", product:"phbg-carb" },
-      { section:"carb", product:"pwk-carb" }
+      { section:"am6d50", product:"aluminium-screws" }
     ];
 
     // ---------------------------
-    // HELPERS
+    // Helpers
     // ---------------------------
     const $ = (sel) => document.querySelector(sel);
 
@@ -1043,15 +1146,6 @@
       return String(str).replace(/[&<>"']/g, s => ({
         "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
       }[s]));
-    }
-
-    function moneyFromEur(eur){
-      const fx = FX[currency];
-      const value = eur * fx.rate;
-      if (currency === "HUF"){
-        return new Intl.NumberFormat("hu-HU").format(Math.round(value)) + " " + fx.symbol;
-      }
-      return fx.symbol + new Intl.NumberFormat("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value);
     }
 
     function findProduct(sectionKey, productId){
@@ -1071,17 +1165,13 @@
     }
 
     // ---------------------------
-    // ROUTING (History + hash params)
+    // Routing (History + hash params)
+    // #home | #sections | #section=am6d50 | #section=am6d50&product=quick-throttle
     // ---------------------------
-    // #home
-    // #sections
-    // #section=covers
-    // #section=covers&product=cover-2
     function parseHash(){
       const h = (location.hash || "").replace(/^#/, "");
       if (!h || h === "home") return { view:"home" };
       if (h === "sections") return { view:"sections" };
-
       const params = new URLSearchParams(h);
       const section = params.get("section");
       const product = params.get("product");
@@ -1104,7 +1194,7 @@
     }
 
     // ---------------------------
-    // VIEW STATE
+    // View state
     // ---------------------------
     let currentSectionKey = null;
     let currentProduct = null;
@@ -1112,7 +1202,7 @@
     let selectedSize = null;
     let selectedColor = null;
 
-    // cart: key includes options
+    // cart
     const cart = new Map(); // key -> { name, price_eur, qty, optsText }
 
     function showView(view){
@@ -1134,7 +1224,6 @@
     window.openSection = openSection;
 
     function openFeaturedFirst(){
-      // Open first weekly drop product
       const first = WEEKLY_DROPS[0];
       if (!first) return;
       setHashState("shop", first.section, first.product, false);
@@ -1143,8 +1232,13 @@
     window.openFeaturedFirst = openFeaturedFirst;
 
     // ---------------------------
-    // RENDER: HOME (Weekly drops)
+    // Rendering: Home (Weekly drops)
     // ---------------------------
+    function productDisplayPriceEur(p){
+      // If size options exist, still same base price, but keep logic simple
+      return typeof p.base_eur === "number" ? p.base_eur : 0;
+    }
+
     function renderFeatured(){
       const grid = $("#featuredGrid");
       grid.innerHTML = "";
@@ -1156,13 +1250,7 @@
         const p = found.product;
         const sk = found.sectionKey;
 
-        // display price:
-        let displayEur = p.base_eur ?? 0;
-        let label = "";
-        if (p.options && p.options.size){
-          displayEur = Math.min(...p.options.size.map(s => s.price_eur));
-          label = "From ";
-        }
+        const displayEur = productDisplayPriceEur(p);
 
         const card = document.createElement("article");
         card.className = "card";
@@ -1174,7 +1262,7 @@
           <div class="cardBody">
             <div class="titleRow">
               <h3>${escapeHtml(p.name)}</h3>
-              <div class="price">${escapeHtml(label)}${escapeHtml(moneyFromEur(displayEur))}</div>
+              <div class="price">${escapeHtml(moneyFromEur(displayEur))}</div>
             </div>
             <p class="desc">${escapeHtml(p.desc)}</p>
             <div class="pillrow">
@@ -1192,7 +1280,7 @@
     }
 
     // ---------------------------
-    // RENDER: SHOP GRID
+    // Rendering: Shop grid
     // ---------------------------
     function renderShop(){
       if (!currentSectionKey) return;
@@ -1202,7 +1290,6 @@
       $("#shopTitle").textContent = sec.title;
       $("#shopDesc").textContent = sec.desc;
 
-      // controls visibility
       const useColor = !!sec.useColorFilter;
       $("#colorFilterLabel").style.display = useColor ? "inline" : "none";
       $("#colorFilter").style.display = useColor ? "inline-block" : "none";
@@ -1240,12 +1327,7 @@
       }
 
       for (const p of list){
-        let displayEur = p.base_eur ?? 0;
-        let label = "";
-        if (p.options && p.options.size){
-          displayEur = Math.min(...p.options.size.map(s => s.price_eur));
-          label = "From ";
-        }
+        const displayEur = productDisplayPriceEur(p);
 
         const card = document.createElement("article");
         card.className = "card";
@@ -1257,7 +1339,7 @@
           <div class="cardBody">
             <div class="titleRow">
               <h3>${escapeHtml(p.name)}</h3>
-              <div class="price">${escapeHtml(label)}${escapeHtml(moneyFromEur(displayEur))}</div>
+              <div class="price">${escapeHtml(moneyFromEur(displayEur))}</div>
             </div>
             <p class="desc">${escapeHtml(p.desc)}</p>
             <div class="pillrow">
@@ -1275,33 +1357,29 @@
     }
 
     // ---------------------------
-    // PRODUCT MODAL
+    // Product modal
     // ---------------------------
-    function getSelectedBasePriceEur(){
-      if (!currentProduct) return 0;
-      if (currentProduct.options && currentProduct.options.size){
-        const chosen = currentProduct.options.size.find(s => s.label === selectedSize) || currentProduct.options.size[0];
-        return chosen ? chosen.price_eur : 0;
-      }
-      return currentProduct.base_eur ?? 0;
-    }
-
-    function updateModalPrice(){
-      $("#modalPrice").textContent = moneyFromEur(getSelectedBasePriceEur());
-    }
-
     function resetSelect(el){
-      // Remove old listeners by cloning
       const clone = el.cloneNode(true);
       el.parentNode.replaceChild(clone, el);
       return clone;
+    }
+
+    function updateModalImage(){
+      if (!currentProduct) return;
+      const img = resolveVariantImage(currentProduct, selectedSize, selectedColor);
+      $("#modalImg").src = img;
+    }
+
+    function updateModalPrice(){
+      if (!currentProduct) return;
+      $("#modalPrice").textContent = moneyFromEur(currentProduct.base_eur ?? 0);
     }
 
     function openProduct(productId, pushHistory){
       const found = findProductById(productId);
       if (!found) return;
 
-      // ensure correct section view
       currentSectionKey = found.sectionKey;
       showView("shop");
       renderShop();
@@ -1311,13 +1389,12 @@
       selectedSize = null;
       selectedColor = null;
 
-      $("#modalImg").src = currentProduct.img;
-      $("#modalImg").alt = currentProduct.name;
       $("#modalName").textContent = currentProduct.name;
       $("#modalDesc").textContent = currentProduct.desc;
       $("#modalFit").textContent = currentProduct.fit || "—";
       $("#qtyVal").textContent = "1";
 
+      // specs chips
       const specs = $("#modalSpecs");
       specs.innerHTML = "";
       (currentProduct.tags || []).forEach(t => {
@@ -1327,7 +1404,7 @@
         specs.appendChild(s);
       });
 
-      // option rows reset
+      // reset option rows
       $("#optionRow1").style.display = "none";
       $("#optionRow2").style.display = "none";
 
@@ -1336,26 +1413,31 @@
       opt1.innerHTML = "";
       opt2.innerHTML = "";
 
-      // SIZE options (carbs)
-      if (currentProduct.options && currentProduct.options.size){
+      // Options: size and/or color
+      // If both exist: size -> row1, color -> row2
+      // If only one: use row1
+      const hasSize = !!(currentProduct.options && Array.isArray(currentProduct.options.size));
+      const hasColor = !!(currentProduct.options && Array.isArray(currentProduct.options.color));
+
+      if (hasSize){
         $("#optionRow1").style.display = "flex";
         $("#opt1Label").textContent = "Size";
         currentProduct.options.size.forEach((s) => {
           const o = document.createElement("option");
-          o.value = s.label;
-          o.textContent = `${s.label} • ${moneyFromEur(s.price_eur)}`;
+          o.value = s;
+          o.textContent = s;
           opt1.appendChild(o);
         });
         selectedSize = opt1.value;
+
         opt1.addEventListener("change", () => {
           selectedSize = opt1.value;
-          updateModalPrice();
+          updateModalImage(); // ✅ image changes when size changes
         });
       }
 
-      // COLOR options (covers/mix)
-      if (currentProduct.options && Array.isArray(currentProduct.options.color)){
-        const useRow2 = !!(currentProduct.options && currentProduct.options.size);
+      if (hasColor){
+        const useRow2 = hasSize;
         const row = useRow2 ? "optionRow2" : "optionRow1";
         const label = useRow2 ? "opt2Label" : "opt1Label";
         const selectEl = useRow2 ? opt2 : opt1;
@@ -1370,13 +1452,18 @@
           selectEl.appendChild(o);
         });
         selectedColor = selectEl.value;
+
         selectEl.addEventListener("change", () => {
           selectedColor = selectEl.value;
-          updateModalPrice();
+          updateModalImage(); // ✅ image changes when color changes
         });
       }
 
+      // initial image + price
+      $("#modalImg").alt = currentProduct.name;
       updateModalPrice();
+      updateModalImage();
+
       $("#productBackdrop").style.display = "flex";
 
       if (pushHistory){
@@ -1396,7 +1483,7 @@
     }
 
     // ---------------------------
-    // CART + CHECKOUT
+    // Cart + checkout
     // ---------------------------
     function setCartCount(){
       let total = 0;
@@ -1453,9 +1540,8 @@
     }
 
     // ---------------------------
-    // EVENT BINDING (delegation so it never breaks)
+    // Event binding (delegation so it never breaks)
     // ---------------------------
-    // Featured grid delegation
     $("#featuredGrid").addEventListener("click", (e) => {
       const openBtn = e.target.closest("[data-open]");
       if (openBtn){
@@ -1476,7 +1562,6 @@
       }
     });
 
-    // Product grid delegation
     $("#productGrid").addEventListener("click", (e) => {
       const openBtn = e.target.closest("[data-open]");
       if (openBtn){
@@ -1490,11 +1575,9 @@
       }
     });
 
-    // Search / filters
     $("#search").addEventListener("input", () => renderShop());
     $("#colorFilter").addEventListener("change", () => renderShop());
 
-    // Currency change
     $("#currencySelect").addEventListener("change", () => {
       currency = $("#currencySelect").value;
       renderFeatured();
@@ -1503,14 +1586,12 @@
       renderCart();
     });
 
-    // Modal controls
     $("#closeProduct").addEventListener("click", () => closeProduct(true));
     $("#buyClose").addEventListener("click", () => closeProduct(true));
     $("#productBackdrop").addEventListener("click", (e) => {
       if (e.target.id === "productBackdrop") closeProduct(true);
     });
 
-    // Qty
     $("#qtyDec").addEventListener("click", () => {
       currentQty = Math.max(1, currentQty - 1);
       $("#qtyVal").textContent = String(currentQty);
@@ -1520,10 +1601,10 @@
       $("#qtyVal").textContent = String(currentQty);
     });
 
-    // Buy now
     $("#buyNow").addEventListener("click", () => {
       if (!currentProduct) return;
-      const priceEur = getSelectedBasePriceEur();
+
+      const priceEur = currentProduct.base_eur ?? 0;
       const opts = [];
       if (selectedSize) opts.push(`Size: ${selectedSize}`);
       if (selectedColor) opts.push(`Color: ${selectedColor}`);
@@ -1534,7 +1615,6 @@
       openCheckout(currentProduct, currentQty, optsText, priceEur);
     });
 
-    // Checkout
     $("#closeCheckout").addEventListener("click", closeCheckout);
     $("#checkoutBack").addEventListener("click", closeCheckout);
     $("#placeOrder").addEventListener("click", () => {
@@ -1549,7 +1629,6 @@
       closeCheckout();
     });
 
-    // Cart modal
     function openCart(){ $("#cartBackdrop").style.display = "flex"; renderCart(); }
     function closeCart(){ $("#cartBackdrop").style.display = "none"; }
     $("#openCart").addEventListener("click", openCart);
@@ -1597,13 +1676,11 @@
         renderShop();
 
         if (route.product){
-          // open product without pushing history again
-          openProduct(route.product, false);
+          openProduct(route.product, false); // open modal without pushing state again
         }
         return;
       }
 
-      // fallback
       showView("home");
       currentSectionKey = null;
       if (replace) setHashState("home", null, null, true);
@@ -1618,7 +1695,6 @@
       renderFeatured();
       renderCart();
       setCartCount();
-      // ensure initial route
       syncFromUrl(true);
     })();
   </script>
