@@ -3,21 +3,26 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>RedLine — Parts & 3D Printed Covers</title>
-  <meta name="description" content="RedLine — clean red/black webshop for D50B0 / AM6 parts and 3D printed ignition covers." />
+  <title>RedLine — Tuning Parts & 3D Printed Covers</title>
+  <meta name="description" content="RedLine — clean red/black shop for D50B0 / AM6 tuning parts and 3D printed ignition covers." />
 
   <style>
     :root{
-      --bg:#0b0b0d;
-      --bg2:#070709;
+      --bg:#070709;
+      --bg2:#0b0b10;
+      --panel: rgba(255,255,255,.05);
+      --panel2: rgba(255,255,255,.035);
       --stroke: rgba(255,255,255,.10);
+      --stroke2: rgba(255,255,255,.14);
+
       --text: rgba(255,255,255,.92);
       --muted: rgba(255,255,255,.68);
+      --muted2: rgba(255,255,255,.55);
 
       --accent:#ff1f1f;
       --accent2:#ff3b3b;
 
-      --shadow: 0 18px 70px rgba(0,0,0,.55);
+      --shadow: 0 22px 90px rgba(0,0,0,.62);
       --radius: 14px;
       --radius2: 18px;
 
@@ -31,49 +36,66 @@
       margin:0;
       font-family: var(--sans);
       color: var(--text);
+      overflow:hidden; /* page doesn't scroll; app area does */
       background:
-        radial-gradient(1200px 520px at 50% -10%, rgba(255,31,31,.18), transparent 60%),
-        radial-gradient(900px 520px at 10% 20%, rgba(255,31,31,.10), transparent 62%),
-        linear-gradient(180deg, var(--bg2), var(--bg));
-      overflow:hidden; /* important: page itself does NOT scroll */
+        radial-gradient(1000px 520px at 40% -10%, rgba(255,31,31,.22), transparent 60%),
+        radial-gradient(900px 520px at 10% 30%, rgba(255,31,31,.10), transparent 62%),
+        radial-gradient(900px 520px at 90% 40%, rgba(255,31,31,.08), transparent 62%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      position:relative;
+    }
+
+    /* subtle "tech grid" */
+    body:before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.06) 1px, transparent 1px);
+      background-size: 42px 42px;
+      opacity:.06;
+      pointer-events:none;
+      mix-blend-mode: screen;
     }
 
     a{color:inherit; text-decoration:none}
-    button{font-family:inherit}
+    button, select, input{font-family:inherit}
     img{max-width:100%; display:block}
-    .wrap{max-width:1180px; margin:0 auto; padding: 0 18px}
+    .wrap{max-width:1180px; margin:0 auto; padding: 0 16px}
 
-    /* Promo bar */
+    /* top promo */
     .promo{
-      background: linear-gradient(90deg, rgba(255,31,31,.95), rgba(255,31,31,.70));
+      background: linear-gradient(90deg, rgba(255,31,31,.95), rgba(255,31,31,.72));
       color: rgba(0,0,0,.92);
-      font-weight: 900;
+      font-weight: 950;
       letter-spacing: .2px;
-      font-size: 13px;
+      font-size: 12.5px;
+      position:relative;
+      z-index:60;
     }
     .promo .inner{
       display:flex; gap:12px; flex-wrap:wrap;
       align-items:center; justify-content:space-between;
       padding: 10px 0;
     }
-    .promo .dot{width:8px; height:8px; border-radius:999px; background: rgba(0,0,0,.85);}
+    .dot{width:8px; height:8px; border-radius:999px; background: rgba(0,0,0,.85); display:inline-block}
 
-    /* Header */
     header{
-      position: sticky; top: 0; z-index: 50;
-      backdrop-filter: blur(14px);
-      background: rgba(11,11,13,.78);
+      position: sticky; top: 0; z-index: 55;
+      backdrop-filter: blur(16px);
+      background: rgba(10,10,14,.75);
       border-bottom: 1px solid var(--stroke);
     }
     .topbar{
       display:flex; align-items:center; justify-content:space-between;
-      gap:14px; padding: 14px 0;
+      gap:12px; padding: 12px 0;
     }
+
     .brand{
       display:flex; align-items:center; gap:10px;
       font-weight: 950;
       letter-spacing: .2px;
-      min-width: 190px;
+      min-width: 170px;
     }
     .brandLogo{
       width:40px; height:40px;
@@ -84,38 +106,35 @@
       box-shadow: 0 14px 42px rgba(255,31,31,.18);
     }
     .brand small{
-      display:block; font-weight:800; color: rgba(255,255,255,.70); letter-spacing: .6px;
+      display:block;
+      font-weight:900;
+      color: rgba(255,255,255,.68);
+      letter-spacing: .6px;
       text-transform: uppercase;
       font-size: 11px;
+      margin-top:2px;
     }
 
     .nav{
-      display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+      display:flex; align-items:center; gap:10px; flex-wrap:wrap;
       color: rgba(255,255,255,.70);
-      font-weight: 800;
+      font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: .7px;
-      font-size: 12px;
+      letter-spacing: .8px;
+      font-size: 11.5px;
     }
-    .nav a{padding: 10px 10px; border-radius: 10px;}
-    .nav a:hover{background: rgba(255,255,255,.06); color: rgba(255,255,255,.92)}
-
-    .actions{display:flex; align-items:center; gap:10px}
-    .pill{
-      display:inline-flex; align-items:center; gap:10px;
-      padding: 10px 12px;
+    .nav a{
+      padding: 9px 10px;
       border-radius: 999px;
+    }
+    .nav a:hover{
       background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.12);
-      color: var(--text);
+      color: rgba(255,255,255,.92);
     }
-    .pill input{
-      background: transparent; border:0; outline:0;
-      color: var(--text);
-      width: 220px;
-      font-size: 14px;
+
+    .actions{
+      display:flex; align-items:center; gap:10px;
     }
-    .icon{width:18px; height:18px; opacity:.9; display:inline-block}
 
     .btn{
       border: 1px solid rgba(255,255,255,.14);
@@ -125,19 +144,28 @@
       border-radius: 12px;
       cursor:pointer;
       transition: transform .12s ease, background .12s ease, border-color .12s ease;
-      font-weight: 900;
+      font-weight: 950;
       white-space: nowrap;
     }
-    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.085); border-color: rgba(255,255,255,.22)}
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.085);
+      border-color: rgba(255,255,255,.22);
+    }
     .btn.primary{
       background: linear-gradient(135deg, rgba(255,31,31,.98), rgba(255,31,31,.68));
       border-color: rgba(255,255,255,.18);
       box-shadow: 0 18px 60px rgba(255,31,31,.18);
     }
+    .btn.ghost{
+      background: transparent;
+      border-color: rgba(255,255,255,.14);
+    }
+
     .badge{
       min-width: 22px; height: 22px;
       display:inline-flex; align-items:center; justify-content:center;
-      padding: 0 6px; border-radius: 999px;
+      padding: 0 7px; border-radius: 999px;
       background: rgba(255,255,255,.12);
       border: 1px solid rgba(255,255,255,.18);
       font-size: 12px;
@@ -150,127 +178,134 @@
       border: 1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.06);
       color: var(--text);
-      outline: none;
-      font-weight: 900;
+      outline:none;
+      font-weight: 950;
       text-transform: uppercase;
       letter-spacing: .6px;
       font-size: 12px;
       cursor:pointer;
     }
 
-    /* App scroll area (only this scrolls) */
+    /* app scroll area */
     .appScroll{
       height: calc(100vh - 0px);
       overflow:auto;
       scroll-behavior: smooth;
+      position:relative;
+      z-index:1;
     }
-    /* Keep header visible; appScroll starts under promo+header automatically */
-    .appContent{padding: 18px 0 34px}
+    .appContent{padding: 16px 0 26px}
 
-    /* Sections */
-    section{padding: 8px 0 22px}
+    section{padding: 10px 0 22px}
     .sectionHead{
       display:flex; align-items:flex-end; justify-content:space-between; gap:12px;
-      margin: 8px 0 12px;
+      margin: 6px 0 12px;
     }
     .sectionHead h2{
       margin:0;
-      font-size: 16px;
-      letter-spacing: .5px;
+      font-size: 14px;
+      letter-spacing: .9px;
       text-transform: uppercase;
     }
     .sectionHead p{
-      margin:0; color: rgba(255,255,255,.66); font-size: 13px;
+      margin:6px 0 0;
+      color: rgba(255,255,255,.66);
+      font-size: 13px;
       max-width: 90ch;
+      line-height:1.6;
     }
 
-    /* Category selector tiles */
-    .catGrid{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 12px;
-    }
-    .catCard{
-      border-radius: 18px;
+    /* Hero like maxiscoot-ish: bold banner + featured cards */
+    .hero{
+      border-radius: 22px;
       overflow:hidden;
       border: 1px solid rgba(255,255,255,.12);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      box-shadow: 0 16px 60px rgba(0,0,0,.40);
-      cursor:pointer;
-      transition: transform .14s ease, border-color .14s ease, background .14s ease;
-      position:relative;
-      min-height: 220px;
-    }
-    .catCard:hover{
-      transform: translateY(-2px);
-      border-color: rgba(255,255,255,.20);
-      background: linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.035));
-    }
-    .catImg{position:absolute; inset:0;}
-    .catImg img{width:100%; height:100%; object-fit: cover; filter: contrast(1.02) saturate(1.02);}
-    .catOverlay{
-      position:absolute; inset:0;
+      box-shadow: var(--shadow);
       background:
-        linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.82)),
-        radial-gradient(700px 220px at 20% 30%, rgba(255,31,31,.22), transparent 60%);
+        radial-gradient(900px 420px at 20% 20%, rgba(255,31,31,.25), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
+      position:relative;
     }
-    .catContent{
-      position:absolute; left: 14px; right: 14px; bottom: 14px;
-      display:flex; flex-direction:column; gap:8px;
+    .hero:after{
+      content:"";
+      position:absolute; inset:-1px;
+      background:
+        linear-gradient(90deg, rgba(255,31,31,.24), transparent 55%),
+        linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.55));
+      pointer-events:none;
     }
-    .catPill{
-      width: fit-content;
-      padding: 7px 9px;
-      border-radius: 999px;
-      background: rgba(0,0,0,.45);
-      border: 1px solid rgba(255,255,255,.12);
-      color: rgba(255,255,255,.84);
+    .heroInner{
+      position:relative;
+      z-index:2;
+      padding: 18px;
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 14px;
+      align-items:center;
+    }
+    .kicker{
+      display:inline-flex; align-items:center; gap:10px;
       font-family: var(--mono);
+      color: rgba(255,255,255,.80);
       font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: .6px;
+      letter-spacing: .7px;
+      padding: 8px 12px;
+      background: rgba(0,0,0,.22);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 999px;
+      width: fit-content;
       backdrop-filter: blur(10px);
     }
-    .catTitle{margin:0; font-size: 16px; letter-spacing:.2px; font-weight: 950;}
-    .catDesc{margin:0; color: rgba(255,255,255,.70); font-size: 13px; line-height:1.55;}
-
-    /* Shop controls */
-    .controls{
+    .kdot{
+      width:8px; height:8px; border-radius:999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(255,31,31,.16);
+    }
+    .hero h1{
+      margin: 10px 0 0;
+      font-size: clamp(26px, 3.2vw, 44px);
+      line-height: 1.06;
+      letter-spacing: -0.6px;
+    }
+    .heroLead{
+      margin: 10px 0 0;
+      color: rgba(255,255,255,.72);
+      font-size: 14.5px;
+      line-height: 1.65;
+      max-width: 70ch;
+    }
+    .heroCtas{
       display:flex; gap:10px; flex-wrap:wrap;
-      padding: 12px;
-      border-radius: 16px;
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.10);
+      margin-top: 14px;
       align-items:center;
-      margin-top: 10px;
     }
-    .controls .label{
-      font-family: var(--mono);
-      font-size: 12px;
-      color: rgba(255,255,255,.70);
-      text-transform: uppercase;
-      letter-spacing: .6px;
-      margin-right: 2px;
-    }
-    .input{
-      padding: 10px 12px;
-      border-radius: 12px;
+    .heroPanel{
+      border-radius: 18px;
       border: 1px solid rgba(255,255,255,.12);
       background: rgba(0,0,0,.20);
-      color: var(--text);
-      outline:none;
-      min-width: 240px;
-      flex: 1;
+      padding: 12px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      backdrop-filter: blur(10px);
     }
+    .heroPanel img{
+      width: 132px; height: 132px;
+      object-fit: cover;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+    }
+    .heroPanel strong{display:block; font-size: 13.5px; letter-spacing:.2px}
+    .heroPanel p{margin:6px 0 0; color: rgba(255,255,255,.70); font-size: 12.5px; line-height:1.55}
 
-    /* Products */
+    /* Cards / grids */
     .grid{
       display:grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 14px;
-      margin-top: 14px;
     }
+
     .card{
       border-radius: 18px;
       background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
@@ -309,11 +344,16 @@
     .card h3{margin:0; font-size: 15px; letter-spacing:.2px}
     .price{
       font-weight: 950;
-      font-size: 15px;
+      font-size: 14.5px;
       color: rgba(255,255,255,.92);
       white-space:nowrap;
     }
-    .desc{margin:0; color: rgba(255,255,255,.68); font-size: 13px; line-height: 1.55}
+    .desc{
+      margin:0;
+      color: rgba(255,255,255,.68);
+      font-size: 13px;
+      line-height: 1.55;
+    }
     .pillrow{display:flex; gap:8px; flex-wrap:wrap}
     .miniPill{
       padding: 7px 9px;
@@ -326,11 +366,86 @@
     }
     .cardActions{display:flex; gap:10px; margin-top: 2px; align-items:center}
 
-    /* Product details modal (image left, info right) */
+    /* Category tiles */
+    .catGrid{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .catCard{
+      border-radius: 18px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow: 0 16px 60px rgba(0,0,0,.40);
+      cursor:pointer;
+      transition: transform .14s ease, border-color .14s ease, background .14s ease;
+      position:relative;
+      min-height: 220px;
+    }
+    .catCard:hover{transform: translateY(-2px); border-color: rgba(255,255,255,.20);}
+    .catImg{position:absolute; inset:0;}
+    .catImg img{width:100%; height:100%; object-fit: cover; filter: contrast(1.02) saturate(1.02);}
+    .catOverlay{
+      position:absolute; inset:0;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.22), rgba(0,0,0,.86)),
+        radial-gradient(700px 220px at 20% 30%, rgba(255,31,31,.24), transparent 60%);
+    }
+    .catContent{
+      position:absolute; left: 14px; right: 14px; bottom: 14px;
+      display:flex; flex-direction:column; gap:8px;
+    }
+    .catPill{
+      width: fit-content;
+      padding: 7px 9px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.45);
+      border: 1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.84);
+      font-family: var(--mono);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      backdrop-filter: blur(10px);
+    }
+    .catTitle{margin:0; font-size: 16px; letter-spacing:.2px; font-weight: 950;}
+    .catDesc{margin:0; color: rgba(255,255,255,.72); font-size: 13px; line-height:1.55;}
+
+    /* Shop controls inside section */
+    .controls{
+      display:flex; gap:10px; flex-wrap:wrap;
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.10);
+      align-items:center;
+      margin: 12px 0 0;
+    }
+    .controls .label{
+      font-family: var(--mono);
+      font-size: 12px;
+      color: rgba(255,255,255,.70);
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      margin-right: 2px;
+    }
+    .input{
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.22);
+      color: var(--text);
+      outline:none;
+      min-width: 220px;
+      flex: 1;
+    }
+
+    /* Modals */
     .modalBackdrop{
       position:fixed; inset:0; z-index:100;
-      background: rgba(0,0,0,.62);
-      backdrop-filter: blur(10px);
+      background: rgba(0,0,0,.64);
+      backdrop-filter: blur(12px);
       display:none;
       align-items:center;
       justify-content:center;
@@ -339,9 +454,9 @@
     .modal{
       width:min(980px, 100%);
       border-radius: 22px;
-      background: rgba(16,16,20,.92);
+      background: rgba(16,16,20,.94);
       border: 1px solid rgba(255,255,255,.14);
-      box-shadow: 0 30px 140px rgba(0,0,0,.65);
+      box-shadow: 0 30px 140px rgba(0,0,0,.70);
       overflow:hidden;
     }
     .modalHeader{
@@ -350,9 +465,10 @@
       border-bottom: 1px solid rgba(255,255,255,.10);
     }
     .modalHeader h3{
-      margin:0; font-size: 14px;
+      margin:0; font-size: 13px;
       text-transform: uppercase;
-      letter-spacing: .8px;
+      letter-spacing: .9px;
+      color: rgba(255,255,255,.80);
     }
     .modalGrid{
       display:grid;
@@ -392,7 +508,7 @@
     }
     .modalDesc{
       margin:0;
-      color: rgba(255,255,255,.72);
+      color: rgba(255,255,255,.74);
       font-size: 13.5px;
       line-height: 1.65;
     }
@@ -407,7 +523,7 @@
       font-family: var(--mono);
     }
     .optionRow{
-      margin-top: 4px;
+      margin-top: 2px;
       display:flex; flex-wrap:wrap; gap:10px;
       align-items:center;
     }
@@ -417,6 +533,7 @@
       color: rgba(255,255,255,.70);
       text-transform: uppercase;
       letter-spacing: .6px;
+      min-width: 54px;
     }
     .qtyRow{
       margin-top: 6px;
@@ -437,7 +554,12 @@
       cursor:pointer;
       font-weight: 950;
     }
-    .qty span{min-width: 18px; text-align:center; font-family: var(--mono); font-size: 13px; color: rgba(255,255,255,.80)}
+    .qty span{
+      min-width: 18px; text-align:center;
+      font-family: var(--mono);
+      font-size: 13px;
+      color: rgba(255,255,255,.82)
+    }
     .buyRow{
       margin-top:auto;
       display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap;
@@ -446,34 +568,7 @@
     }
 
     /* Checkout modal */
-    .checkoutBackdrop{
-      position:fixed; inset:0; z-index:110;
-      background: rgba(0,0,0,.70);
-      backdrop-filter: blur(10px);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding: 16px;
-    }
-    .checkout{
-      width:min(720px, 100%);
-      border-radius: 22px;
-      background: rgba(16,16,20,.94);
-      border: 1px solid rgba(255,255,255,.14);
-      box-shadow: 0 30px 140px rgba(0,0,0,.70);
-      overflow:hidden;
-    }
-    .checkoutHead{
-      display:flex; align-items:center; justify-content:space-between;
-      padding: 14px 14px;
-      border-bottom: 1px solid rgba(255,255,255,.10);
-    }
-    .checkoutHead h3{
-      margin:0; font-size: 14px;
-      text-transform: uppercase;
-      letter-spacing: .8px;
-    }
-    .checkoutBody{padding: 14px}
+    .checkout{width:min(720px, 100%);}
     .line{
       display:flex; align-items:center; justify-content:space-between; gap:10px;
       padding: 10px 12px;
@@ -483,7 +578,7 @@
       margin-bottom: 10px;
     }
     .line strong{font-size: 13px}
-    .line span{font-family: var(--mono); color: rgba(255,255,255,.80)}
+    .line span{font-family: var(--mono); color: rgba(255,255,255,.82)}
     .checkoutForm{
       display:grid;
       grid-template-columns: 1fr 1fr;
@@ -504,22 +599,21 @@
       padding: 12px 12px;
       border-radius: 12px;
       border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.20);
+      background: rgba(0,0,0,.22);
       color: var(--text);
       outline:none;
     }
-    .checkoutFoot{
+    .modalFooter{
       display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap;
       padding: 14px;
       border-top: 1px solid rgba(255,255,255,.10);
     }
 
-    .hidden{display:none !important;}
-
+    /* Responsive */
     @media (max-width: 980px){
-      .catGrid{grid-template-columns: 1fr}
+      .heroInner{grid-template-columns: 1fr}
       .grid{grid-template-columns: repeat(2, minmax(0, 1fr))}
-      .pill input{width: 160px}
+      .catGrid{grid-template-columns: 1fr}
       .modalGrid{grid-template-columns: 1fr}
       .modalMedia{border-right:0; border-bottom: 1px solid rgba(255,255,255,.10)}
       .checkoutForm{grid-template-columns: 1fr}
@@ -527,9 +621,13 @@
     @media (max-width: 560px){
       .grid{grid-template-columns: 1fr}
       .nav{display:none}
-      .pill input{display:none}
+      .actions .btn.primary{display:none}
+      .brand small{display:none}
+      .heroPanel img{width: 110px; height: 110px}
       .input{min-width: 0; width: 100%;}
     }
+
+    .hidden{display:none !important;}
   </style>
 </head>
 
@@ -537,8 +635,8 @@
   <div class="promo">
     <div class="wrap">
       <div class="inner">
-        <span><span class="dot"></span> REDLINE • D50B0 / AM6 • TUNING PARTS + 3D PRINTED</span>
-        <span>⚡ Pick a section</span>
+        <span><span class="dot"></span> REDLINE • D50B0 / AM6 • WEEKLY DROPS</span>
+        <span>⚡ Clean red/black builds</span>
       </div>
     </div>
   </div>
@@ -546,20 +644,20 @@
   <header>
     <div class="wrap">
       <div class="topbar">
-        <a class="brand" href="javascript:void(0)" aria-label="RedLine Home">
+        <a class="brand" href="javascript:void(0)" onclick="goHome()">
           <img class="brandLogo" src="redline-logo.png" alt="RedLine logo" />
           <div>
             RedLine
-            <small>Parts & Covers</small>
+            <small>Tuning + 3D Printed</small>
           </div>
         </a>
 
         <nav class="nav" aria-label="Main navigation">
-          <a href="javascript:void(0)" onclick="showSections()">Sections</a>
+          <a href="javascript:void(0)" onclick="goHome()">Home</a>
+          <a href="javascript:void(0)" onclick="goSections()">Sections</a>
         </nav>
 
         <div class="actions">
-          <!-- Currency selector in topnav -->
           <select class="select" id="currencySelect" aria-label="Currency">
             <option value="EUR" selected>EUR</option>
             <option value="HUF">HUF</option>
@@ -570,58 +668,101 @@
             Cart <span class="badge" id="cartCount">0</span>
           </button>
 
-          <button class="btn primary" onclick="showSections()">Sections</button>
+          <button class="btn primary" onclick="goSections()">Shop</button>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- Only this area scrolls -->
   <div class="appScroll" id="appScroll">
     <div class="wrap appContent">
-      <!-- SECTION SELECTOR VIEW -->
-      <section id="sectionsView">
-        <div class="sectionHead">
-          <div>
-            <h2>Sections</h2>
-            <p>Choose a section. After you open one, you stay inside that section (no scrolling back to the “top page”).</p>
+
+      <!-- HOME VIEW -->
+      <section id="homeView">
+        <div class="hero">
+          <div class="heroInner">
+            <div>
+              <div class="kicker"><span class="kdot"></span> WEEKLY DROPS • FAST CHECKOUT • CLEAN UI</div>
+              <h1>RedLine weekly drops<br/>for D50B0 & AM6.</h1>
+              <p class="heroLead">
+                Pick a section, open <b>See more</b>, choose size/color, and hit <b>Buy</b>.
+                Built for mobile and styled in a black/red racing theme.
+              </p>
+              <div class="heroCtas">
+                <button class="btn primary" onclick="goSections()">Browse sections</button>
+                <button class="btn ghost" onclick="openFeaturedFirst()">See featured</button>
+              </div>
+            </div>
+            <div>
+              <div class="heroPanel">
+                <img src="ignitioncover1.png" alt="Featured drop">
+                <div>
+                  <strong>Drop highlight: D50B0 Ignition Covers</strong>
+                  <p>Choose: Black-Red / Black-Blue / Black-Purple. Clean look. Fast “See more” preview.</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="catGrid" aria-label="Sections grid">
+        <section>
+          <div class="sectionHead">
+            <div>
+              <h2>Weekly drops</h2>
+              <p>Hot items this week. Tap <b>See more</b> to open full preview.</p>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <button class="btn" onclick="goSections()">All sections</button>
+            </div>
+          </div>
+
+          <div class="grid" id="featuredGrid"></div>
+        </section>
+      </section>
+
+      <!-- SECTIONS VIEW -->
+      <section id="sectionsView" class="hidden">
+        <div class="sectionHead">
+          <div>
+            <h2>Shop sections</h2>
+            <p>Choose a section. Browser back button works (like pages).</p>
+          </div>
+        </div>
+
+        <div class="catGrid">
           <div class="catCard" onclick="openSection('carb')">
-            <div class="catImg"><img src="carb1.png" alt="Carburetor / Intake section image"></div>
+            <div class="catImg"><img src="carb1.png" alt="Carburetor / Intake"></div>
             <div class="catOverlay"></div>
             <div class="catContent">
               <div class="catPill">Carburetor / Intake</div>
-              <h3 class="catTitle">Carburetor / Intake</h3>
-              <p class="catDesc">PHBG and PWK carburetors with selectable sizes in “See more”.</p>
+              <h3 class="catTitle">PHBG + PWK carbs</h3>
+              <p class="catDesc">Choose size in mm: PHBG (17/19/21), PWK (21/24/26).</p>
             </div>
           </div>
 
           <div class="catCard" onclick="openSection('covers')">
-            <div class="catImg"><img src="ignitioncover1.png" alt="D50B0 ignition covers section image"></div>
+            <div class="catImg"><img src="ignitioncover2.png" alt="D50B0 Ignition Covers"></div>
             <div class="catOverlay"></div>
             <div class="catContent">
               <div class="catPill">3D Printed</div>
               <h3 class="catTitle">D50B0 Ignition Covers</h3>
-              <p class="catDesc">Choose cover colors: black-red / black-blue / black-purple.</p>
+              <p class="catDesc">Choose colors: Black-Red / Black-Blue / Black-Purple.</p>
             </div>
           </div>
 
           <div class="catCard" onclick="openSection('mix')">
-            <div class="catImg"><img src="mix1.png" alt="AM6 / D50B0 section image"></div>
+            <div class="catImg"><img src="mix1.png" alt="AM6 / D50B0"></div>
             <div class="catOverlay"></div>
             <div class="catContent">
               <div class="catPill">AM6 / D50B0</div>
-              <h3 class="catTitle">AM6 / D50B0 Section</h3>
-              <p class="catDesc">Includes throttle and hydraulic front fender with color options.</p>
+              <h3 class="catTitle">Controls + parts</h3>
+              <p class="catDesc">Quick throttle + hydraulic front fender + more (6 items).</p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- SHOP VIEW (separate “area”, no scrolling back to sections unless you click Sections) -->
+      <!-- SHOP VIEW -->
       <section id="shopView" class="hidden">
         <div class="sectionHead">
           <div>
@@ -629,11 +770,10 @@
             <p id="shopDesc">Browse items in this section.</p>
           </div>
           <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <button class="btn" onclick="showSections()">Change section</button>
+            <button class="btn" onclick="goSections()">Change section</button>
           </div>
         </div>
 
-        <!-- Controls shown INSIDE section (search + optional color filter) -->
         <div class="controls" id="shopControls">
           <span class="label">Search</span>
           <input class="input" id="search" type="text" placeholder="Search in this section…" />
@@ -652,10 +792,11 @@
 
         <div class="grid" id="productGrid"></div>
       </section>
+
     </div>
   </div>
 
-  <!-- PRODUCT DETAILS MODAL -->
+  <!-- PRODUCT MODAL -->
   <div class="modalBackdrop" id="productBackdrop" role="dialog" aria-modal="true" aria-label="Product details">
     <div class="modal">
       <div class="modalHeader">
@@ -678,13 +819,11 @@
 
           <div class="specs" id="modalSpecs"></div>
 
-          <!-- Dynamic option 1 (Size or Color) -->
           <div class="optionRow" id="optionRow1" style="display:none;">
             <span class="optLabel" id="opt1Label">Option</span>
             <select class="select" id="opt1Select"></select>
           </div>
 
-          <!-- Dynamic option 2 (Color for products that need it) -->
           <div class="optionRow" id="optionRow2" style="display:none;">
             <span class="optLabel" id="opt2Label">Option</span>
             <select class="select" id="opt2Select"></select>
@@ -712,14 +851,14 @@
   </div>
 
   <!-- CHECKOUT MODAL -->
-  <div class="checkoutBackdrop" id="checkoutBackdrop" role="dialog" aria-modal="true" aria-label="Checkout">
-    <div class="checkout">
-      <div class="checkoutHead">
+  <div class="modalBackdrop" id="checkoutBackdrop" role="dialog" aria-modal="true" aria-label="Checkout">
+    <div class="modal checkout">
+      <div class="modalHeader">
         <h3>Checkout</h3>
         <button class="btn" id="closeCheckout">Close</button>
       </div>
 
-      <div class="checkoutBody">
+      <div style="padding:14px;">
         <div class="line">
           <strong id="coName">—</strong>
           <span id="coPrice">—</span>
@@ -772,28 +911,28 @@
         </div>
       </div>
 
-      <div class="checkoutFoot">
+      <div class="modalFooter">
         <button class="btn" id="checkoutBack">Back</button>
         <button class="btn primary" id="placeOrder">Place order</button>
       </div>
     </div>
   </div>
 
-  <!-- CART (simple) -->
-  <div class="checkoutBackdrop" id="cartBackdrop" role="dialog" aria-modal="true" aria-label="Cart">
-    <div class="checkout">
-      <div class="checkoutHead">
+  <!-- CART MODAL -->
+  <div class="modalBackdrop" id="cartBackdrop" role="dialog" aria-modal="true" aria-label="Cart">
+    <div class="modal checkout">
+      <div class="modalHeader">
         <h3>Cart</h3>
         <button class="btn" id="closeCart">Close</button>
       </div>
-      <div class="checkoutBody">
+      <div style="padding:14px;">
         <div id="cartList"></div>
         <div class="line" style="margin-top:10px">
           <strong>Total</strong>
-          <span id="cartTotal">0</span>
+          <span id="cartTotal">—</span>
         </div>
       </div>
-      <div class="checkoutFoot">
+      <div class="modalFooter">
         <button class="btn" id="clearCart">Clear</button>
         <button class="btn primary" id="cartCheckout">Checkout</button>
       </div>
@@ -801,31 +940,21 @@
   </div>
 
   <script>
-    /**
-     * Currency:
-     * - Base prices are stored in EUR (base_eur)
-     * - We convert for display: EUR / HUF / USD
-     */
+    // ---------------------------
+    // DATA
+    // ---------------------------
     const FX = {
       EUR: { symbol: "€", rate: 1 },
-      HUF: { symbol: "Ft", rate: 390 },  // demo rate
-      USD: { symbol: "$", rate: 1.08 }   // demo rate
+      HUF: { symbol: "Ft", rate: 390 }, // demo
+      USD: { symbol: "$", rate: 1.08 }  // demo
     };
     let currency = "EUR";
 
-    function moneyFromEur(eur){
-      const fx = FX[currency];
-      const value = eur * fx.rate;
-      // Formatting:
-      if (currency === "HUF"){
-        return new Intl.NumberFormat("hu-HU").format(Math.round(value)) + " " + fx.symbol;
-      }
-      return fx.symbol + new Intl.NumberFormat("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value);
-    }
-
-    // ✅ SECTIONS (updated exactly to your rules)
+    // Sections + products
+    // - Carb section: only 2 products (PHBG + PWK) with size options (and prices in EUR)
+    // - Covers: 6 products with color options
+    // - Mix: 6 products, first two defined with color options, rest placeholders
     const SECTIONS = {
-      // Carburetor / Intake: keep ONLY 2 products, renamed, sizes in modal
       carb: {
         title: "Carburetor / Intake",
         desc: "PHBG and PWK carburetors. Open “See more” to choose size (mm).",
@@ -838,7 +967,7 @@
             img:"carb1.png",
             fit:"AM6 / D50B0",
             tags:["Carb","Intake","Tuning"],
-            desc:"PHBG Carburetor. Choose size in mm. Replace this text with brand/specs (jets included, manifold fit, etc.).",
+            desc:"PHBG Carburetor. Choose size in mm. (Replace this description with real specs.)",
             options: {
               size: [
                 { label:"17mm", price_eur: 26.90 },
@@ -854,7 +983,7 @@
             img:"carb2.png",
             fit:"AM6 / D50B0",
             tags:["Carb","Intake","Race"],
-            desc:"PWK Carburetor. Choose size in mm. Replace this text with real details (needle, jets, clamp size, etc.).",
+            desc:"PWK Carburetor. Choose size in mm. (Replace this description with real specs.)",
             options: {
               size: [
                 { label:"21mm", price_eur: 39.90 },
@@ -866,83 +995,48 @@
         ]
       },
 
-      // D50B0 ignition covers: choose colors (black-red, black-blue, black-purple)
       covers: {
         title: "D50B0 Ignition Covers (3D Printed)",
-        desc: "3D printed ignition covers for D50B0. Choose color in “See more”.",
+        desc: "Choose colors: Black-Red / Black-Blue / Black-Purple (in “See more”).",
         useColorFilter: true,
         products: [
-          { id:"cover-1", name:"Ignition Cover 1", badge:"D50B0", img:"ignitioncover1.png", fit:"D50B0", tags:["D50B0","3D Print","RedLine"], base_eur: 35.90,
-            desc:"Ignition Cover 1. Add your real material/finish notes here.",
-            options:{ color:["Black-Red","Black-Blue","Black-Purple"] }
-          },
-          { id:"cover-2", name:"Ignition Cover 2", badge:"D50B0", img:"ignitioncover2.png", fit:"D50B0", tags:["D50B0","3D Print"], base_eur: 37.90,
-            desc:"Ignition Cover 2. Add installation + what’s included.",
-            options:{ color:["Black-Red","Black-Blue","Black-Purple"] }
-          },
-          { id:"cover-3", name:"Ignition Cover 3", badge:"D50B0", img:"ignitioncover3.png", fit:"D50B0", tags:["D50B0","3D Print"], base_eur: 39.90,
-            desc:"Ignition Cover 3. Add your design name & details.",
-            options:{ color:["Black-Red","Black-Blue","Black-Purple"] }
-          },
-          { id:"cover-4", name:"Ignition Cover 4", badge:"D50B0", img:"ignitioncover4.png", fit:"D50B0", tags:["D50B0","3D Print"], base_eur: 39.90,
-            desc:"Ignition Cover 4. (Add ignitioncover4.png)",
-            options:{ color:["Black-Red","Black-Blue","Black-Purple"] }
-          },
-          { id:"cover-5", name:"Ignition Cover 5", badge:"D50B0", img:"ignitioncover5.png", fit:"D50B0", tags:["D50B0","3D Print","Limited"], base_eur: 41.90,
-            desc:"Ignition Cover 5. (Add ignitioncover5.png)",
-            options:{ color:["Black-Red","Black-Blue","Black-Purple"] }
-          }
+          { id:"cover-1", name:"Ignition Cover 1", badge:"D50B0", img:"ignitioncover1.png", fit:"D50B0", tags:["D50B0","3D Print","RedLine"], base_eur: 35.90, desc:"Ignition Cover 1. Add your real material/finish notes here.", options:{ color:["Black-Red","Black-Blue","Black-Purple"] } },
+          { id:"cover-2", name:"Ignition Cover 2", badge:"D50B0", img:"ignitioncover2.png", fit:"D50B0", tags:["D50B0","3D Print"], base_eur: 37.90, desc:"Ignition Cover 2. Add installation + what's included.", options:{ color:["Black-Red","Black-Blue","Black-Purple"] } },
+          { id:"cover-3", name:"Ignition Cover 3", badge:"D50B0", img:"ignitioncover3.png", fit:"D50B0", tags:["D50B0","3D Print"], base_eur: 39.90, desc:"Ignition Cover 3. Add your design name & details.", options:{ color:["Black-Red","Black-Blue","Black-Purple"] } },
+          { id:"cover-4", name:"Ignition Cover 4", badge:"D50B0", img:"ignitioncover4.png", fit:"D50B0", tags:["D50B0","3D Print"], base_eur: 39.90, desc:"Ignition Cover 4. (Add ignitioncover4.png)", options:{ color:["Black-Red","Black-Blue","Black-Purple"] } },
+          { id:"cover-5", name:"Ignition Cover 5", badge:"D50B0", img:"ignitioncover5.png", fit:"D50B0", tags:["D50B0","3D Print","Limited"], base_eur: 41.90, desc:"Ignition Cover 5. (Add ignitioncover5.png)", options:{ color:["Black-Red","Black-Blue","Black-Purple"] } },
+          { id:"cover-6", name:"Ignition Cover 6", badge:"D50B0", img:"ignitioncover6.png", fit:"D50B0", tags:["D50B0","3D Print"], base_eur: 41.90, desc:"Ignition Cover 6. (Add ignitioncover6.png)", options:{ color:["Black-Red","Black-Blue","Black-Purple"] } }
         ]
       },
 
-      // AM6 / D50B0: first two products specified with color choices
       mix: {
         title: "AM6 / D50B0 Section",
-        desc: "Mixed compatibility items. Open “See more” to choose colors where available.",
+        desc: "Controls + parts for AM6 / D50B0 builds (6 items).",
         useColorFilter: true,
         products: [
-          {
-            id:"throttle",
-            name:"Quick Throttle",
-            badge:"AM6/D50B0",
-            img:"mix1.png",
-            fit:"AM6 / D50B0",
-            tags:["Throttle","Tuning"],
-            base_eur: 19.90,
-            desc:"Quick throttle (gyorsgázkar). Choose color in “See more”.",
-            options:{ color:["Black","Red","Purple","White","Blue"] }
-          },
-          {
-            id:"hydro-fender",
-            name:"Hydraulic Front Fender",
-            badge:"AM6/D50B0",
-            img:"mix2.png",
-            fit:"AM6 / D50B0",
-            tags:["Front Fender","Hydraulic"],
-            base_eur: 24.90,
-            desc:"Hydraulic front fender (hidraulikus első sárvédő). Choose color in “See more”.",
-            options:{ color:["White","Black"] }
-          },
-          // 3 placeholders (still 5 total as you asked earlier)
+          { id:"throttle", name:"Quick Throttle", badge:"AM6/D50B0", img:"mix1.png", fit:"AM6 / D50B0", tags:["Throttle","Tuning"], base_eur: 19.90, desc:"Quick throttle. Choose color in “See more”.", options:{ color:["Black","Red","Purple","White","Blue"] } },
+          { id:"hydro-fender", name:"Hydraulic Front Fender", badge:"AM6/D50B0", img:"mix2.png", fit:"AM6 / D50B0", tags:["Front Fender","Hydraulic"], base_eur: 24.90, desc:"Hydraulic front fender. Choose color in “See more”.", options:{ color:["White","Black"] } },
           { id:"mix-3", name:"AM6/D50B0 Product 3", badge:"MIX", img:"mix3.png", fit:"AM6 / D50B0", tags:["AM6","D50B0"], base_eur: 14.90, desc:"Placeholder product. Replace later.", options:{ color:["Black","Red","Blue"] } },
           { id:"mix-4", name:"AM6/D50B0 Product 4", badge:"MIX", img:"mix4.png", fit:"AM6 / D50B0", tags:["AM6","D50B0"], base_eur: 16.90, desc:"Placeholder product. Replace later.", options:{ color:["Black","White"] } },
-          { id:"mix-5", name:"AM6/D50B0 Product 5", badge:"MIX", img:"mix5.png", fit:"AM6 / D50B0", tags:["AM6","D50B0"], base_eur: 18.90, desc:"Placeholder product. Replace later.", options:{ color:["Black"] } }
+          { id:"mix-5", name:"AM6/D50B0 Product 5", badge:"MIX", img:"mix5.png", fit:"AM6 / D50B0", tags:["AM6","D50B0"], base_eur: 18.90, desc:"Placeholder product. Replace later.", options:{ color:["Black"] } },
+          { id:"mix-6", name:"AM6/D50B0 Product 6", badge:"MIX", img:"mix6.png", fit:"AM6 / D50B0", tags:["AM6","D50B0"], base_eur: 18.90, desc:"Placeholder product. Replace later.", options:{ color:["Black"] } }
         ]
       }
     };
 
-    // State
-    let currentSectionKey = null;
-    let currentProduct = null;
-    let currentQty = 1;
+    // Weekly drops (homepage) – pick some items from sections
+    const WEEKLY_DROPS = [
+      { section:"covers", product:"cover-1" },
+      { section:"covers", product:"cover-2" },
+      { section:"mix", product:"throttle" },
+      { section:"mix", product:"hydro-fender" },
+      { section:"carb", product:"phbg-carb" },
+      { section:"carb", product:"pwk-carb" }
+    ];
 
-    // Current selected options for checkout
-    let selectedSize = null;
-    let selectedColor = null;
-
-    // Cart
-    const cart = new Map(); // id -> {name, price_eur, qty, optsText}
-
+    // ---------------------------
+    // HELPERS
+    // ---------------------------
     const $ = (sel) => document.querySelector(sel);
 
     function escapeHtml(str){
@@ -951,62 +1045,174 @@
       }[s]));
     }
 
-    // Views
-    function showSections(){
-      $("#sectionsView").classList.remove("hidden");
-      $("#shopView").classList.add("hidden");
-
-      // scroll container to top of sections view
-      $("#appScroll").scrollTop = 0;
-
-      currentSectionKey = null;
-      $("#search").value = "";
-      $("#productGrid").innerHTML = "";
+    function moneyFromEur(eur){
+      const fx = FX[currency];
+      const value = eur * fx.rate;
+      if (currency === "HUF"){
+        return new Intl.NumberFormat("hu-HU").format(Math.round(value)) + " " + fx.symbol;
+      }
+      return fx.symbol + new Intl.NumberFormat("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value);
     }
-    window.showSections = showSections;
 
-    function openSection(key){
-      const section = SECTIONS[key];
-      if (!section) return;
+    function findProduct(sectionKey, productId){
+      const sec = SECTIONS[sectionKey];
+      if (!sec) return null;
+      const prod = sec.products.find(p => p.id === productId);
+      if (!prod) return null;
+      return { sectionKey, section: sec, product: prod };
+    }
 
-      currentSectionKey = key;
+    function findProductById(id){
+      for (const sk of Object.keys(SECTIONS)){
+        const p = SECTIONS[sk].products.find(x => x.id === id);
+        if (p) return { sectionKey: sk, section: SECTIONS[sk], product: p };
+      }
+      return null;
+    }
 
-      $("#shopTitle").textContent = section.title;
-      $("#shopDesc").textContent = section.desc;
+    // ---------------------------
+    // ROUTING (History + hash params)
+    // ---------------------------
+    // #home
+    // #sections
+    // #section=covers
+    // #section=covers&product=cover-2
+    function parseHash(){
+      const h = (location.hash || "").replace(/^#/, "");
+      if (!h || h === "home") return { view:"home" };
+      if (h === "sections") return { view:"sections" };
 
-      // Show/hide color filter depending on section
-      const useColor = !!section.useColorFilter;
-      $("#colorFilterLabel").style.display = useColor ? "inline" : "none";
-      $("#colorFilter").style.display = useColor ? "inline-block" : "none";
-      $("#colorFilter").value = "any";
+      const params = new URLSearchParams(h);
+      const section = params.get("section");
+      const product = params.get("product");
+      if (section) return { view:"shop", section, product };
+      return { view:"home" };
+    }
 
-      $("#sectionsView").classList.add("hidden");
-      $("#shopView").classList.remove("hidden");
+    function setHashState(view, section=null, product=null, replace=false){
+      let hash = "#home";
+      if (view === "sections") hash = "#sections";
+      if (view === "shop" && section){
+        const params = new URLSearchParams();
+        params.set("section", section);
+        if (product) params.set("product", product);
+        hash = "#" + params.toString();
+      }
+      const st = { view, section, product };
+      if (replace) history.replaceState(st, "", hash);
+      else history.pushState(st, "", hash);
+    }
 
-      // lock: once section is open, you are inside this section content (no “scroll back up” to sections)
+    // ---------------------------
+    // VIEW STATE
+    // ---------------------------
+    let currentSectionKey = null;
+    let currentProduct = null;
+    let currentQty = 1;
+    let selectedSize = null;
+    let selectedColor = null;
+
+    // cart: key includes options
+    const cart = new Map(); // key -> { name, price_eur, qty, optsText }
+
+    function showView(view){
+      $("#homeView").classList.toggle("hidden", view !== "home");
+      $("#sectionsView").classList.toggle("hidden", view !== "sections");
+      $("#shopView").classList.toggle("hidden", view !== "shop");
       $("#appScroll").scrollTop = 0;
+    }
 
-      $("#search").value = "";
-      renderProducts();
+    function goHome(){ setHashState("home", null, null, false); syncFromUrl(); }
+    function goSections(){ setHashState("sections", null, null, false); syncFromUrl(); }
+    window.goHome = goHome;
+    window.goSections = goSections;
+
+    function openSection(sectionKey){
+      setHashState("shop", sectionKey, null, false);
+      syncFromUrl();
     }
     window.openSection = openSection;
 
-    // Product grid render
-    function renderProducts(){
-      const grid = $("#productGrid");
+    function openFeaturedFirst(){
+      // Open first weekly drop product
+      const first = WEEKLY_DROPS[0];
+      if (!first) return;
+      setHashState("shop", first.section, first.product, false);
+      syncFromUrl();
+    }
+    window.openFeaturedFirst = openFeaturedFirst;
+
+    // ---------------------------
+    // RENDER: HOME (Weekly drops)
+    // ---------------------------
+    function renderFeatured(){
+      const grid = $("#featuredGrid");
       grid.innerHTML = "";
 
+      for (const item of WEEKLY_DROPS){
+        const found = findProduct(item.section, item.product);
+        if (!found) continue;
+
+        const p = found.product;
+        const sk = found.sectionKey;
+
+        // display price:
+        let displayEur = p.base_eur ?? 0;
+        let label = "";
+        if (p.options && p.options.size){
+          displayEur = Math.min(...p.options.size.map(s => s.price_eur));
+          label = "From ";
+        }
+
+        const card = document.createElement("article");
+        card.className = "card";
+        card.innerHTML = `
+          <div class="thumb">
+            <img src="${escapeHtml(p.img)}" alt="${escapeHtml(p.name)}" />
+            <div class="tag">DROP</div>
+          </div>
+          <div class="cardBody">
+            <div class="titleRow">
+              <h3>${escapeHtml(p.name)}</h3>
+              <div class="price">${escapeHtml(label)}${escapeHtml(moneyFromEur(displayEur))}</div>
+            </div>
+            <p class="desc">${escapeHtml(p.desc)}</p>
+            <div class="pillrow">
+              <span class="miniPill">${escapeHtml(sk.toUpperCase())}</span>
+              <span class="miniPill">${escapeHtml(p.fit || "")}</span>
+            </div>
+            <div class="cardActions">
+              <button class="btn primary" data-open="${escapeHtml(p.id)}" data-section="${escapeHtml(sk)}">See more</button>
+              <button class="btn" data-shop="${escapeHtml(sk)}">Open section</button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      }
+    }
+
+    // ---------------------------
+    // RENDER: SHOP GRID
+    // ---------------------------
+    function renderShop(){
       if (!currentSectionKey) return;
-      const section = SECTIONS[currentSectionKey];
+      const sec = SECTIONS[currentSectionKey];
+      if (!sec) return;
+
+      $("#shopTitle").textContent = sec.title;
+      $("#shopDesc").textContent = sec.desc;
+
+      // controls visibility
+      const useColor = !!sec.useColorFilter;
+      $("#colorFilterLabel").style.display = useColor ? "inline" : "none";
+      $("#colorFilter").style.display = useColor ? "inline-block" : "none";
+      if (!useColor) $("#colorFilter").value = "any";
 
       const q = ($("#search").value || "").trim().toLowerCase();
-      const colorFilter = ($("#colorFilter").style.display === "none") ? "any" : ($("#colorFilter").value || "any");
+      const colorFilterVisible = $("#colorFilter").style.display !== "none";
+      const colorFilter = colorFilterVisible ? ($("#colorFilter").value || "any") : "any";
 
-      // Color filter rules:
-      // - If product has options.color:
-      //   - match if selected colorFilter matches the chosen color or exists in list (rough matching)
-      // - If product has no colors, always pass.
-      const filtered = section.products.filter(p => {
+      const list = sec.products.filter(p => {
         const bySearch = !q ? true : (
           (p.name || "").toLowerCase().includes(q) ||
           (p.tags || []).join(" ").toLowerCase().includes(q) ||
@@ -1015,34 +1221,30 @@
 
         let byColor = true;
         if (colorFilter !== "any" && p.options && Array.isArray(p.options.color)){
-          const list = p.options.color.map(c => c.toLowerCase());
-          // simple matching for black-red etc.
-          byColor = list.some(c => c.includes(colorFilter.toLowerCase()));
+          const lc = p.options.color.map(c => c.toLowerCase());
+          byColor = lc.some(c => c.includes(colorFilter.toLowerCase()));
         }
-
         return bySearch && byColor;
       });
 
-      if (filtered.length === 0){
-        grid.innerHTML = `<div style="grid-column:1/-1; padding:16px; border:1px solid rgba(255,255,255,.10); border-radius:16px; background:rgba(255,255,255,.04)">
-          <div style="font-weight:950; text-transform:uppercase; letter-spacing:.6px;">No results</div>
-          <div style="margin-top:6px; color:rgba(255,255,255,.66); font-size:13px;">Try a different search or color filter.</div>
-        </div>`;
+      const grid = $("#productGrid");
+      grid.innerHTML = "";
+
+      if (list.length === 0){
+        grid.innerHTML = `
+          <div style="grid-column:1/-1; padding:16px; border:1px solid rgba(255,255,255,.10); border-radius:16px; background:rgba(255,255,255,.04)">
+            <div style="font-weight:950; text-transform:uppercase; letter-spacing:.6px;">No results</div>
+            <div style="margin-top:6px; color:rgba(255,255,255,.66); font-size:13px;">Try a different search or color filter.</div>
+          </div>`;
         return;
       }
 
-      for (const p of filtered){
-        // Determine displayed price:
-        // - Carb products: show "from" min size price (EUR base)
-        // - Others: show base_eur
-        let displayPriceEur = p.base_eur ?? null;
-        let priceLabel = "";
+      for (const p of list){
+        let displayEur = p.base_eur ?? 0;
+        let label = "";
         if (p.options && p.options.size){
-          const min = Math.min(...p.options.size.map(s => s.price_eur));
-          displayPriceEur = min;
-          priceLabel = "From ";
-        } else if (typeof displayPriceEur !== "number"){
-          displayPriceEur = 0;
+          displayEur = Math.min(...p.options.size.map(s => s.price_eur));
+          label = "From ";
         }
 
         const card = document.createElement("article");
@@ -1055,11 +1257,11 @@
           <div class="cardBody">
             <div class="titleRow">
               <h3>${escapeHtml(p.name)}</h3>
-              <div class="price">${escapeHtml(priceLabel)}${escapeHtml(moneyFromEur(displayPriceEur))}</div>
+              <div class="price">${escapeHtml(label)}${escapeHtml(moneyFromEur(displayEur))}</div>
             </div>
             <p class="desc">${escapeHtml(p.desc)}</p>
             <div class="pillrow">
-              ${(p.tags||[]).map(t => `<span class="miniPill">${escapeHtml(t)}</span>`).join("")}
+              ${(p.tags||[]).slice(0,3).map(t => `<span class="miniPill">${escapeHtml(t)}</span>`).join("")}
               <span class="miniPill">${escapeHtml(p.fit || "")}</span>
             </div>
             <div class="cardActions">
@@ -1069,27 +1271,40 @@
           </div>
         `;
         grid.appendChild(card);
-
-        card.querySelector('[data-open]').addEventListener("click", () => openProduct(p.id));
-        card.querySelector('[data-buy]').addEventListener("click", () => {
-          openProduct(p.id); // user chooses options then hits Buy in modal
-        });
       }
     }
 
-    // Find product
-    function findProductById(id){
-      for (const key of Object.keys(SECTIONS)){
-        const p = SECTIONS[key].products.find(x => x.id === id);
-        if (p) return { product: p, sectionKey: key };
+    // ---------------------------
+    // PRODUCT MODAL
+    // ---------------------------
+    function getSelectedBasePriceEur(){
+      if (!currentProduct) return 0;
+      if (currentProduct.options && currentProduct.options.size){
+        const chosen = currentProduct.options.size.find(s => s.label === selectedSize) || currentProduct.options.size[0];
+        return chosen ? chosen.price_eur : 0;
       }
-      return null;
+      return currentProduct.base_eur ?? 0;
     }
 
-    // Product modal open
-    function openProduct(id){
-      const found = findProductById(id);
+    function updateModalPrice(){
+      $("#modalPrice").textContent = moneyFromEur(getSelectedBasePriceEur());
+    }
+
+    function resetSelect(el){
+      // Remove old listeners by cloning
+      const clone = el.cloneNode(true);
+      el.parentNode.replaceChild(clone, el);
+      return clone;
+    }
+
+    function openProduct(productId, pushHistory){
+      const found = findProductById(productId);
       if (!found) return;
+
+      // ensure correct section view
+      currentSectionKey = found.sectionKey;
+      showView("shop");
+      renderShop();
 
       currentProduct = found.product;
       currentQty = 1;
@@ -1101,9 +1316,8 @@
       $("#modalName").textContent = currentProduct.name;
       $("#modalDesc").textContent = currentProduct.desc;
       $("#modalFit").textContent = currentProduct.fit || "—";
-      $("#qtyVal").textContent = String(currentQty);
+      $("#qtyVal").textContent = "1";
 
-      // Specs chips
       const specs = $("#modalSpecs");
       specs.innerHTML = "";
       (currentProduct.tags || []).forEach(t => {
@@ -1113,123 +1327,94 @@
         specs.appendChild(s);
       });
 
-      // Option rows reset
+      // option rows reset
       $("#optionRow1").style.display = "none";
       $("#optionRow2").style.display = "none";
-      $("#opt1Select").innerHTML = "";
-      $("#opt2Select").innerHTML = "";
 
-      // If carb with size options
+      let opt1 = resetSelect($("#opt1Select"));
+      let opt2 = resetSelect($("#opt2Select"));
+      opt1.innerHTML = "";
+      opt2.innerHTML = "";
+
+      // SIZE options (carbs)
       if (currentProduct.options && currentProduct.options.size){
         $("#optionRow1").style.display = "flex";
         $("#opt1Label").textContent = "Size";
-        currentProduct.options.size.forEach((s, idx) => {
-          const opt = document.createElement("option");
-          opt.value = s.label;
-          opt.textContent = `${s.label} • ${moneyFromEur(s.price_eur)}`;
-          $("#opt1Select").appendChild(opt);
-          if (idx === 0) selectedSize = s.label;
+        currentProduct.options.size.forEach((s) => {
+          const o = document.createElement("option");
+          o.value = s.label;
+          o.textContent = `${s.label} • ${moneyFromEur(s.price_eur)}`;
+          opt1.appendChild(o);
         });
-
-        // Price in modal based on selected size
-        $("#opt1Select").addEventListener("change", () => {
-          selectedSize = $("#opt1Select").value;
+        selectedSize = opt1.value;
+        opt1.addEventListener("change", () => {
+          selectedSize = opt1.value;
           updateModalPrice();
-        }, { once:false });
-
-        // Initialize
-        selectedSize = $("#opt1Select").value;
+        });
       }
 
-      // If product has color options
+      // COLOR options (covers/mix)
       if (currentProduct.options && Array.isArray(currentProduct.options.color)){
-        const row = (currentProduct.options.size) ? "optionRow2" : "optionRow1";
-        const label = (currentProduct.options.size) ? "#opt2Label" : "#opt1Label";
-        const select = (currentProduct.options.size) ? "#opt2Select" : "#opt1Select";
+        const useRow2 = !!(currentProduct.options && currentProduct.options.size);
+        const row = useRow2 ? "optionRow2" : "optionRow1";
+        const label = useRow2 ? "opt2Label" : "opt1Label";
+        const selectEl = useRow2 ? opt2 : opt1;
 
-        $( "#" + row ).style.display = "flex";
-        $(label).textContent = "Color";
+        $("#" + row).style.display = "flex";
+        $("#" + label).textContent = "Color";
 
-        currentProduct.options.color.forEach((c, idx) => {
-          const opt = document.createElement("option");
-          opt.value = c;
-          opt.textContent = c;
-          $(select).appendChild(opt);
-          if (idx === 0) selectedColor = c;
+        currentProduct.options.color.forEach((c) => {
+          const o = document.createElement("option");
+          o.value = c;
+          o.textContent = c;
+          selectEl.appendChild(o);
         });
-
-        // Default selection
-        selectedColor = $(select).value;
-
-        // Change handlers
-        $(select).addEventListener("change", () => {
-          selectedColor = $(select).value;
+        selectedColor = selectEl.value;
+        selectEl.addEventListener("change", () => {
+          selectedColor = selectEl.value;
           updateModalPrice();
-        }, { once:false });
+        });
       }
 
       updateModalPrice();
-
       $("#productBackdrop").style.display = "flex";
-    }
-    window.openProduct = openProduct;
 
-    function getSelectedBasePriceEur(){
-      if (!currentProduct) return 0;
-      if (currentProduct.options && currentProduct.options.size){
-        const chosen = currentProduct.options.size.find(s => s.label === selectedSize) || currentProduct.options.size[0];
-        return chosen ? chosen.price_eur : 0;
+      if (pushHistory){
+        setHashState("shop", currentSectionKey, currentProduct.id, false);
       }
-      return currentProduct.base_eur ?? 0;
     }
 
-    function updateModalPrice(){
-      const eur = getSelectedBasePriceEur();
-      $("#modalPrice").textContent = moneyFromEur(eur);
-    }
-
-    function closeProduct(){
+    function closeProduct(pushHistory){
       $("#productBackdrop").style.display = "none";
+      currentProduct = null;
+      selectedSize = null;
+      selectedColor = null;
+
+      if (pushHistory && currentSectionKey){
+        setHashState("shop", currentSectionKey, null, false);
+      }
     }
 
-    // Qty buttons
-    $("#qtyDec").addEventListener("click", () => {
-      currentQty = Math.max(1, currentQty - 1);
-      $("#qtyVal").textContent = String(currentQty);
-    });
-    $("#qtyInc").addEventListener("click", () => {
-      currentQty = Math.min(99, currentQty + 1);
-      $("#qtyVal").textContent = String(currentQty);
-    });
-
-    // Modal close handlers
-    $("#closeProduct").addEventListener("click", closeProduct);
-    $("#buyClose").addEventListener("click", closeProduct);
-    $("#productBackdrop").addEventListener("click", (e) => {
-      if (e.target.id === "productBackdrop") closeProduct();
-    });
-
-    // Cart helpers
+    // ---------------------------
+    // CART + CHECKOUT
+    // ---------------------------
     function setCartCount(){
-      let totalQty = 0;
-      for (const item of cart.values()) totalQty += item.qty;
-      $("#cartCount").textContent = totalQty;
+      let total = 0;
+      for (const it of cart.values()) total += it.qty;
+      $("#cartCount").textContent = total;
     }
 
     function cartTotalEur(){
       let sum = 0;
-      for (const item of cart.values()) sum += item.price_eur * item.qty;
+      for (const it of cart.values()) sum += it.price_eur * it.qty;
       return sum;
     }
 
     function addToCart(product, qty, optsText, priceEur){
       const key = product.id + " :: " + (optsText || "");
       const existing = cart.get(key);
-      if (existing){
-        existing.qty += qty;
-      } else {
-        cart.set(key, { name: product.name, price_eur: priceEur, qty, optsText });
-      }
+      if (existing) existing.qty += qty;
+      else cart.set(key, { name: product.name, price_eur: priceEur, qty, optsText });
       setCartCount();
       renderCart();
     }
@@ -1237,27 +1422,23 @@
     function renderCart(){
       const list = $("#cartList");
       list.innerHTML = "";
-
       if (cart.size === 0){
         list.innerHTML = `<div class="line"><strong>Your cart is empty</strong><span>—</span></div>`;
         $("#cartTotal").textContent = moneyFromEur(0);
         return;
       }
-
-      for (const item of cart.values()){
+      for (const it of cart.values()){
         const row = document.createElement("div");
         row.className = "line";
         row.innerHTML = `
-          <strong>${escapeHtml(item.name)}${item.optsText ? " • " + escapeHtml(item.optsText) : ""} × ${item.qty}</strong>
-          <span>${moneyFromEur(item.price_eur * item.qty)}</span>
+          <strong>${escapeHtml(it.name)}${it.optsText ? " • " + escapeHtml(it.optsText) : ""} × ${it.qty}</strong>
+          <span>${moneyFromEur(it.price_eur * it.qty)}</span>
         `;
         list.appendChild(row);
       }
-
       $("#cartTotal").textContent = moneyFromEur(cartTotalEur());
     }
 
-    // Checkout
     function openCheckout(product, qty, optsText, priceEur){
       $("#coName").textContent = product.name;
       $("#coPrice").textContent = moneyFromEur(priceEur);
@@ -1271,10 +1452,77 @@
       $("#checkoutBackdrop").style.display = "none";
     }
 
-    // Buy button in modal → add to cart → checkout
+    // ---------------------------
+    // EVENT BINDING (delegation so it never breaks)
+    // ---------------------------
+    // Featured grid delegation
+    $("#featuredGrid").addEventListener("click", (e) => {
+      const openBtn = e.target.closest("[data-open]");
+      if (openBtn){
+        const id = openBtn.getAttribute("data-open");
+        const section = openBtn.getAttribute("data-section");
+        if (section){
+          setHashState("shop", section, id, false);
+          syncFromUrl();
+          return;
+        }
+        openProduct(id, true);
+        return;
+      }
+      const openSectionBtn = e.target.closest("[data-shop]");
+      if (openSectionBtn){
+        const sk = openSectionBtn.getAttribute("data-shop");
+        openSection(sk);
+      }
+    });
+
+    // Product grid delegation
+    $("#productGrid").addEventListener("click", (e) => {
+      const openBtn = e.target.closest("[data-open]");
+      if (openBtn){
+        openProduct(openBtn.getAttribute("data-open"), true);
+        return;
+      }
+      const buyBtn = e.target.closest("[data-buy]");
+      if (buyBtn){
+        openProduct(buyBtn.getAttribute("data-buy"), true);
+        return;
+      }
+    });
+
+    // Search / filters
+    $("#search").addEventListener("input", () => renderShop());
+    $("#colorFilter").addEventListener("change", () => renderShop());
+
+    // Currency change
+    $("#currencySelect").addEventListener("change", () => {
+      currency = $("#currencySelect").value;
+      renderFeatured();
+      if (currentSectionKey) renderShop();
+      if (currentProduct) updateModalPrice();
+      renderCart();
+    });
+
+    // Modal controls
+    $("#closeProduct").addEventListener("click", () => closeProduct(true));
+    $("#buyClose").addEventListener("click", () => closeProduct(true));
+    $("#productBackdrop").addEventListener("click", (e) => {
+      if (e.target.id === "productBackdrop") closeProduct(true);
+    });
+
+    // Qty
+    $("#qtyDec").addEventListener("click", () => {
+      currentQty = Math.max(1, currentQty - 1);
+      $("#qtyVal").textContent = String(currentQty);
+    });
+    $("#qtyInc").addEventListener("click", () => {
+      currentQty = Math.min(99, currentQty + 1);
+      $("#qtyVal").textContent = String(currentQty);
+    });
+
+    // Buy now
     $("#buyNow").addEventListener("click", () => {
       if (!currentProduct) return;
-
       const priceEur = getSelectedBasePriceEur();
       const opts = [];
       if (selectedSize) opts.push(`Size: ${selectedSize}`);
@@ -1282,40 +1530,23 @@
       const optsText = opts.join(" | ");
 
       addToCart(currentProduct, currentQty, optsText, priceEur);
-      closeProduct();
+      closeProduct(true);
       openCheckout(currentProduct, currentQty, optsText, priceEur);
     });
 
+    // Checkout
     $("#closeCheckout").addEventListener("click", closeCheckout);
-    $("#checkoutBack").addEventListener("click", () => {
-      closeCheckout();
-      if (currentProduct) openProduct(currentProduct.id);
-    });
-
+    $("#checkoutBack").addEventListener("click", closeCheckout);
     $("#placeOrder").addEventListener("click", () => {
       const name = ($("#fullName").value || "").trim();
       const email = ($("#email").value || "").trim();
       const address = ($("#address").value || "").trim();
-
       if (!name || !email || !address){
         alert("Please fill in: Full name, Email, and Shipping address.");
         return;
       }
-      alert("Order placed (demo) ✅\nNext step: connect Stripe/Barion + send confirmation email.");
+      alert("Order placed (demo) ✅");
       closeCheckout();
-    });
-
-    // Search + color filter inside section
-    $("#search").addEventListener("input", renderProducts);
-    $("#colorFilter").addEventListener("change", renderProducts);
-
-    // Currency switch
-    $("#currencySelect").addEventListener("change", () => {
-      currency = $("#currencySelect").value;
-      // Update any visible UI
-      if (currentSectionKey) renderProducts();
-      if (currentProduct) updateModalPrice();
-      renderCart();
     });
 
     // Cart modal
@@ -1323,26 +1554,73 @@
     function closeCart(){ $("#cartBackdrop").style.display = "none"; }
     $("#openCart").addEventListener("click", openCart);
     $("#closeCart").addEventListener("click", closeCart);
-    $("#cartBackdrop").addEventListener("click", (e) => { if (e.target.id === "cartBackdrop") closeCart(); });
-
+    $("#cartBackdrop").addEventListener("click", (e) => {
+      if (e.target.id === "cartBackdrop") closeCart();
+    });
     $("#clearCart").addEventListener("click", () => {
-      cart.clear();
-      setCartCount();
-      renderCart();
+      cart.clear(); setCartCount(); renderCart();
+    });
+    $("#cartCheckout").addEventListener("click", () => {
+      if (cart.size === 0) return alert("Cart is empty.");
+      alert("Demo cart checkout ✅");
     });
 
-    $("#cartCheckout").addEventListener("click", () => {
-      if (cart.size === 0){
-        alert("Cart is empty.");
+    // ---------------------------
+    // URL -> VIEW SYNC (Back button support)
+    // ---------------------------
+    function syncFromUrl(replace=false){
+      const route = parseHash();
+
+      // close overlays if not in product route
+      if (!(route.view === "shop" && route.product)){
+        $("#productBackdrop").style.display = "none";
+        currentProduct = null;
+      }
+
+      if (route.view === "home"){
+        showView("home");
+        currentSectionKey = null;
+        if (replace) setHashState("home", null, null, true);
         return;
       }
-      alert("Demo cart checkout ✅\nThis is where you’d checkout the full cart.");
-    });
 
+      if (route.view === "sections"){
+        showView("sections");
+        currentSectionKey = null;
+        if (replace) setHashState("sections", null, null, true);
+        return;
+      }
+
+      if (route.view === "shop" && route.section){
+        currentSectionKey = route.section;
+        showView("shop");
+        renderShop();
+
+        if (route.product){
+          // open product without pushing history again
+          openProduct(route.product, false);
+        }
+        return;
+      }
+
+      // fallback
+      showView("home");
+      currentSectionKey = null;
+      if (replace) setHashState("home", null, null, true);
+    }
+
+    window.addEventListener("popstate", () => syncFromUrl(false));
+
+    // ---------------------------
     // INIT
-    showSections();
-    renderCart();
-    setCartCount();
+    // ---------------------------
+    (function init(){
+      renderFeatured();
+      renderCart();
+      setCartCount();
+      // ensure initial route
+      syncFromUrl(true);
+    })();
   </script>
 </body>
 </html>
